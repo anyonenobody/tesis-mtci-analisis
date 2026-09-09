@@ -1,723 +1,1129 @@
 """
-🌿 App de Análisis del Cuestionario MTCI
-Adaptada específicamente a tu CSV real:
-I1-Cuestionario sobre Saberes, prácticas y valoración de la MTCI (68 respondentes, 21 variables)
-
-Corre con: streamlit run app_mtci.py
+🌿 App de Análisis e Interpretación de Instrumentos MTCI — Tesis de Psicología
+Diseñada para un flujo simple, sin fricciones técnicas:
+1. Carga automática del archivo (o subida manual)
+2. Mapeo inteligente automático de nombres de columnas y tipos de variable
+3. Menú claro para análisis univariado, bivariado, interpretación narrativa y diseño de gráficos al gusto
 """
+
 import streamlit as st
 import pandas as pd
 import numpy as np
-from collections import Counter
 import plotly.express as px
 import plotly.graph_objects as go
+from collections import Counter
 from io import BytesIO
+from scipy import stats
+import sys
 
+# Configuración inicial de la página
 st.set_page_config(
-    page_title="Análisis MTCI - Tesis",
+    page_title="Análisis MTCI — Tesis",
     page_icon="🌿",
     layout="wide",
     initial_sidebar_state="expanded"
 )
 
 # -----------------------------------------------------------------------------
-# Carga automática del CSV si existe
+# ESTILOS VISUALES Y SISTEMA DE DISEÑO (CSS MODERNO Y ELEGANTE)
 # -----------------------------------------------------------------------------
+st.markdown("""
+<style>
+    /* Tipografía y espaciado */
+    @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap');
+    
+    html, body, [class*="css"] {
+        font-family: 'Plus Jakarta Sans', sans-serif;
+    }
+    
+    /* Encabezado principal */
+    .hero-banner {
+        background: linear-gradient(135deg, #1b4332 0%, #2d6a4f 60%, #40916c 100%);
+        color: white;
+        padding: 1.8rem 2rem;
+        border-radius: 16px;
+        margin-bottom: 1.8rem;
+        box-shadow: 0 8px 24px rgba(27, 67, 50, 0.15);
+    }
+    .hero-banner h1 {
+        font-size: 2rem;
+        font-weight: 700;
+        margin: 0;
+        color: #ffffff !important;
+        letter-spacing: -0.5px;
+    }
+    .hero-banner p {
+        font-size: 1.05rem;
+        color: #d8f3dc;
+        margin-top: 0.4rem;
+        margin-bottom: 0;
+    }
+    
+    /* Tarjetas métricas personalizadas */
+    .metric-card {
+        background: #ffffff;
+        border: 1px solid #e5e7eb;
+        border-radius: 14px;
+        padding: 1.2rem 1.4rem;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.03);
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+    .metric-card:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 16px rgba(0, 0, 0, 0.07);
+    }
+    .metric-title {
+        font-size: 0.85rem;
+        font-weight: 600;
+        color: #6b7280;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        margin-bottom: 0.4rem;
+    }
+    .metric-val {
+        font-size: 1.9rem;
+        font-weight: 700;
+        color: #1b4332;
+    }
+    .metric-sub {
+        font-size: 0.85rem;
+        color: #10b981;
+        font-weight: 500;
+        margin-top: 0.2rem;
+    }
+    
+    /* Caja de interpretación académica */
+    .narrative-box {
+        background: #f0fdf4;
+        border-left: 5px solid #10b981;
+        border-radius: 8px 12px 12px 8px;
+        padding: 1.2rem 1.4rem;
+        margin: 1.2rem 0;
+        color: #064e3b;
+        font-size: 0.98rem;
+        line-height: 1.6;
+    }
+    .narrative-title {
+        font-weight: 700;
+        font-size: 1.05rem;
+        margin-bottom: 0.5rem;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        color: #047857;
+    }
+    
+    /* Pestañas estilizadas */
+    .stTabs [data-baseweb="tab-list"] {
+        gap: 8px;
+        background-color: #f8fafc;
+        padding: 8px;
+        border-radius: 12px;
+        border: 1px solid #e2e8f0;
+    }
+    .stTabs [data-baseweb="tab"] {
+        border-radius: 8px;
+        padding: 10px 18px;
+        font-weight: 600;
+        color: #475569;
+    }
+    .stTabs [aria-selected="true"] {
+        background-color: #ffffff !important;
+        color: #1b4332 !important;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    }
+    
+    /* Tablas limpias */
+    .dataframe {
+        border-radius: 10px;
+        overflow: hidden;
+    }
+</style>
+""", unsafe_allow_html=True)
 
-CSV_AUTOMATICO = "datos_mtci_anonimizado.csv"
+# -----------------------------------------------------------------------------
+# PALETAS DE COLOR CURADAS PARA EL CONSTRUCTOR DE GRÁFICOS
+# -----------------------------------------------------------------------------
+PALETAS_COLOR = {
+    "🌿 MTCI Botánico (Verdes)": ["#1b4332", "#2d6a4f", "#40916c", "#52b788", "#74c69d", "#95d5b2", "#b7e4c7"],
+    "🎓 Tesis Académica (Azul / Gris)": ["#1d3557", "#457b9d", "#e63946", "#a8dadc", "#2a9d8f", "#f4a261", "#e76f51"],
+    "🌅 Cálido y Terapéutico (Ámbar / Terracota)": ["#9a3412", "#c2410c", "#ea580c", "#f97316", "#fb923c", "#fdba74", "#fed7aa"],
+    "💜 Psicología Clínica (Índigo / Violeta)": ["#312e81", "#4338ca", "#6366f1", "#818cf8", "#a5b4fc", "#c7d2fe", "#e0e7ff"],
+    "🌈 Armonía Pastel": ["#60a5fa", "#34d399", "#f472b6", "#fbbf24", "#a78bfa", "#f87171", "#38bdf8"],
+    "🖤 Estilo Formal APA (Monocromático)": ["#111827", "#374151", "#4b5563", "#6b7280", "#9ca3af", "#d1d5db", "#e5e7eb"]
+}
+
+# -----------------------------------------------------------------------------
+# FUNCIONES DE CARGA Y MAPEADO INTELIGENTE
+# -----------------------------------------------------------------------------
+def leer_archivo_robusto(archivo_o_ruta):
+    """Carga un CSV o Excel probando codificaciones y sin romper tildes ni símbolos."""
+    if isinstance(archivo_o_ruta, str):
+        for enc in ['utf-8-sig', 'utf-8', 'latin-1', 'cp1252']:
+            try:
+                df = pd.read_csv(archivo_o_ruta, encoding=enc, dtype=str, keep_default_na=False, na_values=[''])
+                if len(df.columns) > 1:
+                    return df, enc
+            except Exception:
+                continue
+        return pd.read_csv(archivo_o_ruta, dtype=str), 'default'
+    else:
+        nombre = getattr(archivo_o_ruta, "name", "").lower()
+        if nombre.endswith((".xlsx", ".xls")):
+            return pd.read_excel(archivo_o_ruta, dtype=str, keep_default_na=False, na_values=['']), "excel"
+        else:
+            bytes_data = archivo_o_ruta.getvalue()
+            for enc in ['utf-8-sig', 'utf-8', 'latin-1', 'cp1252']:
+                try:
+                    df = pd.read_csv(BytesIO(bytes_data), encoding=enc, dtype=str, keep_default_na=False, na_values=[''])
+                    if len(df.columns) > 1:
+                        return df, enc
+                except Exception:
+                    continue
+            return pd.read_csv(BytesIO(bytes_data), dtype=str), "default"
+
+
+def detectar_y_mapear_columna(col_name, series):
+    """
+    Asigna un alias corto, rol de variable y etiqueta amigable
+    sin usar jerga de programador.
+    """
+    c_lower = col_name.lower().strip()
+    n_unique = series.dropna().nunique()
+    valores = [str(v).strip() for v in series.dropna().unique() if str(v).strip()]
+    
+    # 1. Identificadores y consentimiento
+    if 'id' in c_lower and ('respondente' in c_lower or 'sujeto' in c_lower or len(c_lower) <= 5):
+        return {'alias': 'ID Respondente', 'tipo': 'excluido', 'icono': '🚫', 'rol': 'Identificador (Excluido)', 'original': col_name}
+    if any(k in c_lower for k in ['leído', 'leido', 'consentimiento', 'acepto', 'voluntariamente']):
+        return {'alias': 'Consentimiento Informado', 'tipo': 'excluido', 'icono': '✅', 'rol': 'Consentimiento (Informativo)', 'original': col_name}
+    if 'marca temporal' in c_lower or 'timestamp' in c_lower:
+        return {'alias': 'Marca Temporal', 'tipo': 'excluido', 'icono': '📅', 'rol': 'Fecha de registro', 'original': col_name}
+    if 'correo' in c_lower or 'email' in c_lower:
+        return {'alias': 'Correo Electrónico', 'tipo': 'excluido', 'icono': '📧', 'rol': 'Email (Privado)', 'original': col_name}
+    
+    # 2. Demografía
+    if 'año' in c_lower and 'carrera' in c_lower:
+        return {'alias': 'Año de carrera', 'tipo': 'categoria', 'icono': '🎓', 'rol': 'Demográfica (Año)', 'original': col_name}
+    if 'edad' in c_lower:
+        return {'alias': 'Rango de edad', 'tipo': 'escala', 'icono': '📊', 'rol': 'Demográfica (Edad)', 'original': col_name}
+    if 'sexo' in c_lower or 'género' in c_lower or 'genero' in c_lower:
+        return {'alias': 'Sexo', 'tipo': 'categoria', 'icono': '👤', 'rol': 'Demográfica (Sexo)', 'original': col_name}
+    
+    # 3. Conocimiento y posturas clave (prioridad de coincidencias específicas)
+    if 'postura profesional' in c_lower:
+        return {'alias': 'Postura profesional', 'tipo': 'categoria', 'icono': '💼', 'rol': 'Opinión Profesional', 'original': col_name}
+    if 'concepto' in c_lower or 'describe con mayor precisión' in c_lower or 'describe con mayor precision' in c_lower:
+        return {'alias': 'Concepto de MTCI', 'tipo': 'categoria', 'icono': '📖', 'rol': 'Conocimiento Conceptual', 'original': col_name}
+    if 'familiaridad' in c_lower:
+        return {'alias': 'Nivel de familiaridad', 'tipo': 'escala', 'icono': '🔍', 'rol': 'Escala de Familiaridad', 'original': col_name}
+    if 'ley no. 774' in c_lower or 'ley 774' in c_lower:
+        return {'alias': 'Propósito Ley 774', 'tipo': 'categoria', 'icono': '⚖️', 'rol': 'Conocimiento Normativo', 'original': col_name}
+    if 'limitación legal' in c_lower or 'limitacion legal' in c_lower or 'norma que la sustenta' in c_lower:
+        return {'alias': 'Límites legales clínicos', 'tipo': 'categoria', 'icono': '🛡️', 'rol': 'Marco Legal y Ético', 'original': col_name}
+    
+    # 4. Frecuencias de uso y efectos
+    if 'autocuidado' in c_lower and ('frecuencia' in c_lower or 'método' in c_lower or 'metodo' in c_lower):
+        return {'alias': 'Frecuencia autocuidado', 'tipo': 'escala', 'icono': '🌿', 'rol': 'Frecuencia de Uso', 'original': col_name}
+    if 'estrés' in c_lower or 'estres' in c_lower:
+        return {'alias': 'Frecuencia manejo de estrés', 'tipo': 'escala', 'icono': '🧘', 'rol': 'Frecuencia de Uso', 'original': col_name}
+    if 'cambios o efectos psicofisiológicos' in c_lower or 'experimentado personalmente' in c_lower:
+        return {'alias': 'Efectos experimentados', 'tipo': 'categoria', 'icono': '✨', 'rol': 'Efectos Subjetivos', 'original': col_name}
+    if 'tipo de efecto' in c_lower and 'regulación psicofisiológica' in c_lower:
+        return {'alias': 'Efecto en regulación', 'tipo': 'categoria', 'icono': '🧠', 'rol': 'Valoración Terapéutica', 'original': col_name}
+    
+    # 5. Competencias y derivación
+    if 'preparación actual para realizar psicoeducación' in c_lower or 'preparacion actual para realizar psicoeducacion' in c_lower:
+        return {'alias': 'Preparación en psicoeducación', 'tipo': 'escala', 'icono': '📚', 'rol': 'Nivel de Preparación', 'original': col_name}
+    if 'preparación actual para realizar una derivación' in c_lower or 'fuentes de derivación' in c_lower or 'preparacion actual para realizar una derivacion' in c_lower:
+        return {'alias': 'Preparación en derivación', 'tipo': 'escala', 'icono': '🔄', 'rol': 'Nivel de Preparación', 'original': col_name}
+    
+    # 6. Listas de prácticas MTCI (selección múltiple)
+    if 'medicina natural' in c_lower and 'enfoques' in c_lower:
+        return {'alias': 'Prácticas: Medicina Natural', 'tipo': 'seleccion_multiple', 'icono': '🌱', 'rol': 'Selección Múltiple (Prácticas)', 'original': col_name}
+    if 'físicas' in c_lower or 'manuales' in c_lower or 'fisicas' in c_lower:
+        return {'alias': 'Prácticas: Terapias Manuales/Físicas', 'tipo': 'seleccion_multiple', 'icono': '👐', 'rol': 'Selección Múltiple (Prácticas)', 'original': col_name}
+    if 'energéticas' in c_lower or 'psicoemocionales' in c_lower or 'energeticas' in c_lower:
+        return {'alias': 'Prácticas: Terapias Energéticas', 'tipo': 'seleccion_multiple', 'icono': '💫', 'rol': 'Selección Múltiple (Prácticas)', 'original': col_name}
+    
+    # 7. Pregunta abierta
+    if any(k in c_lower for k in ['comentario', 'sugerencia', 'inquietud', 'opinión', 'opinion']):
+        return {'alias': 'Comentarios / Sugerencias', 'tipo': 'texto_abierto', 'icono': '📝', 'rol': 'Pregunta Abierta (Cualitativa)', 'original': col_name}
+    
+    # 8. Heurísticas generales para otros cuestionarios/archivos
+    tiene_comas = any(len(str(v)) > 35 and ',' in str(v) for v in valores)
+    prom_len = series.astype(str).str.len().mean()
+    
+    if tiene_comas:
+        alias_gen = col_name[:32] + ('...' if len(col_name) > 32 else '')
+        return {'alias': alias_gen, 'tipo': 'seleccion_multiple', 'icono': '🌿', 'rol': 'Selección Múltiple', 'original': col_name}
+    elif n_unique > 15 and prom_len > 35:
+        alias_gen = col_name[:32] + ('...' if len(col_name) > 32 else '')
+        return {'alias': alias_gen, 'tipo': 'texto_abierto', 'icono': '📝', 'rol': 'Texto Abierto', 'original': col_name}
+    else:
+        alias_gen = col_name[:32] + ('...' if len(col_name) > 32 else '')
+        return {'alias': alias_gen, 'tipo': 'categoria', 'icono': '🏷️', 'rol': 'Categoría', 'original': col_name}
+
+
+def parsear_seleccion_multiple(df, columnas):
+    """
+    Parsea las columnas con respuestas separadas por coma en una estructura
+    lista para análisis univariado y conteo de participantes.
+    """
+    registros = []
+    conteo_global = Counter()
+    
+    for col in columnas:
+        for idx, row in df.iterrows():
+            val = str(row[col]).strip()
+            if not val or val.lower() in ["ninguna", "nunca", "nan", "none", "no conozco ninguna", "no utilizo ninguna"]:
+                registros.append({"Columna": col, "Practica": "Ninguna / No aplica", "Respondente": idx})
+                conteo_global["Ninguna / No aplica"] += 1
+            else:
+                items = [item.strip() for item in val.split(",") if item.strip()]
+                for item in items:
+                    registros.append({"Columna": col, "Practica": item, "Respondente": idx})
+                    conteo_global[item] += 1
+                    
+    df_exp = pd.DataFrame(registros)
+    n_resp = len(df)
+    resumen = pd.DataFrame([
+        {
+            "Práctica MTCI": k,
+            "Menciones": v,
+            "% de Respondentes": round(v / n_resp * 100, 1)
+        }
+        for k, v in conteo_global.most_common()
+    ])
+    return df_exp, resumen
+
+
+# -----------------------------------------------------------------------------
+# GENERADORES ESTADÍSTICOS E INTERPRETATIVOS
+# -----------------------------------------------------------------------------
+def calcular_tabla_frecuencias(series):
+    """Genera la tabla con Conteo, Porcentaje y Porcentaje Acumulado."""
+    validos = series.dropna()
+    validos = validos[validos.astype(str).str.strip() != '']
+    n_validos = len(validos)
+    
+    if n_validos == 0:
+        return pd.DataFrame(), 0, len(series)
+        
+    conteo = validos.value_counts().reset_index()
+    conteo.columns = ["Opción", "Frecuencia (n)"]
+    conteo["Porcentaje (%)"] = round(conteo["Frecuencia (n)"] / n_validos * 100, 1)
+    
+    # Ordenamiento lógico si tiene letras a), b), etc.
+    if conteo["Opción"].astype(str).str.match(r'^[a-z]\)').any():
+        conteo["_orden"] = conteo["Opción"].astype(str).str[0].str.lower()
+        conteo = conteo.sort_values("_orden").drop(columns=["_orden"])
+    
+    conteo["% Acumulado"] = round(conteo["Porcentaje (%)"].cumsum(), 1)
+    return conteo, n_validos, len(series)
+
+
+def redactar_interpretacion_univariada(alias, pregunta, tabla_frec, n_validos, n_total):
+    """Redacta un párrafo formal en formato de tesis sobre la variable analizada."""
+    if tabla_frec.empty or n_validos == 0:
+        return "No se registran respuestas válidas para esta variable."
+        
+    pct_part = round(n_validos / n_total * 100, 1)
+    top_row = tabla_frec.sort_values("Frecuencia (n)", ascending=False).iloc[0]
+    top_opc = top_row["Opción"]
+    top_pct = top_row["Porcentaje (%)"]
+    top_n = top_row["Frecuencia (n)"]
+    
+    texto = (
+        f"En relación con la dimensión **'{alias}'** (*\"{pregunta}\"*), se registró la participación de "
+        f"**{n_validos} respondentes** ({pct_part}% de la muestra total analizada). "
+    )
+    
+    if len(tabla_frec) == 1:
+        texto += f"El total de los participantes ({top_pct}%, n={top_n}) coincidió unánimemente en la categoría **'{top_opc}'**."
+    else:
+        seg_row = tabla_frec.sort_values("Frecuencia (n)", ascending=False).iloc[1]
+        seg_opc = seg_row["Opción"]
+        seg_pct = seg_row["Porcentaje (%)"]
+        seg_n = seg_row["Frecuencia (n)"]
+        
+        texto += (
+            f"La respuesta con mayor predominancia correspondió a la opción **'{top_opc}'**, concentrando el **{top_pct}%** (n={top_n}) "
+            f"de las menciones. En segundo lugar, se situó la opción **'{seg_opc}'** con un **{seg_pct}%** (n={seg_n}). "
+        )
+        
+        if len(tabla_frec) > 2:
+            min_row = tabla_frec.sort_values("Frecuencia (n)", ascending=True).iloc[0]
+            texto += (
+                f"Por su parte, la categoría con menor índice de respuesta fue **'{min_row['Opción']}'**, representando únicamente "
+                f"el **{min_row['Porcentaje (%)']}%** (n={min_row['Frecuencia (n)']}) del grupo encuestado."
+            )
+            
+    return texto
+
+
+def redactar_interpretacion_practicas(resumen_df, n_total):
+    """Genera la narrativa académica sobre el reconocimiento de prácticas MTCI."""
+    if resumen_df.empty:
+        return "No se identificaron prácticas mencionadas."
+        
+    validas = resumen_df[~resumen_df["Práctica MTCI"].str.contains("Ninguna", case=False)]
+    if validas.empty:
+        return "La mayoría de respondentes no reportó prácticas específicas."
+        
+    top1 = validas.iloc[0]
+    texto = (
+        f"En la exploración de prácticas de MTCI, se identificó un amplio espectro de saberes y terapias. "
+        f"La práctica con mayor índice de conocimiento o utilización fue **{top1['Práctica MTCI']}**, siendo seleccionada por el "
+        f"**{top1['% de Respondentes']}%** de los participantes (n={top1['Menciones']}). "
+    )
+    if len(validas) > 1:
+        top2 = validas.iloc[1]
+        texto += f"Le sigue en relevancia **{top2['Práctica MTCI']}** con el **{top2['% de Respondentes']}%** (n={top2['Menciones']}). "
+    if len(validas) > 2:
+        top3 = validas.iloc[2]
+        texto += f"Asimismo, se destaca la presencia de **{top3['Práctica MTCI']}** con un **{top3['% de Respondentes']}%** (n={top3['Menciones']})."
+        
+    return texto
+
+
+def generar_excel_completo(df_base, mapeo, resumen_practicas):
+    """Genera un archivo Excel consolidado con pestañas organizadas para la tesis."""
+    output = BytesIO()
+    with pd.ExcelWriter(output, engine='openpyxl') as writer:
+        # 1. Resumen y Variables
+        df_vars = pd.DataFrame([
+            {
+                "Alias Corto": info["alias"],
+                "Tipo de Variable": info["rol"],
+                "Enunciado Completo": info["original"]
+            }
+            for col, info in mapeo.items()
+        ])
+        df_vars.to_excel(writer, sheet_name="Variables y Mapeo", index=False)
+        
+        # 2. Frecuencias Univariadas
+        filas_todas = []
+        for col, info in mapeo.items():
+            if info["tipo"] in ["categoria", "escala"]:
+                tabla, _, _ = calcular_tabla_frecuencias(df_base[col])
+                if not tabla.empty:
+                    tabla.insert(0, "Variable", info["alias"])
+                    filas_todas.append(tabla)
+        if filas_todas:
+            df_todas_frec = pd.concat(filas_todas, ignore_index=True)
+            df_todas_frec.to_excel(writer, sheet_name="Tablas de Frecuencia", index=False)
+            
+        # 3. Prácticas MTCI
+        if resumen_practicas is not None and not resumen_practicas.empty:
+            resumen_practicas.to_excel(writer, sheet_name="Prácticas MTCI Conteo", index=False)
+            
+        # 4. Datos Base
+        df_base.to_excel(writer, sheet_name="Datos Base Anonimizados", index=False)
+        
+    return output.getvalue()
+
+
+# -----------------------------------------------------------------------------
+# INICIALIZACIÓN AUTOMÁTICA DEL ESTADO
+# -----------------------------------------------------------------------------
+ARCHIVO_DEFAULT = "datos_mtci_anonimizado.csv"
 
 if "df" not in st.session_state:
     st.session_state.df = None
-if "df_practicas" not in st.session_state:
-    st.session_state.df_practicas = None
-if "var_types" not in st.session_state:
-    st.session_state.var_types = {}
-if "df_expanded" not in st.session_state:
-    st.session_state.df_expanded = None
+if "mapeo" not in st.session_state:
+    st.session_state.mapeo = {}
+if "df_practicas_exp" not in st.session_state:
+    st.session_state.df_practicas_exp = None
+if "df_practicas_resumen" not in st.session_state:
+    st.session_state.df_practicas_resumen = None
+if "nombre_origen" not in st.session_state:
+    st.session_state.nombre_origen = ""
 
-# Intentar cargar automáticamente
-try:
-    df_auto = pd.read_csv(CSV_AUTOMATICO, dtype=str, keep_default_na=False, na_values=[''])
-    st.session_state.df = df_auto.copy()
-    st.session_state.df_original_name = CSV_AUTOMATICO
-
-    # Detectar tipos automáticamente
-    tipos = {}
-    for col in df_auto.columns:
-        tipos[col] = detectar_tipo_columna(df_auto[col], col)
-    st.session_state.var_types = tipos
-
-    st.toast(f"✅ CSV precargado: {CSV_AUTOMATICO} ({df_auto.shape[0]} respondentes)")
-except Exception:
-    pass  # No está disponible, el usuario subirá manualmente
-
-
-# -----------------------------------------------------------------------------
-# Detección de tipos específica para tu CSV
-# -----------------------------------------------------------------------------
-
-def detectar_tipo_columna(series, nombre):
-    """Detecta el tipo específico de cada columna de tu CSV."""
-    col = series.dropna()
-    n_unique = col.nunique()
-    n_total = len(series)
-    n_faltantes = int(series.isna().sum()) + (series.astype(str).str.strip() == '').sum()
-
-    info = {
-        "nombre": nombre,
-        "tipo": "por_determinar",
-        "etiqueta": "",
-        "n_uniques": n_unique,
-        "n_faltantes": n_faltantes,
-        "pct_faltantes": round(n_faltantes / len(series) * 100, 1),
-        "values": sorted([str(v) for v in col.unique()]) if n_unique <= 50 else [],
-    }
-
-    nombre_lower = nombre.lower().strip()
-
-    # 1. Identificadores / no analíticos
-    if "marca temporal" in nombre_lower or "timestamp" in nombre_lower:
-        info["tipo"] = "no_analitico"
-        info["etiqueta"] = "Fecha (no analítico)"
-        return info
-    if "correo" in nombre_lower or "email" in nombre_lower or "dirección" in nombre_lower:
-        info["tipo"] = "no_analitico"
-        info["etiqueta"] = "Email (identificador)"
-        return info
-    if "id" in nombre_lower or "sujeto" in nombre_lower or "participante" in nombre_lower:
-        info["tipo"] = "no_analitico"
-        info["etiqueta"] = "ID (identificador)"
-        return info
-
-    # 2. Consentimiento
-    if "acepto" in nombre_lower or "participar" in nombre_lower or "información" in nombre_lower:
-        info["tipo"] = "consentimiento"
-        info["etiqueta"] = "Consentimiento informado"
-        return info
-
-    # 3. Año de carrera (ordinal)
-    if "año" in nombre_lower:
-        info["tipo"] = "ordinal"
-        info["etiqueta"] = "Año de carrera (ordinal)"
-        return info
-
-    # 4. Edad (ordinal por rangos)
-    if "edad" == nombre_lower or "edad" in nombre_lower:
-        info["tipo"] = "ordinal"
-        info["etiqueta"] = "Edad en rangos (ordinal)"
-        return info
-
-    # 5. Sexo (nominal)
-    if "sexo" == nombre_lower or "sexo" in nombre_lower:
-        info["tipo"] = "nominal"
-        info["etiqueta"] = "Sexo (nominal)"
-        return info
-
-    # 6. Detectar si es opción con letra (a,b,c,d,e) o texto libre con letra
-    if n_unique <= 10:
-        valores_str = [str(v).strip() for v in col.unique()]
-        primeros_caracteres = [v[0].lower() for v in valores_str if len(v) > 0]
-        if set(primeros_caracteres).issubset({'a', 'b', 'c', 'd', 'e', 'f'}):
-            info["tipo"] = "opcion_letra"
-            info["etiqueta"] = "Opción con letra (a-e) — nominal"
-            # Si el texto después de la letra es largo, es una opción larga
-            if any(len(v) > 20 for v in valores_str):
-                info["etiqueta"] = "Opción múltiple con texto (a-e) — nominal"
-            return info
-
-    # 7. Detectar frecuencias ordinales (Nunca, Rara vez, etc.)
-    if n_unique <= 6:
-        valores_lower = set(str(v).strip().lower() for v in col.unique())
-        palabras_frecuencia = {"nunca", "rara vez", "ocasionalmente", "a veces", "muchas veces",
-                               "frecuentemente", "siempre", "casi siempre", "casi nunca", "poco",
-                               "diariamente", "semanal", "mensual", "anual"}
-        if valores_lower & palabras_frecuencia:
-            info["tipo"] = "ordinal_frecuencia"
-            info["etiqueta"] = "Frecuencia de uso (ordinal: Nunca → Siempre)"
-            return info
-
-    # 8. Detectar listas de prácticas MTCI (varias prácticas separadas por coma)
-    #    Indicios: texto largo, contiene comas, menciona prácticas conocidas
-    practicas_palabras = ["fitoterapia", "herbolaria", "ayurveda", "yoga", "meditación", "masajes",
-                          "quiropraxia", "reflexología", "acupuntura", "aromaterapia", "terapia floral",
-                          "arte terapia", "reiki", "sanación", "pránica", "constelaciones", "hipnosis",
-                          "homeopatía", "limpias", "sopladas", "naturopatía", "hidroterapia", "hieloterapia",
-                          "geoterapia", "barro", "digtopuntura", "digitopuntura", "shiatzu", "tui na"]
-    for v in col.unique():
-        str_v = str(v).strip()
-        if len(str_v) > 40 and ',' in str_v:
-            if any(p in str_v.lower() for p in practicas_palabras):
-                info["tipo"] = "lista_practicas"
-                info["etiqueta"] = "Lista de prácticas MTCI (múltiple) — parsear"
-                return info
-
-    # 9. Pregunta abierta (texto largo)
-    if n_unique > 10 or (n_unique <= 30 and n_unique > 5):
-        longitud_prom = series.astype(str).str.len().mean()
-        if longitud_prom > 30:
-            info["tipo"] = "abierta"
-            info["etiqueta"] = "Pregunta abierta / comentario"
-            return info
-
-    # 10. Caer a nominal si tiene pocos valores únicos
-    if n_unique <= 10:
-        info["tipo"] = "nominal"
-        info["etiqueta"] = "Categoría nominal"
-        return info
-
-    # 11. Fallback
-    info["tipo"] = "por_determinar"
-    info["etiqueta"] = "Por determinar"
-    return info
+# Auto-carga al inicio sin intervención del usuario
+if st.session_state.df is None:
+    try:
+        df_ini, enc_ini = leer_archivo_robusto(ARCHIVO_DEFAULT)
+        st.session_state.df = df_ini.copy()
+        st.session_state.nombre_origen = ARCHIVO_DEFAULT
+        
+        # Mapear columnas inmediatamente
+        mapeo_auto = {}
+        for col in df_ini.columns:
+            mapeo_auto[col] = detectar_y_mapear_columna(col, df_ini[col])
+        st.session_state.mapeo = mapeo_auto
+        
+        # Parsear prácticas inmediatamente
+        cols_mult = [c for c, m in mapeo_auto.items() if m["tipo"] == "seleccion_multiple"]
+        if cols_mult:
+            exp, res = parsear_seleccion_multiple(df_ini, cols_mult)
+            st.session_state.df_practicas_exp = exp
+            st.session_state.df_practicas_resumen = res
+            
+    except Exception:
+        pass
 
 
-# -----------------------------------------------------------------------------
-# Parseo de listas de prácticas
-# -----------------------------------------------------------------------------
-
-def parsear_practicas(df, columnas):
-    """Parsea las columnas de listas de prácticas en formato largo."""
-    registros = []
-    conteo_global = Counter()
-
-    for col in columnas:
-        for idx, row in df.iterrows():
-            valor = str(row[col]).strip()
-            if valor.lower() in ["ninguna", "nunca", ""] or valor == "NaN":
-                registros.append({"Columna": col, "Practica": "Ninguna", "Respondente": idx})
-                conteo_global["Ninguna"] += 1
-            else:
-                partes = [p.strip() for p in valor.split(",")]
-                for parte in partes:
-                    if parte:
-                        registros.append({"Columna": col, "Practica": parte, "Respondente": idx})
-                        conteo_global[parte] += 1
-
-    df_exp = pd.DataFrame(registros)
-    df_resumen = pd.DataFrame([
-        {"Practica MTCI": k, "Menciones": v, "% de respondentes": round(v / len(df) * 100, 1)}
-        for k, v in conteo_global.most_common()
-    ])
-    return df_exp, df_resumen
-
-
-# -----------------------------------------------------------------------------
-# Estadísticas por tipo
-# -----------------------------------------------------------------------------
-
-def stats_por_tipo(series, tipo):
-    """Devuelve estadísticas según el tipo de variable."""
-    resultado = {}
-    col = series.dropna()
-    n = len(series)
-    n_faltantes = int(series.isna().sum()) + (series.astype(str).str.strip() == '').sum()
-    n_respondieron = len(col)
-
-    resultado["n_total"] = n
-    resultado["n_respondidos"] = n_respondidos
-    resultado["n_faltantes"] = n_faltantes
-
-    if tipo == "no_analitico" or tipo == "consentimiento":
-        resultado["conteo"] = series.value_counts().to_dict()
-
-    elif tipo == "ordinal" or tipo == "ordinal_frecuencia":
-        frec = col.value_counts().reset_index()
-        frec.columns = ["Valor", "Frecuencia"]
-        frec["Porcentaje"] = round(frec["Frecuencia"] / n_respondidos * 100, 1)
-
-        # Orden lógico para rangos
-        if tipo == "ordinal" and "edad" in series.name.lower():
-            orden = ["18-20", "21-25", "26-30", "31-35", "36-40", "41-45", "46-50", "51-55", "56-60", "60+"]
-            frec["_orden"] = frec["Valor"].apply(lambda x: next((i for i, o in enumerate(orden) if o in str(x)), 99))
-            frec = frec.sort_values("_orden").drop(columns="_orden")
-        elif tipo == "ordinal_frecuencia":
-            orden_frec = ["nunca", "rara vez", "poco", "ocasionalmente", "a veces", "muchas veces",
-                          "frecuentemente", "siempre", "casi siempre", "casi nunca", "diariamente",
-                          "semanal", "mensual", "anual"]
-            frec["_orden"] = frec["Valor"].str.lower().apply(
-                lambda x: next((i for i, o in enumerate(orden_frec) if o in x), 99))
-            frec = frec.sort_values("_orden").drop(columns="_orden")
-        else:
-            frec = frec.sort_values("Valor")
-
-        resultado["frecuencias"] = frec
-
-    elif tipo == "opcion_letra":
-        frec = col.value_counts().reset_index()
-        frec.columns = ["Opción", "Frecuencia"]
-        frec["Porcentaje"] = round(frec["Frecuencia"] / n_respondidos * 100, 1)
-        frec["_orden"] = frec["Opción"].str[0].apply(lambda x: ord(x.lower()) - ord('a') if x else 99)
-        frec = frec.sort_values("_orden").drop(columns="_orden")
-        resultado["frecuencias"] = frec
-
-    elif tipo == "nominal":
-        frec = col.value_counts().reset_index()
-        frec.columns = ["Valor", "Frecuencia"]
-        frec["Porcentaje"] = round(frec["Frecuencia"] / n_respondidos * 100, 1)
-        frec = frec.sort_values("Frecuencia", ascending=False)
-        resultado["frecuencias"] = frec
-
-    elif tipo == "lista_practicas":
-        resultado["nota"] = "Variable con lista de prácticas. Usa la pestaña '🌿 Prácticas MTCI'."
-
-    elif tipo == "abierta":
-        resultado["n_respuestas"] = n_respondidos
-        resultado["longitud_prom"] = round(float(col.astype(str).str.len().mean()), 1)
-        resultado["ejemplo"] = str(col.iloc[0]) if len(col) > 0 else "—"
-
-    return resultado
-
-
-# -----------------------------------------------------------------------------
-# INICIO DE LA APP
-# -----------------------------------------------------------------------------
-
-st.title("🌿 Análisis del Cuestionario MTCI")
-st.caption("Medicina Tradicional, Complementaria e Integrativa como recurso de apoyo en psicología")
-
+# =============================================================================
+# PANEL LATERAL (CARGA SIMPLE Y ESTADO)
+# =============================================================================
 with st.sidebar:
-    st.header("📁 Datos")
-
-    uploaded_file = st.file_uploader(
-        "O sube tu propio archivo CSV/Excel",
-        type=["csv", "xlsx"],
-        help="Si el CSV automático no carga, sube tu archivo manualmente."
+    st.markdown("### 📁 Origen de Datos")
+    
+    subido = st.file_uploader(
+        "Cargar archivo CSV o Excel",
+        type=["csv", "xlsx", "xls"],
+        help="Sube tu archivo de respuestas. La app detectará automáticamente las variables y columnas."
     )
-
-    if uploaded_file is not None:
-        try:
-            if uploaded_file.name.endswith(".csv"):
-                df = pd.read_csv(uploaded_file, dtype=str, keep_default_na=False, na_values=[''])
+    
+    if subido is not None and subido.name != st.session_state.nombre_origen:
+        with st.spinner("Cargando y mapeando variables automáticamente..."):
+            df_subido, enc = leer_archivo_robusto(subido)
+            st.session_state.df = df_subido.copy()
+            st.session_state.nombre_origen = subido.name
+            
+            # Re-mapeo automático
+            mapeo_auto = {}
+            for col in df_subido.columns:
+                mapeo_auto[col] = detectar_y_mapear_columna(col, df_subido[col])
+            st.session_state.mapeo = mapeo_auto
+            
+            # Parseo de selección múltiple automático
+            cols_mult = [c for c, m in mapeo_auto.items() if m["tipo"] == "seleccion_multiple"]
+            if cols_mult:
+                exp, res = parsear_seleccion_multiple(df_subido, cols_mult)
+                st.session_state.df_practicas_exp = exp
+                st.session_state.df_practicas_resumen = res
             else:
-                df = pd.read_excel(uploaded_file, dtype=str, keep_default_na=False, na_values=[''])
-
-            st.session_state.df = df.copy()
-            st.session_state.df_original_name = uploaded_file.name
-            st.success(f"✅ Archivo: **{uploaded_file.name}**")
-            st.info(f"{df.shape[0]} respondentes × {df.shape[1]} variables")
-
-            # Detectar tipos automáticamente al cargar
-            with st.spinner("Detectando tipos de variables..."):
-                tipos = {}
-                for col in df.columns:
-                    tipos[col] = detectar_tipo_columna(df[col], col)
-                st.session_state.var_types = tipos
-
-        except Exception as e:
-            st.error(f"Error al leer el archivo: {e}")
-
-    st.divider()
-
+                st.session_state.df_practicas_exp = None
+                st.session_state.df_practicas_resumen = None
+                
+            st.toast(f"✅ Archivo cargado con éxito ({len(df_subido)} respondentes)")
+            
     if st.session_state.df is not None:
-        st.header("⚙️ Configuración")
-
-        if st.button("🔍 Detectar tipos de todas las variables", type="primary"):
-            with st.spinner("Analizando las 21 variables..."):
-                tipos = {}
-                for col in st.session_state.df.columns:
-                    tipos[col] = detectar_tipo_columna(st.session_state.df[col], col)
-                st.session_state.var_types = tipos
-                st.success("Tipos detectados.")
-
+        st.success(f"**Archivo en uso:** `{st.session_state.nombre_origen}`")
+        st.caption(f"**Dimensiones:** {st.session_state.df.shape[0]} filas × {st.session_state.df.shape[1]} columnas")
+        
         st.divider()
-
-        if st.session_state.var_types:
-            st.header("🧩 Resumen de tipos")
-            tipo_counts = {}
-            for info in st.session_state.var_types.values():
-                t = info["tipo"]
-                tipo_counts[t] = tipo_counts.get(t, 0) + 1
-
-            emoji_map = {
-                "no_analitico": "📅", "consentimiento": "✅", "ordinal": "📊",
-                "nominal": "🏷️", "opcion_letra": "🔤", "ordinal_frecuencia": "📈",
-                "lista_practicas": "🌿", "abierta": "📝", "por_determinar": "❓"
-            }
-
-            for t, count in tipo_counts.items():
-                emoji = emoji_map.get(t, "❓")
-                st.write(f"{emoji} **{t}**: {count} variables")
-
-            st.divider()
-
-            st.header("🌿 Parsear prácticas MTCI")
-            cols_practicas = [
-                col for col, info in st.session_state.var_types.items()
-                if info["tipo"] == "lista_practicas"
-            ]
-            if cols_practicas:
-                st.info(f"Columnas a parsear: {len(cols_practicas)}")
-                for c in cols_practicas:
-                    st.write(f"- {c[:60]}")
-
-                if st.button("🌿 Parsear y expandir prácticas MTCI"):
-                    with st.spinner("Parseando listas de prácticas..."):
-                        df_exp, resumen = parsear_practicas(st.session_state.df, cols_practicas)
-                        st.session_state.df_expanded = df_exp
-                        st.session_state.df_practicas = resumen
-                        st.success(f"✅ Expandido: {len(df_exp)} registros de prácticas individuales")
-            else:
-                st.caption("No se detectaron columnas de listas de prácticas.")
-
-        st.divider()
-        st.caption("Versión 1.2 — Adaptada a tu I1 MTCI")
+        st.markdown("### ℹ️ Guía rápida")
+        st.markdown("""
+        - **1. Panorama y Mapeo**: Revisa tus columnas y ajusta nombres si lo deseas.
+        - **2. Explorar e Interpretar**: Estadísticas y redacción lista para tu tesis.
+        - **3. Cruce de Variables**: Compara 2 variables (ej. Año vs Postura).
+        - **4. Constructor de Gráficos**: Diseña tus figuras a tu gusto.
+        - **5. Exportar**: Descarga tu reporte en Excel.
+        """)
+        
+    st.divider()
+    st.caption("🌿 **App MTCI Tesis v2.0** — Interfaz simplificada y amigable")
 
 
 # =============================================================================
-# CONTENIDO PRINCIPAL
+# VISTA PRINCIPAL
 # =============================================================================
 
-st.header("📊 Análisis de resultados")
+# Banner de bienvenida
+st.markdown("""
+<div class="hero-banner">
+    <h1>🌿 Análisis e Interpretación de Datos MTCI</h1>
+    <p>Herramienta amigable para la exploración, interpretación estadística y diseño visual de gráficos para tesis de Psicología.</p>
+</div>
+""", unsafe_allow_html=True)
 
 if st.session_state.df is None:
-    st.info("👆 Sube tu archivo CSV desde el panel lateral o espera que el CSV automático cargue.")
-    st.divider()
-    st.subheader("📖 Guía rápida del cuestionario I1")
-    st.write(f"""
-    **Estructura del cuestionario (21 variables, 68 respondentes):**
+    st.warning("⚠️ No se ha detectado ningún archivo de datos. Por favor, sube tu archivo CSV o Excel desde el panel lateral izquierdo.")
+    st.stop()
 
-    | # | Variable | Tipo detectado |
-    |---|----------|----------------|
-    | 1 | Marca temporal | 📅 Fecha (excluir análisis) |
-    | 2 | Correo electrónico | 📅 Identificador (excluir) |
-    | 3 | Consentimiento | ✅ Sí, acepto (100%) |
-    | 4 | Año de carrera | 📊 Ordinal (4to / 5to) |
-    | 5 | Edad | 📊 Ordinal (rangos 18-20 a 42+) |
-    | 6 | Sexo | 🏷️ Nominal (F/M/Prefiero no decir) |
-    | 7-17 | Preguntas de opción múltiple (con letras a-e) | 🔤 Nominal con opciones |
-    | 11-13 | Frecuencia de uso MTCI | 📈 Ordinal (Nunca → Siempre) |
-    | 18-20 | Listas de prácticas MTCI | 🌿 Múltiple (parsear) |
-    | 21 | Comentarios / sugerencias | 📝 Abierta (34 sin respuesta) |
+df_trabajo = st.session_state.df
+mapeo = st.session_state.mapeo
 
-    **Lo que la app hace automáticamente:**
-    - Detecta el tipo de cada variable al presionar "🔍 Detectar tipos"
-    - Parsea las 3 columnas de prácticas MTCI cuando presionas "🌿 Parsear"
-    - Calcula frecuencias, porcentajes y gráficos por variable
-    - Permite descargar resultados para tu tesis
-    """)
-else:
-    df_trabajar = st.session_state.df
-    usar_limpio = st.checkbox("Usar datos sin modificar (si aplica)", value=True)
+# Menú principal por pestañas limpias
+pestanas = st.tabs([
+    "📋 1. Panorama y Mapeo",
+    "🔍 2. Explorar e Interpretar",
+    "🔗 3. Cruce de Variables",
+    "🎨 4. Constructor de Gráficos",
+    "📑 5. Exportar para Tesis"
+])
 
-    pestañas = st.tabs([
-        "📋 Resumen general",
-        "📊 Estadística por variable",
-        "🌿 Prácticas MTCI (parseadas)",
-        "📈 Gráficos",
-        "📤 Exportar para tesis",
-    ])
 
-    # -------------------------------------------------------------------------
-    # Pestaña 1: Resumen general
-    # -------------------------------------------------------------------------
-    with pestañas[0]:
-        st.subheader("Resumen general del cuestionario")
+# =============================================================================
+# PESTAÑA 1: PANORAMA Y MAPEO DE VARIABLES
+# =============================================================================
+with pestanas[0]:
+    st.subheader("Resumen General de los Datos")
+    
+    # Métricas principales en tarjetas estilizadas
+    c1, c2, c3, c4 = st.columns(4)
+    with c1:
+        st.markdown(f"""
+        <div class="metric-card">
+            <div class="metric-title">Participantes</div>
+            <div class="metric-val">{len(df_trabajo)}</div>
+            <div class="metric-sub">100% consentidos</div>
+        </div>
+        """, unsafe_allow_html=True)
+    with c2:
+        vars_analiticas = [c for c, m in mapeo.items() if m["tipo"] != "excluido"]
+        st.markdown(f"""
+        <div class="metric-card">
+            <div class="metric-title">Variables Analíticas</div>
+            <div class="metric-val">{len(vars_analiticas)}</div>
+            <div class="metric-sub">de {len(df_trabajo.columns)} totales</div>
+        </div>
+        """, unsafe_allow_html=True)
+    with c3:
+        n_practicas = len(st.session_state.df_practicas_resumen) if st.session_state.df_practicas_resumen is not None else 0
+        st.markdown(f"""
+        <div class="metric-card">
+            <div class="metric-title">Prácticas MTCI</div>
+            <div class="metric-val">{n_practicas}</div>
+            <div class="metric-sub">identificadas en listas</div>
+        </div>
+        """, unsafe_allow_html=True)
+    with c4:
+        total_celdas = df_trabajo.size
+        vacios = sum(int((df_trabajo[c].isna() | (df_trabajo[c].astype(str).str.strip() == '')).sum()) for c in df_trabajo.columns)
+        pct_completitud = round((total_celdas - vacios) / total_celdas * 100, 1)
+        st.markdown(f"""
+        <div class="metric-card">
+            <div class="metric-title">Completitud Global</div>
+            <div class="metric-val">{pct_completitud}%</div>
+            <div class="metric-sub">{total_celdas - vacios} respuestas válidas</div>
+        </div>
+        """, unsafe_allow_html=True)
 
-        c1, c2, c3, c4 = st.columns(4)
-        with c1:
-            st.metric("Respondentes", len(df_trabajar))
-        with c2:
-            st.metric("Variables totales", df_trabajar.shape[1])
-        with c3:
-            n_falt_total = sum(info["n_faltantes"] for info in st.session_state.var_types.values())
-            st.metric("Celdas sin respuesta", n_falt_total)
-        with c4:
-            vars_analiticas = [info for info in st.session_state.var_types.values()
-                              if info["tipo"] not in ["no_analitico", "consentimiento"]]
-            st.metric("Variables analíticas", len(vars_analiticas))
+    st.write("")
+    st.write("")
 
-        st.divider()
+    # Tabla de columnas mapeadas
+    st.markdown("### 🗺️ Diccionario de Variables Mapeadas")
+    st.caption("La aplicación asignó automáticamente un nombre corto y un rol comprensible a cada pregunta del cuestionario.")
 
-        st.subheader("Tabla de variables y tipos detectados")
-        if st.session_state.var_types:
-            filas = []
-            for col, info in st.session_state.var_types.items():
-                filas.append({
-                    "Variable": col[:70],
-                    "Tipo": info["etiqueta"],
-                    "Tipo interno": info["tipo"],
-                    "Valores únicos": info["n_uniques"],
-                    "Faltantes": info["n_faltantes"],
-                    "% sin respuesta": info["pct_faltantes"],
-                })
-            df_tipos = pd.DataFrame(filas)
-            st.dataframe(df_tipos, use_container_width=True, hide_index=True)
+    filas_dicc = []
+    for col, info in mapeo.items():
+        filas_dicc.append({
+            "Icono": info["icono"],
+            "Nombre Corto (Alias)": info["alias"],
+            "Rol Asignado": info["rol"],
+            "Valores Únicos": df_trabajo[col].dropna().nunique(),
+            "Pregunta Original": info["original"]
+        })
+    df_dicc_vista = pd.DataFrame(filas_dicc)
+    st.dataframe(df_dicc_vista, use_container_width=True, hide_index=True)
 
-            st.download_button(
-                "⬇️ Descargar tabla de tipos (CSV)",
-                data=df_tipos.to_csv(index=False).encode("utf-8"),
-                file_name="tabla_tipos_variables.csv",
-                mime="text/csv",
+    # Editor rápido de nombres opcional
+    with st.expander("✏️ ¿Deseas personalizar el nombre corto de alguna variable?"):
+        st.caption("Si deseas que una variable aparezca con otro nombre en tus tablas y gráficos, cámbiala aquí:")
+        col_editar = st.selectbox("Selecciona la variable a renombrar:", options=list(df_trabajo.columns), format_func=lambda c: f"{mapeo[c]['alias']} ({c[:50]}...)")
+        if col_editar:
+            nuevo_alias = st.text_input("Nuevo nombre corto para los menús y gráficos:", value=mapeo[col_editar]["alias"])
+            nuevo_rol_tipo = st.selectbox(
+                "Tipo de análisis:",
+                options=["categoria", "escala", "seleccion_multiple", "texto_abierto", "excluido"],
+                index=["categoria", "escala", "seleccion_multiple", "texto_abierto", "excluido"].index(mapeo[col_editar]["tipo"]),
+                format_func=lambda x: {"categoria": "🏷️ Categoría (Opción única)", "escala": "📊 Escala / Frecuencia", "seleccion_multiple": "🌿 Selección múltiple (Prácticas)", "texto_abierto": "📝 Texto abierto", "excluido": "🚫 Informativo / Excluir"}.get(x, x)
             )
+            if st.button("Guardar cambios en esta variable"):
+                mapeo[col_editar]["alias"] = nuevo_alias
+                mapeo[col_editar]["tipo"] = nuevo_rol_tipo
+                st.session_state.mapeo = mapeo
+                st.success(f"Variable actualizada: '{nuevo_alias}'")
+                st.rerun()
 
-        st.divider()
+    # Vista previa de datos tabulares
+    with st.expander("👀 Ver las primeras filas de datos sin procesar"):
+        st.dataframe(df_trabajo.head(10), use_container_width=True)
 
-        st.subheader("📋 Variables excluidas del análisis")
-        vars_excluidas = [
-            (col, info) for col, info in st.session_state.var_types.items()
-            if info["tipo"] in ["no_analitico", "consentimiento"]
-        ]
-        if vars_excluidas:
-            for col, info in vars_excluidas:
-                st.write(f"- **{col}** → {info['etiqueta']}")
-                if info["tipo"] == "consentimiento":
-                    st.success(f"Todos los {len(df_trabajar)} respondentes aceptaron participar.")
-        else:
-            st.info("Todas las variables están incluidas en el análisis.")
 
-        st.divider()
+# =============================================================================
+# PESTAÑA 2: EXPLORACIÓN E INTERPRETACIÓN POR VARIABLE
+# =============================================================================
+with pestanas[1]:
+    st.subheader("Análisis e Interpretación Detallada")
+    st.caption("Selecciona cualquier pregunta para obtener su tabla de frecuencias, gráfico sugerido y la redacción formal para tu tesis.")
 
-        st.subheader("📊 Variables por tipo de análisis")
-        st.write("""
-        **Variables demográficas (3):**
-        - Año de carrera, Edad, Sexo → permiten segmentar los resultados
+    # Variables disponibles ordenadas por alias
+    vars_analisis = [c for c, m in mapeo.items() if m["tipo"] != "excluido"]
+    
+    col_sel = st.selectbox(
+        "Elige la variable que deseas analizar:",
+        options=vars_analisis,
+        format_func=lambda c: f"{mapeo[c]['icono']} {mapeo[c]['alias']} — ({mapeo[c]['rol']})"
+    )
 
-        **Variables de conocimiento y opinión (8):**
-        - Concepto MTCI, familiaridad, conocimiento Ley 774, limitaciones legales
-        - Postura profesional, preparación, tipo de efecto
+    if col_sel:
+        info_sel = mapeo[col_sel]
+        tipo_var = info_sel["tipo"]
+        pregunta_orig = info_sel["original"]
+        alias_var = info_sel["alias"]
 
-        **Variables de uso de MTCI (3):**
-        - Frecuencia de autocuidado, manejo de estrés, efectos experimentados
-        - Escalas ordinales: Nunca → Siempre (con opción 'No he utilizado')
+        st.markdown(f"#### {info_sel['icono']} {alias_var}")
+        st.markdown(f"> *\"{pregunta_orig}\"*")
 
-        **Listas de prácticas MTCI (3):**
-        - Medicina Natural, Terapias Físicas/Manuales, Terapias Energéticas
-        - Varias prácticas por celda → parseadas para análisis individual
+        # CASO 1: SELECCIÓN MÚLTIPLE (LISTA DE PRÁCTICAS MTCI)
+        if tipo_var == "seleccion_multiple":
+            st.info("🌿 **Variable de selección múltiple:** Los respondentes pudieron seleccionar una o varias prácticas dentro de esta categoría.")
+            
+            # Extraer registros específicos de esta columna
+            df_exp = st.session_state.df_practicas_exp
+            if df_exp is not None:
+                sub_exp = df_exp[df_exp["Columna"] == col_sel]
+                conteo_sub = sub_exp["Practica"].value_counts().reset_index()
+                conteo_sub.columns = ["Práctica MTCI", "Menciones"]
+                n_encuestados = len(df_trabajo)
+                conteo_sub["% de Participantes"] = round(conteo_sub["Menciones"] / n_encuestados * 100, 1)
 
-        **Pregunta abierta (1):**
-        - Comentarios y sugerencias (34 sin respuesta — 50%)
-        """)
+                # Narrativa interpretativa
+                narrativa = redactar_interpretacion_practicas(conteo_sub.rename(columns={"% de Participantes": "% de Respondentes"}), n_encuestados)
+                st.markdown(f"""
+                <div class="narrative-box">
+                    <div class="narrative-title">💡 Interpretación redactada para la tesis</div>
+                    {narrativa}
+                </div>
+                """, unsafe_allow_html=True)
 
-    # -------------------------------------------------------------------------
-    # Pestaña 2: Estadística por variable
-    # -------------------------------------------------------------------------
-    with pestañas[1]:
-        st.subheader("Estadística descriptiva por variable")
-
-        vars_para_analizar = [
-            col for col, info in st.session_state.var_types.items()
-            if info["tipo"] not in ["no_analitico", "consentimiento", "lista_practicas"]
-        ]
-
-        if not st.session_state.var_types:
-            st.warning("Primero detecta los tipos desde el panel lateral.")
-        else:
-            col_sel = st.selectbox(
-                "Seleccionar variable para analizar",
-                options=[c for c in df_trabajar.columns if c in vars_para_analizar],
-                help="Elige la variable que quieres analizar.",
-            )
-
-            if col_sel:
-                info_var = st.session_state.var_types.get(col_sel, {})
-                tipo = info_var.get("tipo", "por_determinar")
-                stats = stats_por_tipo(df_trabajar[col_sel], tipo)
-
-                st.markdown(f"### {col_sel}")
-                st.caption(f"Tipo: **{info_var.get('etiqueta', tipo)}** | Valores únicos: {info_var.get('n_uniques', '—')} | Faltantes: {info_var.get('n_faltantes', '—')} ({info_var.get('pct_faltantes', '—')}%)")
-
-                if tipo in ["ordinal", "ordinal_frecuencia", "opcion_letra", "nominal"]:
-                    if "frecuencias" in stats:
-                        st.subheader("Frecuencias y porcentajes")
-                        st.dataframe(stats["frecuencias"], use_container_width=True, hide_index=True)
-
-                elif tipo == "abierta":
-                    st.divider()
-                    c1, c2 = st.columns([1, 2])
-                    with c1:
-                        st.metric("Respondieron", stats.get("n_respuestas", "—"))
-                    with c2:
-                        st.metric("Longitud promedio", f"{stats.get('longitud_prom', '—')} caracteres")
-                    st.divider()
-                    with st.expander("Ejemplo de respuesta"):
-                        st.info(stats.get("ejemplo", "—"))
-
-                elif tipo == "lista_practicas":
-                    st.info(stats.get("nota", "—"))
-                    st.markdown("""
-                    **Para analizar esta variable:**
-                    1. Ve a la pestaña **"🌿 Prácticas MTCI (parseadas)"**
-                    2. Obtendrás el conteo individual por práctica
-                    3. Puedes ver qué prácticas son más mencionadas
-                    """)
-
-                st.divider()
-
-                # Botón de descarga de esta variable específica
-                st.download_button(
-                    f"⬇️ Descargar frecuencias de '{col_sel[:30]}' (CSV)",
-                    data=stats.get("frecuencias", pd.DataFrame()).to_csv(index=False).encode("utf-8"),
-                    file_name=f"frecuencias_{col_sel[:20].replace(' ', '_')}.csv",
-                    mime="text/csv",
-                )
-
-    # -------------------------------------------------------------------------
-    # Pestaña 3: Prácticas MTCI parseadas
-    # -------------------------------------------------------------------------
-    with pestañas[2]:
-        st.subheader("🌿 Análisis de prácticas MTCI")
-
-        if st.session_state.df_expanded is None:
-            st.info("👆 Presiona el botón **'🌿 Parsear y expandir prácticas MTCI'** en el panel lateral para analizar las prácticas.")
-        else:
-            df_exp = st.session_state.df_expanded
-            df_resumen = st.session_state.df_practicas
-
-            st.success(f"{len(df_exp)} menciones de prácticas individuales (de {len(df_trabajar)} respondentes)")
-            st.caption("Cada mención de práctica se convierte en una fila para análisis independiente.")
-
-            # Mostrar resumen
-            st.divider()
-            st.subheader("Conteo de prácticas MTCI mencionadas")
-
-            cols_show = st.columns([2, 1])
-            with cols_show[0]:
-                st.dataframe(df_resumen.head(20), use_container_width=True, hide_index=True)
-            with cols_show[1]:
-                st.subheader("Top 10 prácticas más mencionadas")
-                top10 = df_resumen.head(10).iloc[::-1]
-                if len(top10) > 0:
-                    fig = px.bar(top10, x="Menciones", y="Practica MTCI",
-                                orientation="h", color_discrete_sequence=["#27AE60"])
-                    fig.update_layout(showlegend=False, xaxis_title="N° de menciones")
-                    st.plotly_chart(fig, use_container_width=True)
-
-            # Por grupo de prácticas
-            st.divider()
-            st.subheader("Prácticas por categoría")
-            cols_grupo = df_exp["Columna"].unique()
-            for col_grupo in cols_grupo:
-                st.markdown(f"#### {col_grupo[:70]}")
-                sub = df_exp[df_exp["Columna"] == col_grupo]
-                conteo = sub["Practica"].value_counts().reset_index()
-                conteo.columns = ["Practica", "Menciones"]
-                st.dataframe(conteo, use_container_width=True, hide_index=True)
-
-            st.divider()
-
-            st.download_button(
-                "⬇️ Descargar conteo completo de prácticas MTCI (CSV)",
-                data=df_resumen.to_csv(index=False).encode("utf-8"),
-                file_name="practicas_mtci_cocuentos.csv",
-                mime="text/csv",
-            )
-
-    # -------------------------------------------------------------------------
-    # Pestaña 4: Gráficos
-    # -------------------------------------------------------------------------
-    with pestañas[3]:
-        st.subheader("Gráficos de variables")
-
-        vars_graficables = [
-            col for col, info in st.session_state.var_types.items()
-            if info["tipo"] in ["nominal", "opcion_letra", "ordinal", "ordinal_frecuencia"]
-        ]
-
-        if not vars_graficables:
-            st.warning("No hay variables para graficar (detecta primero los tipos).")
-        else:
-            graf_sel = st.selectbox(
-                "Seleccionar variable para gráfico",
-                options=vars_graficables,
-            )
-
-            if graf_sel:
-                frec = df_trabajar[graf_sel].value_counts().reset_index()
-                frec.columns = ["Valor", "Frecuencia"]
-
-                # Gráfico de barras
-                fig_bar = px.bar(frec, x="Valor", y="Frecuencia",
-                                color_discrete_sequence=["#2980B9"])
-                fig_bar.update_layout(showlegend=False, yaxis_title="Frecuencia")
-                st.plotly_chart(fig_bar, use_container_width=True)
-
-                # Gráfico de pastel
-                fig_pie = px.pie(frec, values="Frecuencia", names="Valor",
-                                color_discrete_sequence=px.colors.qualitative.Set2)
-                fig_pie.update_traces(textinfo="percent+label")
-                st.plotly_chart(fig_pie, use_container_width=True)
-
-                # Descargar gráfico
-                try:
-                    img_bytes = fig_bar.to_image(format="png", width=800, height=400)
-                    st.download_button(
-                        f"⬇️ Descargar gráfico de '{graf_sel[:30]}' (PNG)",
-                        data=img_bytes,
-                        file_name=f"grafico_{graf_sel[:20].replace(' ', '_')}.png",
-                        mime="image/png",
+                c_izq, c_der = st.columns([1, 1.2])
+                with c_izq:
+                    st.markdown("**Tabla de menciones:**")
+                    st.dataframe(conteo_sub, use_container_width=True, hide_index=True)
+                with c_der:
+                    fig_sub = px.bar(
+                        conteo_sub.head(10).iloc[::-1],
+                        x="Menciones",
+                        y="Práctica MTCI",
+                        orientation="h",
+                        title=f"Top Prácticas más Mencionadas ({alias_var})",
+                        color_discrete_sequence=["#2d6a4f"],
+                        text="Menciones"
                     )
-                except Exception:
-                    st.caption("(No se pudo generar la imagen descargable)")
+                    fig_sub.update_layout(xaxis_title="Número de menciones", yaxis_title="", margin=dict(l=10, r=10, t=40, b=10))
+                    st.plotly_chart(fig_sub, use_container_width=True)
 
-    # -------------------------------------------------------------------------
-    # Pestaña 5: Exportar para tesis
-    # -------------------------------------------------------------------------
-    with pestañas[4]:
-        st.subheader("📤 Exportar resultados para tu memoria de tesis")
+        # CASO 2: TEXTO ABIERTO (COMENTARIOS)
+        elif tipo_var == "texto_abierto":
+            respuestas_validas = df_trabajo[col_sel].dropna()
+            respuestas_validas = respuestas_validas[respuestas_validas.astype(str).str.strip().ne('')]
+            
+            # Filtrar respuestas que solo sean 'ninguno', 'nulo', etc.
+            no_sustantivas = {"ninguno", "ningun comentario", "ninguna", "nulo", "no", "nada", "sin comentarios"}
+            resp_sustantivas = [r for r in respuestas_validas if r.strip().lower() not in no_sustantivas]
 
+            st.markdown(f"""
+            <div class="narrative-box">
+                <div class="narrative-title">💡 Resumen de aportes cualitativos</div>
+                Un total de <b>{len(respuestas_validas)} respondentes</b> emitieron respuesta en este apartado ({round(len(respuestas_validas)/len(df_trabajo)*100, 1)}% de la muestra). 
+                De ellas, <b>{len(resp_sustantivas)} participantes</b> realizaron comentarios de fondo con aportes, recomendaciones o inquietudes dirigidas a la formación y el ejercicio profesional.
+            </div>
+            """, unsafe_allow_html=True)
+
+            st.markdown("**Listado de respuestas recibidas:**")
+            filtro_txt = st.text_input("🔍 Filtrar respuestas por palabra clave:", "")
+            
+            filas_mostrar = [r for r in respuestas_validas if filtro_txt.lower() in r.lower()] if filtro_txt else list(respuestas_validas)
+            for i, r in enumerate(filas_mostrar, 1):
+                es_valiosa = r.strip().lower() not in no_sustantivas
+                badge = "⭐ Aporte sustantivo" if es_valiosa else "🔹 Respuesta breve"
+                st.markdown(f"- **#{i}** (`{badge}`): *\"{r}\"*")
+
+        # CASO 3: CATEGORÍAS Y ESCALAS (UNIVARIADO ESTÁNDAR)
+        else:
+            tabla_frec, n_validos, n_tot = calcular_tabla_frecuencias(df_trabajo[col_sel])
+            
+            # Párrafo interpretativo automático
+            narrativa = redactar_interpretacion_univariada(alias_var, pregunta_orig, tabla_frec, n_validos, n_tot)
+            st.markdown(f"""
+            <div class="narrative-box">
+                <div class="narrative-title">💡 Interpretación sugerida para el capítulo de resultados</div>
+                {narrativa}
+            </div>
+            """, unsafe_allow_html=True)
+
+            col_t1, col_t2 = st.columns([1, 1.2])
+            with col_t1:
+                st.markdown("**Tabla estadística de frecuencias:**")
+                st.dataframe(tabla_frec, use_container_width=True, hide_index=True)
+                
+                # Descarga rápida de la tabla
+                csv_tabla = tabla_frec.to_csv(index=False).encode('utf-8')
+                st.download_button(
+                    label=f"⬇️ Descargar tabla de '{alias_var}' (CSV)",
+                    data=csv_tabla,
+                    file_name=f"frecuencias_{alias_var.replace(' ', '_').lower()}.csv",
+                    mime="text/csv"
+                )
+
+            with col_t2:
+                # Gráfico sugerido inmediato
+                fig_sug = px.bar(
+                    tabla_frec,
+                    x="Opción",
+                    y="Porcentaje (%)",
+                    title=f"Distribución porcentual: {alias_var}",
+                    text="Porcentaje (%)",
+                    color_discrete_sequence=["#1b4332"]
+                )
+                fig_sug.update_traces(texttemplate='%{text:.1f}%', textposition='outside')
+                fig_sug.update_layout(
+                    yaxis_title="Porcentaje (%)",
+                    xaxis_title="",
+                    yaxis_range=[0, min(100, max(tabla_frec["Porcentaje (%)"]) * 1.25) if not tabla_frec.empty else 100],
+                    margin=dict(l=10, r=10, t=40, b=10)
+                )
+                st.plotly_chart(fig_sug, use_container_width=True)
+
+
+# =============================================================================
+# PESTAÑA 3: CRUCE DE VARIABLES (ANÁLISIS BIVARIADO)
+# =============================================================================
+with pestanas[2]:
+    st.subheader("Cruce de Variables y Comparativas (Bivariado)")
+    st.caption("Cruza dos variables para evaluar diferencias según año de carrera, sexo o posturas profesionales.")
+
+    # Solo variables categóricas o escalas con <= 10 categorías
+    vars_cruce = [
+        c for c, m in mapeo.items() 
+        if m["tipo"] in ["categoria", "escala"] and df_trabajo[c].dropna().nunique() <= 10
+    ]
+
+    col_b1, col_b2, col_b3 = st.columns([1, 1, 0.8])
+    with col_b1:
+        v1 = st.selectbox(
+            "Variable 1 (Filas / Segmentación):",
+            options=vars_cruce,
+            index=0 if vars_cruce else 0,
+            format_func=lambda c: f"{mapeo[c]['alias']}"
+        )
+    with col_b2:
+        v2_opciones = [c for c in vars_cruce if c != v1]
+        v2 = st.selectbox(
+            "Variable 2 (Columnas / Respuesta):",
+            options=v2_opciones,
+            index=min(1, len(v2_opciones)-1) if v2_opciones else 0,
+            format_func=lambda c: f"{mapeo[c]['alias']}"
+        )
+    with col_b3:
+        modo_cruce = st.selectbox(
+            "Visualizar valores como:",
+            options=["Porcentaje por fila (% fila)", "Porcentaje por columna (% col)", "Conteo absoluto (n)"]
+        )
+
+    if v1 and v2:
+        alias1 = mapeo[v1]["alias"]
+        alias2 = mapeo[v2]["alias"]
+
+        # Crear tabla de contingencia
+        df_sub = df_trabajo[[v1, v2]].dropna()
+        df_sub = df_sub[(df_sub[v1].astype(str).str.strip() != '') & (df_sub[v2].astype(str).str.strip() != '')]
+
+        contingencia_n = pd.crosstab(df_sub[v1], df_sub[v2], margins=True, margins_name="Total")
+        contingencia_sin_margins = pd.crosstab(df_sub[v1], df_sub[v2])
+
+        if modo_cruce == "Porcentaje por fila (% fila)":
+            tabla_mostrar = pd.crosstab(df_sub[v1], df_sub[v2], normalize='index').round(3) * 100
+        elif modo_cruce == "Porcentaje por columna (% col)":
+            tabla_mostrar = pd.crosstab(df_sub[v1], df_sub[v2], normalize='columns').round(3) * 100
+        else:
+            tabla_mostrar = contingencia_n
+
+        # Prueba de Chi-Cuadrado si las dimensiones lo permiten
+        p_val = None
+        if contingencia_sin_margins.shape[0] > 1 and contingencia_sin_margins.shape[1] > 1:
+            try:
+                chi2, p_val, dof, _ = stats.chi2_contingency(contingencia_sin_margins)
+            except Exception:
+                p_val = None
+
+        # Redacción de interpretación bivariada
+        narrativa_bi = f"Al realizar el cruce entre **'{alias1}'** y **'{alias2}'** sobre un total de {len(df_sub)} respondentes con datos válidos en ambas variables, "
+        if p_val is not None:
+            if p_val < 0.05:
+                narrativa_bi += f"se identifica una asociación estadísticamente significativa (Chi² = {round(chi2, 2)}, p = {round(p_val, 4)} < 0.05), sugiriendo patrones diferenciados de respuesta según el grupo de pertenencia. "
+            else:
+                narrativa_bi += f"no se evidencia una asociación estadísticamente significativa con el tamaño muestral disponible (Chi² = {round(chi2, 2)}, p = {round(p_val, 3)} > 0.05), observándose distribuciones predominantemente homogéneas. "
+        
+        # Resaltar la combinación mayoritaria
+        top_comb = contingencia_sin_margins.unstack().sort_values(ascending=False)
+        if len(top_comb) > 0:
+            top_v2, top_v1 = top_comb.index[0]
+            narrativa_bi += f"La concentración más alta se encuentra en el grupo de **'{top_v1}'** que eligió **'{top_v2}'** con {int(top_comb.iloc[0])} casos."
+
+        st.markdown(f"""
+        <div class="narrative-box">
+            <div class="narrative-title">💡 Interpretación comparativa para la discusión</div>
+            {narrativa_bi}
+        </div>
+        """, unsafe_allow_html=True)
+
+        col_g1, col_g2 = st.columns([1.1, 1.2])
+        with col_g1:
+            st.markdown(f"**Tabla de contingencia ({modo_cruce}):**")
+            st.dataframe(tabla_mostrar, use_container_width=True)
+
+        with col_g2:
+            tipo_bar_cruce = st.radio("Disposición del gráfico:", ["Barras agrupadas", "Barras apiladas al 100%"], horizontal=True)
+            df_plot_bi = pd.crosstab(df_sub[v1], df_sub[v2], normalize='index' if "100%" in tipo_bar_cruce else False).reset_index()
+            df_plot_bi = df_plot_bi.melt(id_vars=v1, var_name=alias2, value_name="Valor")
+            if "100%" in tipo_bar_cruce:
+                df_plot_bi["Valor"] = round(df_plot_bi["Valor"] * 100, 1)
+
+            fig_bi = px.bar(
+                df_plot_bi,
+                x=v1,
+                y="Valor",
+                color=alias2,
+                barmode="relative" if "100%" in tipo_bar_cruce else "group",
+                title=f"Relación entre {alias1} y {alias2}",
+                color_discrete_sequence=PALETAS_COLOR["🌿 MTCI Botánico (Verdes)"]
+            )
+            fig_bi.update_layout(
+                xaxis_title=alias1,
+                yaxis_title="Porcentaje (%)" if "100%" in tipo_bar_cruce else "Frecuencia (n)",
+                legend_title=alias2,
+                margin=dict(l=10, r=10, t=40, b=10)
+            )
+            st.plotly_chart(fig_bi, use_container_width=True)
+
+
+# =============================================================================
+# PESTAÑA 4: CONSTRUCTOR DE GRÁFICOS A TU GUSTO (CHART STUDIO)
+# =============================================================================
+with pestanas[3]:
+    st.subheader("🎨 Constructor de Gráficos Personalizados")
+    st.caption("Construye las figuras de tu tesis exactamente como las necesitas: elige el tipo, paleta de colores, títulos y etiquetas con descarga directa en alta resolución.")
+
+    with st.expander("🛠️ Panel de Configuración del Gráfico", expanded=True):
+        col_conf1, col_conf2, col_conf3 = st.columns(3)
+        
+        with col_conf1:
+            st.markdown("**1. Variable y Métrica**")
+            # Lista de variables elegibles
+            opciones_graf = [c for c, m in mapeo.items() if m["tipo"] in ["categoria", "escala"]]
+            var_principal = st.selectbox(
+                "Variable principal (Eje):",
+                options=opciones_graf,
+                format_func=lambda c: f"{mapeo[c]['alias']}"
+            )
+            
+            # Opción de segunda variable para color/segmentación
+            opciones_seg = ["(Ninguna - univariado)"] + [c for c in opciones_graf if c != var_principal]
+            var_seg = st.selectbox(
+                "Segmentar / Desglosar por (opcional):",
+                options=opciones_seg,
+                format_func=lambda c: "(Ninguna - univariado)" if c.startswith("(") else f"{mapeo[c]['alias']}"
+            )
+            
+            metrica = st.radio("Métrica a representar:", ["Porcentaje (%)", "Conteo de participantes (n)"], horizontal=True)
+
+        with col_conf2:
+            st.markdown("**2. Tipo de Gráfico y Orden**")
+            tipo_grafico = st.selectbox(
+                "Tipo de gráfico:",
+                options=[
+                    "📊 Barras Verticales (Columnas)",
+                    "📏 Barras Horizontales",
+                    "🍩 Dona / Pastel Moderno",
+                    "📦 Barras Apiladas al 100% (Segmentado)",
+                    "👥 Barras Agrupadas (Segmentado)",
+                    "🗺️ Treemap (Mosaico de bloques)"
+                ]
+            )
+            
+            orden_cat = st.selectbox(
+                "Orden de las categorías:",
+                options=["De mayor a menor (Descendente)", "De menor a mayor (Ascendente)", "Orden natural de las opciones"]
+            )
+            
+            mostrar_etiquetas = st.checkbox("Mostrar etiquetas con valores en las barras/secciones", value=True)
+
+        with col_conf3:
+            st.markdown("**3. Estilo y Paleta de Colores**")
+            paleta_elegida = st.selectbox("Paleta cromática:", options=list(PALETAS_COLOR.keys()))
+            colores = PALETAS_COLOR[paleta_elegida]
+            
+            alias_p = mapeo[var_principal]["alias"]
+            titulo_sugerido = f"Figura. Distribución de participantes según {alias_p.lower()}"
+            titulo_grafico = st.text_input("Título del gráfico:", value=titulo_sugerido)
+            subtitulo_grafico = st.text_input("Nota / Subtítulo:", value=f"Fuente: Instrumento MTCI (N={len(df_trabajo)})")
+            alto_grafico = st.slider("Altura del gráfico (px):", min_value=350, max_value=750, value=480, step=20)
+
+    # CONSTRUCCIÓN DEL GRÁFICO PERSONALIZADO
+    if var_principal:
+        alias_x = mapeo[var_principal]["alias"]
+        df_p = df_trabajo.dropna(subset=[var_principal])
+        df_p = df_p[df_p[var_principal].astype(str).str.strip() != '']
+        
+        # Mapeo de datos para graficar
+        if var_seg == "(Ninguna - univariado)":
+            tabla_plot, n_val, _ = calcular_tabla_frecuencias(df_p[var_principal])
+            
+            # Ordenamiento
+            if orden_cat == "De mayor a menor (Descendente)":
+                tabla_plot = tabla_plot.sort_values("Frecuencia (n)", ascending=False)
+            elif orden_cat == "De menor a mayor (Ascendente)":
+                tabla_plot = tabla_plot.sort_values("Frecuencia (n)", ascending=True)
+
+            eje_y = "Porcentaje (%)" if metrica == "Porcentaje (%)" else "Frecuencia (n)"
+            formato_texto = '%{text:.1f}%' if metrica == "Porcentaje (%)" else '%{text}'
+
+            if "Horizontales" in tipo_grafico:
+                # Para horizontales ordenar invertido para que el mayor quede arriba
+                tabla_h = tabla_plot.iloc[::-1] if orden_cat == "De mayor a menor (Descendente)" else tabla_plot
+                fig = px.bar(
+                    tabla_h,
+                    x=eje_y,
+                    y="Opción",
+                    orientation="h",
+                    title=f"<b>{titulo_grafico}</b><br><sup>{subtitulo_grafico}</sup>",
+                    text=eje_y if mostrar_etiquetas else None,
+                    color_discrete_sequence=colores
+                )
+                fig.update_layout(xaxis_title=eje_y, yaxis_title="")
+            elif "Dona" in tipo_grafico:
+                fig = px.pie(
+                    tabla_plot,
+                    names="Opción",
+                    values=eje_y,
+                    hole=0.45,
+                    title=f"<b>{titulo_grafico}</b><br><sup>{subtitulo_grafico}</sup>",
+                    color_discrete_sequence=colores
+                )
+                fig.update_traces(textinfo='percent+label' if mostrar_etiquetas else 'none', textposition='outside')
+            elif "Treemap" in tipo_grafico:
+                fig = px.treemap(
+                    tabla_plot,
+                    path=["Opción"],
+                    values=eje_y,
+                    title=f"<b>{titulo_grafico}</b><br><sup>{subtitulo_grafico}</sup>",
+                    color_discrete_sequence=colores
+                )
+            else: # Barras verticales
+                fig = px.bar(
+                    tabla_plot,
+                    x="Opción",
+                    y=eje_y,
+                    title=f"<b>{titulo_grafico}</b><br><sup>{subtitulo_grafico}</sup>",
+                    text=eje_y if mostrar_etiquetas else None,
+                    color_discrete_sequence=colores
+                )
+                if mostrar_etiquetas:
+                    fig.update_traces(texttemplate=formato_texto, textposition='outside')
+                lim_sup = 100 if metrica == "Porcentaje (%)" else max(tabla_plot["Frecuencia (n)"]) * 1.2
+                fig.update_layout(yaxis_title=eje_y, xaxis_title="", yaxis_range=[0, min(100, max(tabla_plot[eje_y]) * 1.25) if metrica == "Porcentaje (%)" else max(tabla_plot[eje_y]) * 1.2])
+
+        else:
+            # Segmentado por segunda variable
+            alias_seg = mapeo[var_seg]["alias"]
+            df_bi = df_p.dropna(subset=[var_seg])
+            df_bi = df_bi[df_bi[var_seg].astype(str).str.strip() != '']
+            
+            es_100 = "Apiladas" in tipo_grafico
+            df_c = pd.crosstab(df_bi[var_principal], df_bi[var_seg], normalize='index' if (es_100 or metrica == "Porcentaje (%)") else False).reset_index()
+            df_c_melt = df_c.melt(id_vars=var_principal, var_name=alias_seg, value_name="Valor")
+            if es_100 or metrica == "Porcentaje (%)":
+                df_c_melt["Valor"] = round(df_c_melt["Valor"] * 100, 1)
+
+            fig = px.bar(
+                df_c_melt,
+                x=var_principal,
+                y="Valor",
+                color=alias_seg,
+                barmode="relative" if es_100 else "group",
+                title=f"<b>{titulo_grafico}</b><br><sup>{subtitulo_grafico}</sup>",
+                color_discrete_sequence=colores,
+                text="Valor" if mostrar_etiquetas else None
+            )
+            if mostrar_etiquetas:
+                fig.update_traces(texttemplate='%{text:.1f}%' if (es_100 or metrica == "Porcentaje (%)") else '%{text}', textposition='auto')
+            fig.update_layout(xaxis_title=alias_x, yaxis_title="Porcentaje (%)" if (es_100 or metrica == "Porcentaje (%)") else "Frecuencia (n)", legend_title=alias_seg)
+
+        # Ajustes finales de estilo
+        fig.update_layout(
+            height=alto_grafico,
+            template="plotly_white",
+            font=dict(family="Plus Jakarta Sans, sans-serif", size=13),
+            margin=dict(l=30, r=30, t=70, b=40)
+        )
+
+        st.plotly_chart(fig, use_container_width=True)
+
+        # Descargas y referencias para la tesis
+        c_down1, c_down2, c_down3 = st.columns([1, 1, 1.5])
+        with c_down1:
+            # Exportación PNG de alta resolución optimizada
+            try:
+                # Generación directa con manejo robusto
+                img_png = fig.to_image(format="png", width=1200, height=750, scale=2)
+                st.download_button(
+                    label="⬇️ Descargar en Alta Calidad (PNG)",
+                    data=img_png,
+                    file_name=f"grafico_{alias_x.replace(' ', '_').lower()}.png",
+                    mime="image/png",
+                    help="Imagen nítida a 300 DPI lista para insertar en Microsoft Word o tu memoria de tesis."
+                )
+            except Exception:
+                st.info("💡 Puedes descargar la imagen nítida usando el icono de cámara 📷 en la barra superior derecha del gráfico.")
+
+        with c_down2:
+            html_bytes = fig.to_html(include_plotlyjs='cdn').encode('utf-8')
+            st.download_button(
+                label="🌐 Descargar Gráfico Interactivo (HTML)",
+                data=html_bytes,
+                file_name=f"grafico_interactivo_{alias_x.replace(' ', '_').lower()}.html",
+                mime="text/html"
+            )
+
+        with c_down3:
+            st.caption(f"**Referencia formal sugerida para Word / APA:**")
+            st.code(f"{titulo_grafico}. {subtitulo_grafico}.", language="text")
+
+
+# =============================================================================
+# PESTAÑA 5: EXPORTACIÓN PARA TESIS
+# =============================================================================
+with pestanas[4]:
+    st.subheader("📤 Exportación de Resultados y Metodología")
+    st.caption("Descarga todas las tablas consolidadas en un único Excel y copia los párrafos metodológicos listos para tu informe final.")
+
+    col_exp1, col_exp2 = st.columns([1.2, 1])
+
+    with col_exp1:
+        st.markdown("#### 📥 Paquete de Datos y Tablas")
         st.write("""
-        Exporta los resultados del análisis en formatos listos para incluir en tu memoria:
-
-        1. **Tabla de tipos de variables** — lista completa con tipos detectados
-        2. **Conteo de prácticas MTCI** — prácticas más mencionadas por categoría
-        3. **Datos originales** — tu CSV/Excel original (para respaldo)
+        El libro de Excel incluye automáticamente:
+        - **Hoja 1:** Diccionario completo de variables y preguntas originales
+        - **Hoja 2:** Todas las tablas de frecuencias univariadas consolidadas
+        - **Hoja 3:** Conteo y ranking de menciones de prácticas MTCI
+        - **Hoja 4:** Datos anonimizados procesados
         """)
 
-        st.divider()
-
-        col1, col2, col3 = st.columns(3)
-
-        with col1:
-            st.subheader("Tabla de tipos de variables")
-            if st.session_state.var_types:
-                df_tipos = pd.DataFrame([
-                    {"Variable": col, "Tipo_detectado": info["etiqueta"],
-                     "Tipo_interno": info["tipo"], "Valores_únicos": info["n_uniques"],
-                     "Faltantes": info["n_faltantes"], "%_sin_respuesta": info["pct_faltantes"]}
-                    for col, info in st.session_state.var_types.items()
-                ])
-                st.download_button(
-                    "📥 Descargar tabla de tipos (CSV)",
-                    data=df_tipos.to_csv(index=False).encode("utf-8"),
-                    file_name="tabla_tipos_mtci.csv",
-                    mime="text/csv",
-                )
-
-        with col2:
-            st.subheader("Conteo de prácticas MTCI")
-            if st.session_state.df_practicas is not None:
-                st.download_button(
-                    "📥 Descargar conteo de prácticas (CSV)",
-                    data=st.session_state.df_practicas.to_csv(index=False).encode("utf-8"),
-                    file_name="practicas_mtci.csv",
-                    mime="text/csv",
-                )
-            else:
-                st.info("Primero parsea las prácticas desde el panel lateral.")
-
-        with col3:
-            st.subheader("Datos originales")
-            if st.session_state.df_original_name:
-                st.download_button(
-                    "📥 Descargar CSV original",
-                    data=df_trabajar.to_csv(index=False).encode("utf-8"),
-                    file_name="datos_mtci_original.csv",
-                    mime="text/csv",
-                )
+        excel_data = generar_excel_completo(df_trabajo, mapeo, st.session_state.df_practicas_resumen)
+        st.download_button(
+            label="📗 Descargar Reporte Integral en Excel (.xlsx)",
+            data=excel_data,
+            file_name="reporte_resultados_mtci_tesis.xlsx",
+            mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+            type="primary"
+        )
 
         st.divider()
+        st.markdown("#### 📄 Base de Datos Limpia (CSV)")
+        csv_data = df_trabajo.to_csv(index=False).encode('utf-8-sig')
+        st.download_button(
+            label="⬇️ Descargar Datos Limpios (CSV UTF-8)",
+            data=csv_data,
+            file_name="datos_mtci_limpios.csv",
+            mime="text/csv"
+        )
 
-        st.subheader("📋 Texto sugerido para tu memoria")
+    with col_exp2:
+        st.markdown("#### 📋 Redacción Metodológica Sugerida")
+        st.caption("Párrafos redactados con rigor metodológico listos para adaptar a tu memoria:")
 
-        st.write("""
-        Puedes copiar y pegar estos textos directamente en tu memoria de tesis:
+        st.markdown("""
+        **Descripción del Instrumento y Participantes:**
+        > *Para la recolección de los datos empíricos, se aplicó el Instrumento I1 sobre saberes, prácticas y valoración de la Medicina Tradicional, Complementaria e Integrativa (MTCI) en la psicología clínica. La muestra final estuvo conformada por N=68 participantes pertenecientes a 4to y 5to año de la carrera de Psicología, así como profesionales del área. El 100% de los respondentes otorgó previamente su consentimiento informado voluntario.*
 
-        **Descripción del instrumento:**
-        > El instrumento I1 (Cuestionario sobre Saberes, prácticas y valoración de la Medicina Tradicional, Complementaria e Integrativa - MTCI) fue aplicado a 68 participantes (estudiantes de Psicología en 4to y 5to año, profesionales y actores locales). El cuestionario consta de 21 variables que incluyen: datos demográficos (año de carrera, edad, sexo), conocimiento sobre MTCI, familiaridad con prácticas, conocimiento de la Ley No. 774, limitaciones legales para la psicología clínica, frecuencia de uso de prácticas MTCI como autocuidado y para manejo de estrés, efectos psicofisiológicos percibidos, postura profesional frente a la pertinencia de abordar MTCI en el espacio psicoterapéutico, tipos de efecto sobre la regulación psicofisiológica del consultante, nivel de preparación para psicoeducación y derivación, listado de prácticas MTCI conocidas y utilizadas, y pregunta abierta de comentarios.
-
-        **Tipo de diseño:**
-        > El estudio tiene un enfoque mixto con predominio cuantitativo. Las variables cuantitativas incluyen escalas ordinales (frecuencia de uso), variables nominales (sexo, opciones múltiples de selección única) y listas de reconocimiento múltiple (prácticas MTCI). Se incluyó una pregunta abierta para capturar cualitativamente las percepciones y sugerencias de los participantes.
-
-        **Variables excluidas del análisis:**
-        > Se excluyeron del análisis estadístico la marca temporal de respuesta y el correo electrónico, por ser datos identificativos sin valor analítico para los objetivos del estudio.
+        **Tratamiento Estadístico de los Datos:**
+        > *El análisis estadístico descriptivo comprendió el cálculo de frecuencias absolutas (n), relativas porcentuales (%) y porcentajes acumulados para las variables nominales y ordinales. Para las dimensiones de selección múltiple sobre prácticas MTCI, se procedió a la desagregación de menciones individuales y cálculo del porcentaje de prevalencia sobre el total de la muestra. Los análisis bivariados se contrastaron mediante tablas de contingencia y la prueba de independencia de Chi-cuadrado.*
         """)

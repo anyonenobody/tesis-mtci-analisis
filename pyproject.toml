@@ -1,0 +1,17 @@
+[project]
+name = "tesis-app"
+version = "0.1.0"
+description = "MTCI Analysis Application"
+requires-python = ">=3.11"
+dependencies = [
+    "streamlit>=1.35.0",
+    "pandas>=2.0.0",
+    "numpy>=1.24.0",
+    "plotly>=5.20.0",
+    "scipy>=1.11.0",
+    "openpyxl>=3.1.0",
+]
+
+[tool.pyrefly]
+python-interpreter-path = ".venv/Scripts/python.exe"
+search-path = [".venv/Lib/site-packages"]
