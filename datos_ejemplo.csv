@@ -1,0 +1,86 @@
+ID_respondente,rol,genero,edad,area_formacion,conocimiento_general_mtci,utilidad_percepcion_mtci,conoce_Botánica_medicinal,conoce_Acupuntura,conoce_Homeopatía,conoce_Medicina_tradicional_mexicana_(MTM),conoce_Terapias_corporales,conoce_Mindfulness,conoce_Yoga,conoce_Reiki,conoce_Aromaterapia,conoce_Bach,acuerdo_1_La_MTCI_es_un_recurso_válido_p,acuerdo_2_La_MTCI_puede_complementar_tra,acuerdo_3_Es_importante_incluir_la_MTCI_,acuerdo_4_La_MTCI_tiene_evidencia_cientí,acuerdo_5_Los_usuarios_de_MTCI_reportan_,ha_utilizado_alguna_mtci,practicas_utilizadas_multiple,practica_interes_abierta,barrera_falta_info,barrera_falta_formacion,barrera_prejuicio,barrera_costo,facilitador_interes_personal,facilitador_recomendacion,conoce_centro_mtci_localidad,actitud_positiva_mtci,intencion_uso_mtci,recomendaria_mtci,confianza_mtci,sugerencias_mtci
+P001,Estudiante,Femenino,53,Enfermería,5,4,Sí,Sí,Sí,No,Sí,Sí,Sí,No,Sí,No,2,2,3,1,1,Sí,1-2 prácticas,Botánica medicinal,1,1,1,2,3,3,No,2,4,Sí,1,
+P002,Actor local,Masculino,36,Enfermería,1,2,Sí,Sí,Sí,No,Sí,No,Sí,No,Sí,Sí,2,3,4,1,5,Sí,3-5 prácticas,Homeopatía,4,5,4,3,5,3,No,3,2,Sí,2,Me gustaría más información sobre técnicas de mindfulness
+P003,Docente,Masculino,43,Medicina,2,5,Sí,Sí,No,Sí,Sí,Sí,Sí,No,No,Sí,2,3,2,3,2,Sí,Ninguna,Acupuntura,1,4,4,5,1,3,No,1,3,Sí,2,Me gustaría practicar yoga regularmente
+P004,Docente,Masculino,20,Psicología,2,2,No,Sí,No,No,Sí,Sí,Sí,No,Sí,Sí,2,2,4,4,1,Sí,Ninguna,Terapias corporales,2,1,4,4,3,2,Sí,1,3,Depende,4,Es importante que los psicólogos conozcan sobre MTCI
+P005,Estudiante,Femenino,36,Salud comunitaria,1,5,No,Sí,No,No,No,Sí,Sí,No,Sí,No,2,5,5,2,2,No,3-5 prácticas,Homeopatía,5,4,1,4,1,4,No,4,3,No,4,Me gustaría más información sobre técnicas de mindfulness
+P006,Estudiante,Femenino,37,Psicología,2,3,Sí,No,Sí,Sí,No,No,Sí,No,No,No,2,4,2,3,3,Sí,1-2 prácticas,Aromaterapia,5,5,4,3,4,5,Sí,3,2,Sí,2,
+P007,Estudiante,Masculino,49,Psicología,1,5,No,No,Sí,No,Sí,Sí,Sí,No,No,Sí,2,3,3,3,5,No,1-2 prácticas,Aromaterapia,5,3,1,2,1,3,No,4,3,No,2,
+P008,Actor local,Masculino,24,Enfermería,5,4,Sí,No,Sí,Sí,Sí,No,Sí,No,Sí,No,4,5,3,2,4,Sí,1-2 prácticas,,4,5,4,3,4,3,No,3,2,Sí,2,La acupuntura debería estar más disponible en instituciones de salud
+P009,Docente,Femenino,58,Psicología,5,1,Sí,No,No,No,Sí,Sí,Sí,No,Sí,No,1,2,2,2,2,Sí,Ninguna,Terapias corporales,3,2,5,3,2,3,No,5,3,Sí,5,
+P010,Docente,Masculino,50,Otro,1,5,Sí,No,Sí,No,Sí,No,No,No,Sí,No,3,5,1,1,3,Sí,1-2 prácticas,,3,4,4,1,2,4,No sé,2,5,Depende,4,
+P011,Estudiante,Femenino,57,Otro,5,5,Sí,No,No,No,Sí,No,Sí,No,No,Sí,5,1,2,3,4,No,1-2 prácticas,Acupuntura,1,4,2,5,5,1,No,5,5,Depende,2,
+P012,Actor local,Femenino,56,Otro,5,1,Sí,No,No,Sí,No,No,Sí,No,Sí,No,3,3,5,5,4,Sí,3-5 prácticas,Botánica medicinal,4,2,4,4,3,1,No,3,2,No,3,
+P013,Actor local,Femenino,35,Medicina,5,4,Sí,No,No,No,Sí,No,Sí,No,Sí,No,3,2,1,2,2,Sí,3-5 prácticas,Aromaterapia,5,2,3,2,5,2,No,2,5,Sí,3,Es importante que los psicólogos conozcan sobre MTCI
+P014,Estudiante,Femenino,57,Psicología,3,2,Sí,Sí,No,Sí,Sí,Sí,Sí,No,No,Sí,1,4,3,2,1,No,1-2 prácticas,Botánica medicinal,5,3,4,4,4,1,No,1,2,Depende,5,
+P015,Estudiante,Femenino,18,Otro,4,5,Sí,Sí,Sí,Sí,Sí,Sí,Sí,No,Sí,Sí,1,2,2,4,2,Sí,1-2 prácticas,Aromaterapia,2,4,2,4,5,3,Sí,1,5,Sí,5,
+P016,Estudiante,Femenino,28,Medicina,2,1,Sí,Sí,No,Sí,Sí,Sí,Sí,Sí,No,No,1,4,4,5,3,Sí,Ninguna,Acupuntura,2,4,2,5,1,3,Sí,4,5,Sí,1,Me gustaría más información sobre técnicas de mindfulness
+P017,Estudiante,Masculino,45,Otro,3,3,Sí,Sí,No,Sí,Sí,Sí,No,Sí,No,No,2,2,4,5,4,Sí,Ninguna,Homeopatía,5,3,1,4,4,3,No,3,2,Sí,1,
+P018,Estudiante,Femenino,42,Otro,5,1,Sí,Sí,No,No,Sí,Sí,Sí,No,Sí,Sí,4,5,5,2,2,No,3-5 prácticas,Mindfulness,5,1,5,4,2,2,No,3,4,No,1,Me gustaría practicar yoga regularmente
+P019,Estudiante,Femenino,40,Otro,1,3,Sí,No,Sí,No,No,Sí,Sí,No,No,No,2,5,4,1,1,Sí,1-2 prácticas,Homeopatía,4,3,4,3,3,3,Sí,1,5,No,5,Es importante que los psicólogos conozcan sobre MTCI
+P020,Estudiante,Masculino,48,Psicología,5,4,No,No,Sí,No,No,Sí,No,Sí,Sí,No,4,5,2,4,2,No,Ninguna,Aromaterapia,3,5,1,5,4,1,Sí,5,3,Sí,5,Me gustaría más información sobre técnicas de mindfulness
+P021,Docente,Femenino,47,Medicina,4,2,No,Sí,Sí,Sí,Sí,Sí,Sí,Sí,No,No,4,1,2,5,5,No,3-5 prácticas,,2,4,5,1,4,4,Sí,2,4,No,5,Me gustaría practicar yoga regularmente
+P022,Estudiante,Femenino,59,Otro,5,1,No,Sí,No,No,Sí,No,No,Sí,Sí,No,3,4,4,2,1,Sí,3-5 prácticas,Mindfulness,3,2,4,2,1,4,No sé,5,2,Depende,3,
+P023,Estudiante,Masculino,52,Medicina,1,5,No,Sí,No,No,Sí,Sí,Sí,Sí,No,No,3,5,2,5,3,No,3-5 prácticas,,4,5,3,4,3,5,No,5,4,Sí,5,Me gustaría más información sobre técnicas de mindfulness
+P024,Estudiante,Femenino,24,Psicología,4,4,Sí,No,No,Sí,Sí,Sí,Sí,Sí,Sí,No,4,1,5,4,4,Sí,1-2 prácticas,Mindfulness,5,4,4,2,2,1,No,1,1,Depende,3,
+P025,Estudiante,Femenino,33,Enfermería,5,1,Sí,No,Sí,No,Sí,No,Sí,No,No,Sí,4,4,1,4,2,Sí,1-2 prácticas,Botánica medicinal,3,3,2,1,4,3,Sí,1,1,Depende,1,Me gustaría más información sobre técnicas de mindfulness
+P026,Docente,Femenino,43,Otro,4,5,Sí,No,No,No,Sí,No,Sí,No,No,No,2,2,5,3,1,No,1-2 prácticas,Terapias corporales,5,5,2,2,4,4,No,1,5,Sí,1,
+P027,Estudiante,Femenino,19,Salud comunitaria,2,1,Sí,Sí,Sí,Sí,Sí,Sí,Sí,Sí,Sí,No,2,1,5,2,5,No,Ninguna,Botánica medicinal,5,4,3,1,1,1,Sí,4,5,Sí,1,Me gustaría practicar yoga regularmente
+P028,Estudiante,Masculino,18,Enfermería,2,3,Sí,No,Sí,Sí,No,No,Sí,No,No,No,3,3,2,4,1,Sí,3-5 prácticas,Botánica medicinal,1,1,1,3,5,4,Sí,5,3,No,2,Es importante que los psicólogos conozcan sobre MTCI
+P029,Docente,Masculino,29,Psicología,5,1,Sí,No,Sí,No,No,No,Sí,Sí,Sí,Sí,1,1,1,3,5,Sí,3-5 prácticas,,3,1,5,4,2,3,No,3,4,No,2,Es importante que los psicólogos conozcan sobre MTCI
+P030,Estudiante,Masculino,22,Enfermería,4,1,Sí,Sí,No,No,Sí,No,No,Sí,Sí,No,4,1,2,3,3,Sí,3-5 prácticas,,3,2,4,1,3,4,Sí,2,1,Depende,4,Me gustaría practicar yoga regularmente
+P031,Docente,Masculino,54,Otro,1,1,No,No,Sí,Sí,Sí,Sí,Sí,No,Sí,No,2,4,3,5,4,Sí,3-5 prácticas,Homeopatía,5,4,2,2,4,5,Sí,4,5,Sí,4,
+P032,Estudiante,Masculino,49,Psicología,5,4,No,No,No,No,Sí,Sí,Sí,No,Sí,No,3,2,2,5,3,Sí,1-2 prácticas,Homeopatía,4,1,1,4,4,5,Sí,3,4,Depende,4,La acupuntura debería estar más disponible en instituciones de salud
+P033,Estudiante,Femenino,26,Enfermería,2,1,Sí,No,No,No,Sí,Sí,Sí,Sí,Sí,No,2,3,2,3,2,Sí,3-5 prácticas,Meditación,1,3,3,3,2,4,Sí,5,5,Sí,2,Me gustaría más información sobre técnicas de mindfulness
+P034,Actor local,Masculino,58,Otro,2,5,Sí,No,Sí,No,No,Sí,Sí,No,No,No,4,5,2,5,1,Sí,1-2 prácticas,Aromaterapia,5,4,2,4,5,1,Sí,1,5,Sí,2,
+P035,Actor local,Femenino,52,Salud comunitaria,5,3,Sí,No,No,No,Sí,Sí,Sí,Sí,Sí,Sí,4,5,1,4,5,Sí,1-2 prácticas,,2,3,3,1,4,1,No,5,1,No,4,
+P036,Actor local,Masculino,36,Salud comunitaria,4,3,No,No,Sí,No,Sí,Sí,Sí,No,No,Sí,5,1,2,1,5,Sí,1-2 prácticas,Meditación,2,3,4,3,2,1,No,2,1,Sí,4,
+P037,Estudiante,Masculino,33,Salud comunitaria,2,1,No,No,Sí,Sí,Sí,No,Sí,No,Sí,Sí,1,4,1,4,1,Sí,Ninguna,Acupuntura,1,1,5,2,1,4,No,4,5,Sí,5,
+P038,Estudiante,Femenino,20,Medicina,4,4,Sí,No,Sí,Sí,Sí,Sí,Sí,No,No,Sí,5,4,4,3,1,Sí,1-2 prácticas,Aromaterapia,4,4,2,3,5,1,No,4,2,Sí,4,Me gustaría practicar yoga regularmente
+P039,Docente,Femenino,37,Psicología,2,4,Sí,No,Sí,No,Sí,No,Sí,Sí,No,No,3,5,3,3,2,No,Más de 5,Aromaterapia,5,5,2,3,3,3,Sí,2,5,Sí,5,
+P040,Estudiante,Femenino,41,Salud comunitaria,2,5,Sí,No,No,No,Sí,Sí,Sí,No,Sí,No,2,3,1,4,3,Sí,1-2 prácticas,,3,1,4,5,4,5,No sé,3,5,Sí,3,Me gustaría más información sobre técnicas de mindfulness
+P041,Estudiante,Femenino,50,Salud comunitaria,3,1,Sí,No,No,Sí,Sí,Sí,Sí,Sí,No,Sí,3,2,4,5,5,No,Ninguna,,1,1,1,3,2,3,No,3,3,Depende,2,Es importante que los psicólogos conozcan sobre MTCI
+P042,Estudiante,Masculino,41,Otro,2,3,Sí,No,No,No,No,No,Sí,Sí,Sí,No,4,3,1,5,2,No,1-2 prácticas,Yoga,4,4,5,3,1,1,Sí,4,3,Sí,4,
+P043,Estudiante,Masculino,28,Otro,1,4,Sí,No,No,No,Sí,Sí,No,No,No,Sí,5,2,1,3,3,Sí,3-5 prácticas,Yoga,3,4,2,4,3,3,No,4,3,Depende,2,
+P044,Actor local,Femenino,25,Enfermería,5,1,No,Sí,No,No,Sí,Sí,Sí,Sí,Sí,No,5,5,3,2,2,No,1-2 prácticas,Botánica medicinal,2,3,5,2,2,1,Sí,1,2,Depende,2,La acupuntura debería estar más disponible en instituciones de salud
+P045,Estudiante,Femenino,53,Enfermería,5,4,Sí,No,No,No,Sí,No,Sí,No,No,No,5,2,5,5,5,Sí,3-5 prácticas,Acupuntura,2,4,2,4,2,4,No,3,2,Depende,2,
+P046,Docente,Femenino,55,Salud comunitaria,4,4,Sí,No,No,No,No,Sí,Sí,No,Sí,Sí,3,4,5,4,1,Sí,Ninguna,Mindfulness,3,3,5,4,3,3,No,2,5,Sí,3,
+P047,Estudiante,Femenino,57,Enfermería,2,3,No,No,Sí,No,No,Sí,Sí,Sí,Sí,No,4,1,1,5,1,Sí,3-5 prácticas,Mindfulness,1,1,3,1,1,4,No sé,3,3,Depende,1,Es importante que los psicólogos conozcan sobre MTCI
+P048,Estudiante,Femenino,37,Salud comunitaria,1,2,No,No,Sí,No,Sí,No,No,No,No,Sí,2,1,2,4,3,Sí,1-2 prácticas,,2,2,2,4,1,4,No,1,2,No,4,Me gustaría practicar yoga regularmente
+P049,Estudiante,Femenino,52,Salud comunitaria,4,5,No,Sí,No,Sí,Sí,Sí,Sí,No,Sí,No,2,5,4,3,4,Sí,3-5 prácticas,,5,5,5,5,5,2,No,4,1,No,1,Me gustaría más información sobre técnicas de mindfulness
+P050,Estudiante,Masculino,42,Otro,3,5,Sí,No,No,No,No,No,Sí,No,Sí,No,3,4,2,5,3,Sí,3-5 prácticas,,3,1,1,5,4,1,No sé,4,5,No,1,Me gustaría practicar yoga regularmente
+P051,Actor local,Femenino,52,Medicina,4,3,Sí,No,Sí,Sí,Sí,Sí,Sí,No,Sí,Sí,5,3,2,4,4,Sí,Ninguna,,3,4,3,1,3,5,Sí,1,4,Depende,1,
+P052,Docente,Femenino,42,Medicina,4,4,Sí,No,No,Sí,Sí,No,Sí,No,Sí,No,1,4,1,3,2,No,Ninguna,Terapias corporales,2,5,3,2,3,1,Sí,2,5,Sí,2,Me gustaría más información sobre técnicas de mindfulness
+P053,Actor local,Masculino,46,Psicología,2,1,Sí,No,Sí,No,No,Sí,No,No,Sí,Sí,3,1,1,2,2,Sí,Ninguna,Yoga,1,2,1,2,3,5,No,4,4,Depende,5,
+P054,Actor local,Femenino,35,Enfermería,3,4,Sí,No,No,Sí,Sí,No,Sí,No,Sí,Sí,3,1,1,4,5,No,1-2 prácticas,,5,2,5,4,1,1,No,5,3,No,2,La acupuntura debería estar más disponible en instituciones de salud
+P055,Docente,Prefiero no decir,63,Psicología,4,3,Sí,No,Sí,Sí,Sí,No,Sí,Sí,Sí,No,4,4,1,2,4,Sí,1-2 prácticas,Homeopatía,1,3,4,4,4,4,No,4,4,Depende,2,
+P056,Actor local,Prefiero no decir,35,Medicina,1,5,Sí,Sí,Sí,No,Sí,Sí,Sí,No,Sí,No,2,4,5,2,5,Sí,3-5 prácticas,Mindfulness,4,5,1,4,5,3,No sé,5,3,Depende,1,
+P057,Estudiante,Femenino,19,Enfermería,1,4,Sí,Sí,Sí,Sí,Sí,Sí,Sí,No,No,No,3,1,1,1,1,No,1-2 prácticas,,4,3,5,2,2,3,No,1,1,Sí,2,Me gustaría practicar yoga regularmente
+P058,Estudiante,Femenino,52,Psicología,5,5,Sí,No,No,Sí,Sí,No,Sí,Sí,Sí,No,3,3,5,5,4,Sí,1-2 prácticas,Aromaterapia,2,1,1,3,2,2,No,1,4,Depende,1,
+P059,Estudiante,Femenino,33,Enfermería,3,1,Sí,No,No,No,No,Sí,No,No,Sí,No,5,5,5,4,3,Sí,Ninguna,Yoga,2,5,1,5,3,5,No,4,5,Sí,5,La acupuntura debería estar más disponible en instituciones de salud
+P060,Estudiante,Femenino,58,Psicología,3,5,Sí,Sí,Sí,No,Sí,Sí,No,Sí,Sí,Sí,5,5,1,2,1,Sí,Ninguna,Meditación,2,1,2,3,4,5,No,3,3,Sí,4,
+P061,Estudiante,Femenino,53,Psicología,5,5,Sí,No,No,Sí,Sí,Sí,Sí,Sí,Sí,No,1,4,3,1,1,Sí,3-5 prácticas,Homeopatía,4,3,5,3,1,5,No sé,5,5,Sí,1,Me gustaría más información sobre técnicas de mindfulness
+P062,Estudiante,Masculino,50,Salud comunitaria,4,2,Sí,No,Sí,No,Sí,Sí,Sí,No,No,No,4,5,4,3,3,No,1-2 prácticas,Yoga,1,5,4,2,4,4,No,2,2,Sí,5,Me gustaría más información sobre técnicas de mindfulness
+P063,Actor local,Femenino,21,Medicina,3,2,Sí,No,No,No,Sí,No,Sí,Sí,Sí,No,1,1,2,4,1,Sí,3-5 prácticas,,1,3,2,3,4,5,Sí,4,3,No,4,
+P064,Estudiante,Femenino,50,Psicología,1,2,Sí,No,Sí,No,No,Sí,Sí,No,Sí,No,5,1,5,2,4,No,3-5 prácticas,,2,5,1,1,1,3,No,2,4,Sí,3,Es importante que los psicólogos conozcan sobre MTCI
+P065,Estudiante,Femenino,31,Enfermería,1,5,Sí,No,Sí,No,Sí,Sí,Sí,No,No,No,2,4,4,5,5,Sí,3-5 prácticas,Acupuntura,5,3,1,4,3,4,Sí,4,3,Sí,1,
+P066,Estudiante,Masculino,38,Salud comunitaria,2,3,Sí,No,No,No,Sí,Sí,Sí,No,No,No,5,4,3,1,1,Sí,3-5 prácticas,Aromaterapia,1,2,1,1,4,1,Sí,3,5,Depende,1,
+P067,Estudiante,Femenino,37,Psicología,3,5,Sí,No,No,No,No,Sí,No,No,Sí,No,4,4,2,2,4,Sí,1-2 prácticas,Yoga,4,3,5,5,2,5,Sí,3,1,Depende,3,
+P068,Actor local,Femenino,25,Enfermería,4,3,Sí,Sí,No,No,Sí,Sí,Sí,Sí,No,No,5,3,2,5,2,Sí,Más de 5,Terapias corporales,3,2,5,4,1,5,No,3,3,Depende,3,Me gustaría más información sobre técnicas de mindfulness
+P069,Estudiante,Femenino,24,Psicología,5,3,No,No,No,No,Sí,Sí,Sí,No,No,No,4,5,5,2,4,Sí,Ninguna,,3,3,2,3,5,1,No,3,4,Depende,1,Me gustaría practicar yoga regularmente
+P070,Actor local,Prefiero no decir,20,Psicología,5,2,Sí,No,No,Sí,Sí,No,Sí,No,Sí,No,4,4,1,4,5,No,Ninguna,,3,5,4,5,3,5,Sí,1,2,Depende,3,
+P071,Docente,Femenino,34,Enfermería,4,4,Sí,No,Sí,Sí,Sí,Sí,Sí,No,No,No,4,2,3,4,4,No,3-5 prácticas,Aromaterapia,5,5,2,4,1,1,No,1,1,Sí,2,
+P072,Estudiante,Masculino,50,Enfermería,2,1,No,No,No,No,Sí,Sí,Sí,Sí,No,Sí,4,2,5,4,3,Sí,Más de 5,,2,5,3,3,5,4,No,5,2,Sí,4,
+P073,Estudiante,Masculino,29,Enfermería,5,2,Sí,No,No,No,Sí,No,Sí,No,Sí,Sí,4,1,3,1,5,No,3-5 prácticas,,4,4,1,1,5,3,No,2,3,Depende,4,
+P074,Actor local,Femenino,39,Salud comunitaria,3,2,No,No,No,No,No,Sí,Sí,No,Sí,No,2,5,1,4,2,No,Ninguna,,5,1,1,4,4,1,Sí,4,5,Sí,4,La acupuntura debería estar más disponible en instituciones de salud
+P075,Docente,Masculino,39,Otro,2,4,Sí,Sí,No,Sí,Sí,No,Sí,No,Sí,Sí,1,4,1,5,3,No,1-2 prácticas,Yoga,4,5,1,3,4,2,No,4,5,No,2,Me gustaría más información sobre técnicas de mindfulness
+P076,Docente,Femenino,63,Enfermería,3,1,Sí,No,No,No,Sí,Sí,Sí,No,No,No,3,2,5,2,4,Sí,Más de 5,Meditación,4,2,2,1,4,1,No,1,4,Sí,3,
+P077,Docente,Masculino,47,Medicina,1,5,Sí,No,No,Sí,Sí,Sí,Sí,No,No,Sí,1,5,1,3,5,Sí,1-2 prácticas,Mindfulness,2,5,2,5,1,5,Sí,4,5,Sí,5,
+P078,Estudiante,Masculino,55,Salud comunitaria,2,5,No,No,Sí,No,Sí,Sí,Sí,No,No,No,4,1,4,5,2,Sí,3-5 prácticas,Mindfulness,3,4,1,5,1,4,Sí,1,1,No,3,
+P079,Estudiante,Femenino,55,Psicología,5,2,Sí,Sí,No,No,No,Sí,Sí,No,Sí,No,2,3,2,5,3,Sí,3-5 prácticas,Homeopatía,2,2,2,5,3,4,No,5,5,No,1,Me gustaría practicar yoga regularmente
+P080,Estudiante,Femenino,62,Medicina,2,1,No,No,Sí,No,Sí,Sí,Sí,Sí,No,No,5,5,5,4,2,Sí,1-2 prácticas,Botánica medicinal,5,4,5,5,4,1,No sé,2,4,No,4,La acupuntura debería estar más disponible en instituciones de salud
+P081,Actor local,Masculino,25,Psicología,2,2,Sí,No,No,No,Sí,Sí,Sí,No,No,Sí,2,5,3,1,4,No,1-2 prácticas,Acupuntura,5,2,5,2,5,3,No,5,3,No,3,Es importante que los psicólogos conozcan sobre MTCI
+P082,Docente,Femenino,44,Psicología,2,3,No,No,No,No,Sí,Sí,Sí,No,Sí,No,4,3,4,2,2,Sí,1-2 prácticas,Aromaterapia,5,3,2,4,2,2,No,3,3,Sí,5,Me gustaría practicar yoga regularmente
+P083,Estudiante,Femenino,44,Otro,2,2,Sí,No,Sí,Sí,Sí,Sí,Sí,No,Sí,No,2,5,5,1,1,Sí,1-2 prácticas,Homeopatía,2,1,1,4,3,4,No,3,5,Sí,1,
+P084,Estudiante,Femenino,51,Salud comunitaria,3,2,No,Sí,No,No,Sí,Sí,Sí,No,No,Sí,2,1,1,2,3,No,3-5 prácticas,Botánica medicinal,4,1,2,2,1,5,No,3,2,Depende,2,Me gustaría practicar yoga regularmente
+P085,Estudiante,Femenino,38,Salud comunitaria,1,5,Sí,No,No,Sí,Sí,Sí,Sí,Sí,Sí,No,4,1,1,2,2,No,1-2 prácticas,,4,4,2,3,3,5,Sí,5,3,No,2,Me gustaría practicar yoga regularmente

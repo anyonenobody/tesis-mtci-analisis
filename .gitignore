@@ -1,0 +1,41 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+venv/
+env/
+.env
+*.egg-info/
+dist/
+build/
+
+# Streamlit
+.streamlit/secrets.toml
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Credenciales, tokens y secretos
+.env
+.env.*
+*.key
+*.pem
+*token*.txt
+gh_token.txt
+*.ps1
+
+# Datos sensibles con PII (mantener solo versiones anonimizadas)
+datos_mtci_real.csv
+*real*.csv
+*respuestas*.csv
+*formulario*.csv
+
