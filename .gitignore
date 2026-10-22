@@ -40,3 +40,9 @@ datos_mtci_real.csv
 *respuestas*.csv
 *formulario*.csv
 
+# Temporary office lock files
+~$*
+
+# Scratch & ephemeral workspace scripts
+scratch/
+
