@@ -5,10 +5,38 @@ El formato se basa en [Keep a Changelog](https://keepachangelog.com/es-ES/1.0.0/
 
 ---
 
-## [Unreleased] - 2026-10-21
+## [Unreleased] - 2026-10-22
 
 ### Added
-- **Skill `meta-learning-agent`**: Sistema procedural de auto-aprendizaje, análisis de causa raíz (RCA), resguardo de lecciones aprendidas y registro de bitácora.
+- **Base de Datos Bibliográfica SQLite (`data/bibliografia_mtci.db`)**: Base de datos relacional persistente con 56 referencias completamente tipadas (artículos, libros, informes, leyes, sitios web), metadatos normalizados (autores, año, títulos, volúmenes, páginas, DOIs y URLs) y llaves de citación.
+- **Exportación CSL-JSON (`data/bibliografia_mtci.csl.json`)**: Interoperabilidad con gestores bibliográficos (Zotero, Mendeley, PRISMA).
+- **Herramienta CLI `tools/bib_cli.py`**: Interfaz de terminal para estadísticas (`stats`), listado categorizado (`list`), búsqueda semántica (`search`) y auditoría HTTP en vivo (`verify`).
+- **Script de Consolidación Editorial `tools/consolidate_native_citations_and_bibliography.py`**: Pipeline reproducible para la inyección de fuentes OpenXML, SDTs de citas interactivas y bibliografía dinámica con sangría francesa APA 7.
+- **Motor Nativo de Citas en Word (`<b:Sources>`)**: Inyección del esquema XML `http://schemas.openxmlformats.org/officeDocument/2006/bibliography` en `customXml/item1.xml` con las 56 fuentes maestras reconocidas nativamente por Microsoft Word 2016–365.
+- **Citas Interactivas Nativas (`<w:sdt><w:citation/>`)**: Integración de campos `{ CITATION Tag \\l 3082 }` en las citas del texto, activando los menús interactivos de Word ("Editar cita", "Editar fuente", "Convertir en texto estático").
+- **Bloque Dinámico de Bibliografía (`<w:sdt><w:bibliography/>`)**: Contenedor nativo `{ BIBLIOGRAPHY \\l 3082 }` bajo la sección `15. Referencias` que renderiza las 56 referencias en formato APA 7 con sangría francesa de 1.27 cm y se actualiza dinámicamente con F9.
+
+### Changed
+- Sincronización al 100% de `docs/capitulos/07_referencias_bibliograficas.md` y `docs/referencias_bibliograficas.md` con el catálogo canónico de 56 referencias.
+- Normalización estricta de normas APA 7 en español: sustitución de ampersands `&` por "y", erradicación de clichés "y otros" por `et al.` canónico, y títulos en estilo oración (*sentence case*).
+- Integración de cita curricular a `(Campusano y Valderrama, 2026)` en el marco de educación superior y de `(UNAN-Managua, 2021)` en líneas de investigación institucional, alcanzando 100% de concordancia entre citas in-text y lista bibliográfica.
+- Alineación canónica de 56 tags alfanuméricos ASCII entre `customXml/item1.xml`, la base SQLite y los 101 campos dinámicos `{ CITATION Tag \l 3082 }` en párrafos y celdas de tabla.
+
+### Fixed
+- Corrección de 11 DOIs y URLs desactualizados o con error 404 (Guo 2024, Furlan 2012, Papalini 2022, Rák 2025, Salinas-Oñate 2022, Sotiropoulos 2025, Thomson 2023, Babic 2024, UNESCO 2013, OPS/OMS 2025) mediante verificación directa contra Crossref, PubMed y PMC (código HTTP 200).
+- Subsanación de errata histórica de año en Engel: corrección de `(1997)` a `(1977)` (*Science*, 196(4286), 129–136).
+- Eliminación de referencia duplicada a OMS (2022) en la sección final de Word.
+- Corrección tipográfica en citas de autores: `Sáchez` -> `Sánchez-Lozano`, `Ruíz` -> `Ruiz`, y unificación de `Cadena et al.` a `Ortega-Cadena et al.`.
+- **Subsanación de Menú Contextual Incompleto ("Editar fuente" ausente)**: Resuelto el fallo donde citas como `Chafloque-Capuñay et al., 2025`, `Hernández-Sampieri y Mendoza, 2023` o `Sánchez-Lozano y Martínez-Pizarro, 2025` ocultaban "Editar fuente" debido a discrepancias ortográficas o guiones tipográficos entre el código de campo y el `<b:Tag>`.
+- **Cobertura 100% de Checkmarks (`✓`) en Administrador de Fuentes**: Resuelto el problema de 42 fuentes sin marcar en la "Lista actual" de Word mediante la conversión de todas las menciones estáticas institucionales (OMS 2022, 2023, 2025, MINSA, OPS, SETEC, Duarte, GRUN) y de tablas de evidencia (Furlan, Guo, Sotiropoulos, Yerzhan, Rivera, Rodrigues) en campos SDT nativos. Ahora las 56 fuentes tienen su `✓` verificado por Word COM.
+- **Enriquecimiento Integral de Metadatos en "Editar fuente" de Word**: Resuelta la carencia de datos en el formulario de edición de fuentes reportada en la evidencia visual (`Ley774_2012`). Se poblaron todos los campos esenciales y recomendados en el esquema `<b:Sources>`:
+  - Casilla `* DOI`: Mapeada explícitamente a `<b:DOI>` y `<b:StandardNumber>` con la cadena limpia de DOI para los 24 artículos de revista científica.
+  - Casilla `URL`: Cobertura del 100% (56/56) con enlaces HTTPS legítimos y verificados (repositorio oficial `legislacion.asamblea.gob.ni` para leyes y decretos de Nicaragua, repositorios institucionales de UNAN-Managua, MINSA, OMS, OPS y editoriales reconocidas), sin inventar enlaces ni generar alucinaciones.
+  - Metadatos de publicación: Desglose completo de día, mes, año, ciudad (`<b:City>`), país (`<b:CountryRegion>`), entidad editora (`<b:Publisher>`), nombre de la revista (`<b:JournalName>`), volumen, número, páginas, edición y publicación oficial (`<b:PublicationTitle>` para La Gaceta, Diario Oficial).
+  - Verificación automatizada vía Word COM confirmando 56/56 con título, año, editorial/revista y URL; 24/24 artículos con DOI reconocido en GUI; y 56/56 fuentes con marca de citación (`s.Cited == True`).
+
+
+## [0.1.0] - 2026-10-21
 - **Suite de Skills Científicas**: Clonadas e integradas desde `prisma-scr` a `.agents/skills/` y sincronizadas en la configuración global de Antigravity:
   - `pandas-data-analysis`
   - `pandas-pro`
