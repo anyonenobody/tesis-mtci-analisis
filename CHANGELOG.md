@@ -8,6 +8,11 @@ El formato se basa en [Keep a Changelog](https://keepachangelog.com/es-ES/1.0.0/
 ## [Unreleased] - 2026-10-22
 
 ### Added
+- **Presentación Oficial de Defensa de Tesis (`Presentacion_Defensa_Tesis_MTCI_UNAN.pptx`)**: Deck de 16 láminas panorámicas 16:9 alineado a los estándares de la skill `pptx` de Anthropic, empleando tipografía editorial (Cambria + Calibri), estructura de contraste oscuro/claro ("sandwich"), métricas en gran formato (36–44pt), paddings y márgenes equilibrados, prescindiendo de barras decorativas o líneas artificiales bajo títulos.
+- **Suite de Generadores de Diapositivas (`tools/generate_defense_pptx_modern.py`)**: Script automatizado y determinista con `python-pptx` para la compilación de diapositivas académicas, gráficos vectoriales embebidos y carátulas institucionales.
+- **Integración del Manual de Estrategias MTCI (Anexo 16.2)**: Inserción íntegra del manual de 18 páginas como Anexo 16.2 en `assets/MTCI_Consolidado_Final_APA7.docx`, incluyendo 14 secciones temáticas, 13 tablas operativas y la adaptación transcultural del inventario I-CAM-Q para Nicaragua.
+- **Actualización de Figuras Estadísticas APA 7 (`tools/generate_apa7_figures.py`)**: Generación a 300 DPI con refinamiento tipográfico, espaciado visual y delimitación muestral explícita (N = 86; n = 68 estudiantes, n = 9 facilitadores, n = 9 docentes).
+- **Instalación de Skills de Presentación y Video**: Incorporación de `pptx` de Anthropic, junto con la suite de `hyperframes` y `remotion` en `.agents/skills/`.
 - **Base de Datos Bibliográfica SQLite (`data/bibliografia_mtci.db`)**: Base de datos relacional persistente con 56 referencias completamente tipadas (artículos, libros, informes, leyes, sitios web), metadatos normalizados (autores, año, títulos, volúmenes, páginas, DOIs y URLs) y llaves de citación.
 - **Exportación CSL-JSON (`data/bibliografia_mtci.csl.json`)**: Interoperabilidad con gestores bibliográficos (Zotero, Mendeley, PRISMA).
 - **Herramienta CLI `tools/bib_cli.py`**: Interfaz de terminal para estadísticas (`stats`), listado categorizado (`list`), búsqueda semántica (`search`) y auditoría HTTP en vivo (`verify`).
