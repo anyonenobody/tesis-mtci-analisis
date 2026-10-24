@@ -87,102 +87,313 @@ def gen_figura_01():
 # FIGURA 2: Diagrama de criterios de inclusión y exclusión
 # =========================================================
 def gen_figura_02():
-    fig, ax = plt.subplots(figsize=(10, 6.5))
-    ax.axis('off')
+    from matplotlib.patches import FancyBboxPatch
 
-    # Background frame
+    # Academic Palette
+    NAVY_DARK   = '#0F2942'
+    NAVY_HEADER = '#1B365D'
+    TEAL_BG     = '#F0F9FF'
+    TEAL_BADGE  = '#E0F2FE'
+    TEAL_BORDER = '#BAE6FD'
+    TEAL_TEXT   = '#0369A1'
+
+    ROSE_BG     = '#FFF5F5'
+    ROSE_BADGE  = '#FEE2E2'
+    ROSE_BORDER = '#FECACA'
+    ROSE_TEXT   = '#B91C1C'
+
+    TEXT_MAIN   = '#1E293B'
+    GOLD_PILL   = '#FEF3C7'
+    GOLD_TEXT   = '#92400E'
+
+    fig, ax = plt.subplots(figsize=(13.8, 8.8), dpi=300)
     ax.set_xlim(0, 100)
     ax.set_ylim(0, 100)
+    ax.axis('off')
+    fig.patch.set_facecolor('white')
 
-    # Box styles
-    inc_box = dict(boxstyle='round,pad=0.6', facecolor='#EBF4F6', edgecolor=TEAL, linewidth=1.5)
-    exc_box = dict(boxstyle='round,pad=0.6', facecolor='#FDF2E9', edgecolor=AMBER, linewidth=1.5)
-    title_box = dict(boxstyle='square,pad=0.5', facecolor=NAVY, edgecolor='none')
+    cols = [
+        {
+            "title": "Estudiantes de Psicología",
+            "n_badge": "Muestra: n = 68 (IV y V Año)",
+            "inc_bullets": [
+                "• Matrícula activa en 4.º o 5.º año de la carrera",
+                "• Turno matutino o por encuentro sabatino",
+                "• Adscripción vigente en CUR-Estelí (2026)",
+                "• Consentimiento informado formalmente aceptado",
+                "• Diligenciamiento completo del Cuestionario I1"
+            ],
+            "exc_bullets": [
+                "• Estudiantes cursando de 1.º a 3.º año académico",
+                "• Bajas académicas temporales o definitivas",
+                "• Matrícula en carreras o facultades no afines",
+                "• Omisión de datos críticos en el cuestionario",
+                "• Negativa voluntaria a participar en el estudio"
+            ]
+        },
+        {
+            "title": "Facilitadores de MTCI",
+            "n_badge": "Muestra: n = 9 (Actores Locales)",
+            "inc_bullets": [
+                "• Ejercicio profesional activo de MTCI en Estelí",
+                "• Práctica en terapias corporales o herbolarias",
+                "• Certificación, aval o reconocimiento comunitario",
+                "• Atención a usuarios con demandas psicofísicas",
+                "• Consentimiento y aplicación de la Entrevista I2"
+            ],
+            "exc_bullets": [
+                "• Práctica médica exclusivamente alopática",
+                "• Ejercicio radicado fuera del municipio de Estelí",
+                "• Comercialización de insumos sin consulta",
+                "• Trayectoria menor a un año continuo en MTCI",
+                "• Negativa a compartir información del ejercicio"
+            ]
+        },
+        {
+            "title": "Docentes de Psicología",
+            "n_badge": "Muestra: n = 9 (Cuerpo Docente)",
+            "inc_bullets": [
+                "• Título de Licenciatura en Psicología acreditado",
+                "• Docencia activa en UNAN-Managua / CUR-Estelí",
+                "• Impartición lectiva en 4.º o 5.º año de la carrera",
+                "• Tutoría de investigación formativa o prácticas",
+                "• Diligenciamiento voluntario del Cuestionario I3"
+            ],
+            "exc_bullets": [
+                "• Docentes de otras carreras o áreas del saber",
+                "• Personal administrativo sin docencia en aula",
+                "• Docentes con licencia prolongada o permiso",
+                "• Docencia exclusiva en primeros años (1.º a 3.º)",
+                "• Cuestionarios devueltos con datos incompletos"
+            ]
+        }
+    ]
 
-    # Column 1: Estudiantes
-    ax.text(18, 92, "Estudiantes de Psicología (n = 68)", ha='center', va='center',
-            color='white', fontsize=11, fontweight='bold', bbox=title_box)
-    ax.text(18, 65, "**Criterios de Inclusión:**\n• Matrícula activa en 4.º o 5.º año\n• Turno matutino o por encuentro\n• Consentimiento informado activo\n• CUR-Estelí, II Semestre 2026",
-            ha='center', va='center', fontsize=9.5, bbox=inc_box, linespacing=1.4)
-    ax.text(18, 25, "**Criterios de Exclusión:**\n• Estudiantes de 1.º a 3.º año\n• Bajas temporales o definitivas\n• Otras carreras no afines\n• Cuestionarios incompletos (<80%)",
-            ha='center', va='center', fontsize=9.5, bbox=exc_box, linespacing=1.4)
+    col_w = 30.0
+    x_starts = [2.0, 35.0, 68.0]
 
-    # Column 2: Actores Locales
-    ax.text(50, 92, "Actores Locales / Terapeutas (n = 9)", ha='center', va='center',
-            color='white', fontsize=11, fontweight='bold', bbox=title_box)
-    ax.text(50, 65, "**Criterios de Inclusión:**\n• Facilitadores activos de MTCI\n• Ejercicio en el municipio de Estelí\n• Certificación o aval comunitario\n• Práctica en terapias integrativas",
-            ha='center', va='center', fontsize=9.5, bbox=inc_box, linespacing=1.4)
-    ax.text(50, 25, "**Criterios de Exclusión:**\n• Práctica exclusiva fuera de Estelí\n• Práctica estrictamente médica/biomédica\n• Venta de productos sin consulta\n• Negativa a participar",
-            ha='center', va='center', fontsize=9.5, bbox=exc_box, linespacing=1.4)
+    y_header = 88.8
+    h_header = 8.0
 
-    # Column 3: Docentes
-    ax.text(82, 92, "Docentes de Psicología (n = 9)", ha='center', va='center',
-            color='white', fontsize=11, fontweight='bold', bbox=title_box)
-    ax.text(82, 65, "**Criterios de Inclusión:**\n• Licenciados en Psicología\n• Docencia activa en CUR-Estelí\n• Acompañamiento a 4.º o 5.º año\n• Participación voluntaria",
-            ha='center', va='center', fontsize=9.5, bbox=inc_box, linespacing=1.4)
-    ax.text(82, 25, "**Criterios de Exclusión:**\n• Docentes de otras disciplinas\n• Personal administrativo sin docencia\n• Licencia médica o año sabático\n• Cuestionarios con datos vacíos",
-            ha='center', va='center', fontsize=9.5, bbox=exc_box, linespacing=1.4)
+    y_inc = 49.5
+    h_inc = 36.5
+    y_inc_top = y_inc + h_inc
 
-    # Arrows between inclusion and exclusion
-    for x in [18, 50, 82]:
-        ax.annotate('', xy=(x, 40), xytext=(x, 48),
-                    arrowprops=dict(arrowstyle='->', color='#718096', lw=1.2))
+    y_exc = 7.0
+    h_exc = 36.5
+    y_exc_top = y_exc + h_exc
 
+    y_footer = 1.4
+    h_footer = 3.8
+
+    for idx, col in enumerate(cols):
+        xs = x_starts[idx]
+        xc = xs + col_w / 2.0
+
+        # 1. Header Card
+        header_box = FancyBboxPatch(
+            (xs, y_header), col_w, h_header,
+            boxstyle="round,pad=0.2,rounding_size=1.2",
+            facecolor=NAVY_HEADER, edgecolor=NAVY_DARK, linewidth=1.4,
+            zorder=2
+        )
+        ax.add_patch(header_box)
+
+        ax.text(
+            xc, y_header + 5.0, col["title"],
+            ha='center', va='center', color='white',
+            fontsize=11.6, fontweight='bold', zorder=3
+        )
+
+        pill_w = col_w * 0.74
+        pill_h = 2.5
+        pill_x = xc - pill_w / 2.0
+        pill_y = y_header + 1.2
+        pill_box = FancyBboxPatch(
+            (pill_x, pill_y), pill_w, pill_h,
+            boxstyle="round,pad=0.1,rounding_size=0.8",
+            facecolor=GOLD_PILL, edgecolor='#D97706', linewidth=0.8,
+            zorder=3
+        )
+        ax.add_patch(pill_box)
+        ax.text(
+            xc, pill_y + pill_h / 2.0, col["n_badge"],
+            ha='center', va='center', color=GOLD_TEXT,
+            fontsize=9.2, fontweight='bold', zorder=4
+        )
+
+        # 2. Inclusion Card
+        inc_card = FancyBboxPatch(
+            (xs, y_inc), col_w, h_inc,
+            boxstyle="round,pad=0.2,rounding_size=1.0",
+            facecolor='#FFFFFF', edgecolor=TEAL_BORDER, linewidth=1.3,
+            zorder=2
+        )
+        ax.add_patch(inc_card)
+
+        inc_inner = FancyBboxPatch(
+            (xs + 0.3, y_inc + 0.3), col_w - 0.6, h_inc - 0.6,
+            boxstyle="round,pad=0.1,rounding_size=0.8",
+            facecolor=TEAL_BG, edgecolor='none',
+            zorder=2.1
+        )
+        ax.add_patch(inc_inner)
+
+        inc_hdr_h = 4.2
+        inc_hdr_y = y_inc_top - inc_hdr_h
+        inc_hdr = FancyBboxPatch(
+            (xs + 0.4, inc_hdr_y), col_w - 0.8, inc_hdr_h,
+            boxstyle="round,pad=0.1,rounding_size=0.6",
+            facecolor=TEAL_BADGE, edgecolor='#7DD3FC', linewidth=1.0,
+            zorder=2.3
+        )
+        ax.add_patch(inc_hdr)
+
+        ax.text(
+            xc, inc_hdr_y + inc_hdr_h / 2.0, "✓  CRITERIOS DE INCLUSIÓN",
+            ha='center', va='center', color=TEAL_TEXT,
+            fontsize=9.8, fontweight='bold', zorder=3
+        )
+
+        bullet_y_start = inc_hdr_y - 3.8
+        line_gap = 5.6
+        for b_idx, bullet in enumerate(col["inc_bullets"]):
+            by = bullet_y_start - b_idx * line_gap
+            ax.text(
+                xs + 1.8, by, bullet,
+                ha='left', va='center', color=TEXT_MAIN,
+                fontsize=8.8, linespacing=1.2, zorder=3
+            )
+
+        # 3. Transition Arrow
+        arrow_x = xc
+        ax.annotate(
+            '', xy=(arrow_x, y_exc_top + 0.4), xytext=(arrow_x, y_inc - 0.2),
+            arrowprops=dict(
+                arrowstyle="-|>",
+                color='#64748B',
+                lw=1.6,
+                mutation_scale=14
+            ),
+            zorder=2
+        )
+
+        # 4. Exclusion Card
+        exc_card = FancyBboxPatch(
+            (xs, y_exc), col_w, h_exc,
+            boxstyle="round,pad=0.2,rounding_size=1.0",
+            facecolor='#FFFFFF', edgecolor=ROSE_BORDER, linewidth=1.3,
+            zorder=2
+        )
+        ax.add_patch(exc_card)
+
+        exc_inner = FancyBboxPatch(
+            (xs + 0.3, y_exc + 0.3), col_w - 0.6, h_exc - 0.6,
+            boxstyle="round,pad=0.1,rounding_size=0.8",
+            facecolor=ROSE_BG, edgecolor='none',
+            zorder=2.1
+        )
+        ax.add_patch(exc_inner)
+
+        exc_hdr_h = 4.2
+        exc_hdr_y = y_exc_top - exc_hdr_h
+        exc_hdr = FancyBboxPatch(
+            (xs + 0.4, exc_hdr_y), col_w - 0.8, exc_hdr_h,
+            boxstyle="round,pad=0.1,rounding_size=0.6",
+            facecolor=ROSE_BADGE, edgecolor='#FCA5A5', linewidth=1.0,
+            zorder=2.3
+        )
+        ax.add_patch(exc_hdr)
+
+        ax.text(
+            xc, exc_hdr_y + exc_hdr_h / 2.0, "✕  CRITERIOS DE EXCLUSIÓN",
+            ha='center', va='center', color=ROSE_TEXT,
+            fontsize=9.8, fontweight='bold', zorder=3
+        )
+
+        bullet_y_start = exc_hdr_y - 3.8
+        for b_idx, bullet in enumerate(col["exc_bullets"]):
+            by = bullet_y_start - b_idx * line_gap
+            ax.text(
+                xs + 1.8, by, bullet,
+                ha='left', va='center', color=TEXT_MAIN,
+                fontsize=8.8, linespacing=1.2, zorder=3
+            )
+
+    # 5. Bottom Executive Summary Banner
+    footer_w = 96.0
+    footer_x = 2.0
+    footer_box = FancyBboxPatch(
+        (footer_x, y_footer), footer_w, h_footer,
+        boxstyle="round,pad=0.2,rounding_size=0.8",
+        facecolor='#F8FAFC', edgecolor='#CBD5E1', linewidth=1.0,
+        zorder=2
+    )
+    ax.add_patch(footer_box)
+
+    footer_text = "Delimitación Muestral Consolidada:  Población Total Investigada N = 86 participantes  |  Estudiantes (n = 68)  •  Facilitadores (n = 9)  •  Docentes (n = 9)"
+    ax.text(
+        50.0, y_footer + h_footer / 2.0, footer_text,
+        ha='center', va='center', color='#334155',
+        fontsize=9.3, fontweight='bold', zorder=3
+    )
+
+    plt.tight_layout(pad=0.4)
     save_clean_fig(fig, "figura_02_criterios_inclusion_exclusion.png")
 
 # =========================================================
 # FIGURA 3: Demografía Estudiantes (3 subpaneles)
 # =========================================================
 def gen_figura_03():
-    fig, (ax1, ax2, ax3) = plt.subplots(1, 3, figsize=(13.5, 4.2))
+    fig, (ax1, ax2, ax3) = plt.subplots(1, 3, figsize=(13.0, 4.8), dpi=300)
 
     # Panel A: Año de Carrera
     anios = ['4.º Año', '5.º Año']
     anios_pct = [77.9, 22.1]
     anios_n = [53, 15]
     colors_a = [NAVY, TEAL]
-    bars1 = ax1.bar(anios, anios_pct, color=colors_a, width=0.55, edgecolor='none')
-    ax1.set_ylabel("Porcentaje de Estudiantes (%)", fontsize=10)
+    bars1 = ax1.bar(anios, anios_pct, color=colors_a, width=0.52, edgecolor='none')
+    ax1.set_ylabel("Porcentaje de Estudiantes (%)", fontsize=10.5, color='#1E293B')
     ax1.set_ylim(0, 95)
     for b, pct, n in zip(bars1, anios_pct, anios_n):
-        ax1.text(b.get_x() + b.get_width()/2, b.get_height() + 2, f"{pct:.1f}%\n(n={n})",
-                 ha='center', va='bottom', fontsize=9, fontweight='bold', color=NAVY)
+        ax1.text(b.get_x() + b.get_width()/2, b.get_height() + 2.5, f"{pct:.1f}%\n(n={n})",
+                 ha='center', va='bottom', fontsize=9.2, fontweight='bold', color=NAVY)
     ax1.spines['top'].set_visible(False)
     ax1.spines['right'].set_visible(False)
     ax1.grid(axis='y', linestyle='--', alpha=0.3)
-    ax1.set_title("A. Año de Formación", fontsize=11, fontweight='bold', pad=10, color=NAVY)
+    ax1.set_title("A. Año de Formación", fontsize=11, fontweight='bold', pad=12, color=NAVY)
 
     # Panel B: Sexo
     sexos = ['Femenino', 'Masculino', 'Prefiere\nno decir']
     sexos_pct = [82.4, 14.7, 2.9]
     sexos_n = [56, 10, 2]
     colors_b = [TEAL, SAGE, SLATE]
-    bars2 = ax2.bar(sexos, sexos_pct, color=colors_b, width=0.55, edgecolor='none')
+    bars2 = ax2.bar(sexos, sexos_pct, color=colors_b, width=0.52, edgecolor='none')
     ax2.set_ylim(0, 95)
     for b, pct, n in zip(bars2, sexos_pct, sexos_n):
-        ax2.text(b.get_x() + b.get_width()/2, b.get_height() + 2, f"{pct:.1f}%\n(n={n})",
-                 ha='center', va='bottom', fontsize=9, fontweight='bold', color=TEAL)
+        ax2.text(b.get_x() + b.get_width()/2, b.get_height() + 2.5, f"{pct:.1f}%\n(n={n})",
+                 ha='center', va='bottom', fontsize=9.2, fontweight='bold', color=TEAL)
     ax2.spines['top'].set_visible(False)
     ax2.spines['right'].set_visible(False)
     ax2.grid(axis='y', linestyle='--', alpha=0.3)
-    ax2.set_title("B. Distribución por Sexo", fontsize=11, fontweight='bold', pad=10, color=NAVY)
+    ax2.set_title("B. Distribución por Sexo", fontsize=11, fontweight='bold', pad=12, color=NAVY)
 
     # Panel C: Rango Etario
     edades = ['18–20', '21–25', '26–30', '>30']
     edades_pct = [20.6, 67.6, 10.3, 1.5]
     edades_n = [14, 46, 7, 1]
     colors_c = [SLATE, NAVY, AMBER, SAND]
-    bars3 = ax3.bar(edades, edades_pct, color=colors_c, width=0.55, edgecolor='none')
+    bars3 = ax3.bar(edades, edades_pct, color=colors_c, width=0.52, edgecolor='none')
     ax3.set_ylim(0, 80)
     for b, pct, n in zip(bars3, edades_pct, edades_n):
-        ax3.text(b.get_x() + b.get_width()/2, b.get_height() + 2, f"{pct:.1f}%\n(n={n})",
-                 ha='center', va='bottom', fontsize=8.5, fontweight='bold', color=NAVY)
+        ax3.text(b.get_x() + b.get_width()/2, b.get_height() + 2.5, f"{pct:.1f}%\n(n={n})",
+                 ha='center', va='bottom', fontsize=8.8, fontweight='bold', color=NAVY)
     ax3.spines['top'].set_visible(False)
     ax3.spines['right'].set_visible(False)
     ax3.grid(axis='y', linestyle='--', alpha=0.3)
-    ax3.set_title("C. Rango de Edad (Años)", fontsize=11, fontweight='bold', pad=10, color=NAVY)
+    ax3.set_title("C. Rango de Edad (Años)", fontsize=11, fontweight='bold', pad=12, color=NAVY)
 
-    plt.tight_layout()
+    plt.tight_layout(pad=2.2)
     save_clean_fig(fig, "figura_03_demografia_estudiantes.png")
 
 # =========================================================
@@ -312,7 +523,7 @@ def gen_figura_06():
 # FIGURA 7: Frecuencia de Uso y Efectos en Estudiantes
 # =========================================================
 def gen_figura_07():
-    fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(12, 4.6), gridspec_kw={'width_ratios': [1.3, 1]})
+    fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(12.2, 5.0), dpi=300, gridspec_kw={'width_ratios': [1.3, 1]})
 
     # Panel 1: Frecuencia
     categorias = ["Nunca / No usa", "Rara vez (1-2 veces)", "Ocasional (mensual)", "Frecuente (semanal)"]
@@ -325,40 +536,36 @@ def gen_figura_07():
     b1 = ax1.bar(x - width/2, autocuidado, width, label='Autocuidado General', color=NAVY)
     b2 = ax1.bar(x + width/2, estres, width, label='Manejo de Estrés Personal', color=AMBER)
 
-    ax1.set_ylabel("Porcentaje (%)", fontsize=10)
+    ax1.set_ylabel("Porcentaje (%)", fontsize=10.5, color='#1E293B')
     ax1.set_xticks(x)
-    ax1.set_xticklabels(categorias, rotation=20, ha='right', fontsize=9)
+    ax1.set_xticklabels(categorias, rotation=15, ha='right', fontsize=9.2)
     ax1.set_ylim(0, 65)
-    ax1.legend(frameon=False, fontsize=9.5)
+    ax1.legend(frameon=False, fontsize=9.5, loc='upper right')
     ax1.spines['top'].set_visible(False)
     ax1.spines['right'].set_visible(False)
     ax1.grid(axis='y', linestyle='--', alpha=0.3)
-    ax1.set_title("A. Frecuencia de Uso en el Último Año (n = 68)", fontsize=10.5, fontweight='bold', pad=10, color=NAVY)
+    ax1.set_title("A. Frecuencia de Uso en el Último Año (n = 68)", fontsize=11, fontweight='bold', pad=12, color=NAVY)
 
     for b in b1:
         h = b.get_height()
-        if h > 0: ax1.text(b.get_x() + b.get_width()/2, h + 1, f"{h:.1f}%", ha='center', fontsize=8, color=NAVY, fontweight='bold')
+        if h > 0: ax1.text(b.get_x() + b.get_width()/2, h + 1.2, f"{h:.1f}%", ha='center', fontsize=8.5, color=NAVY, fontweight='bold')
     for b in b2:
         h = b.get_height()
-        if h > 0: ax1.text(b.get_x() + b.get_width()/2, h + 1, f"{h:.1f}%", ha='center', fontsize=8, color=AMBER, fontweight='bold')
+        if h > 0: ax1.text(b.get_x() + b.get_width()/2, h + 1.2, f"{h:.1f}%", ha='center', fontsize=8.5, color=AMBER, fontweight='bold')
 
     # Panel 2: Efectos en usuarios reales (n=30)
-    efectos = ['Favorables / Alivio (86.7%)', 'Sin Cambios (13.3%)', 'Efectos Adversos (0.0%)']
-    efectos_vals = [26, 4, 0]
-    efectos_colors = [TEAL, SLATE, CORAL]
-
     wedges, texts, autotexts = ax2.pie(
-        [26, 4], labels=['Favorables\n(86.7%)', 'Sin cambios\n(13.3%)'],
+        [26, 4], labels=['Favorables / Alivio\n86.7% (n = 26)', 'Sin cambios\n13.3% (n = 4)'],
         autopct='%1.1f%%', startangle=90, colors=[TEAL, SLATE],
-        wedgeprops=dict(width=0.45, edgecolor='white', linewidth=2),
-        textprops=dict(fontsize=9, fontweight='bold', color=NAVY), pctdistance=0.75
+        wedgeprops=dict(width=0.45, edgecolor='white', linewidth=2.5),
+        textprops=dict(fontsize=9.5, fontweight='bold', color=NAVY), pctdistance=0.72
     )
     for at in autotexts:
         at.set_color('white')
-        at.set_fontsize(8.5)
-    ax2.set_title("B. Efectos Percibidos en Usuarios (n = 30)", fontsize=10.5, fontweight='bold', pad=10, color=NAVY)
+        at.set_fontsize(9.0)
+    ax2.set_title("B. Efectos Percibidos en Bienestar (n = 30)", fontsize=11, fontweight='bold', pad=12, color=NAVY)
 
-    plt.tight_layout()
+    plt.tight_layout(pad=2.2)
     save_clean_fig(fig, "figura_07_frecuencia_uso_estudiantes.png")
 
 # =========================================================
