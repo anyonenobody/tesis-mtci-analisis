@@ -9,14 +9,9 @@
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,400&family=Cinzel:wght@600;700&display=swap" rel="stylesheet">
   
   <style>
-    /* ==========================================================================
-       MODERN MINIMALIST EDITORIAL DESIGN SYSTEM (No-Box Aesthetics)
-       ========================================================================== */
     :root {
       --bg-dark: #070B14;
-      --bg-dark-surface: #0C1322;
-      --bg-light: #FBFDFE;
-      --bg-light-surface: #F1F5F9;
+      --bg-light: #FDFEFF;
       
       --text-main: #0F172A;
       --text-muted: #64748B;
@@ -24,17 +19,15 @@
       --text-light-muted: #94A3B8;
       
       --teal-primary: #0D9488;
-      --teal-glow: rgba(13, 148, 136, 0.25);
-      --gold-primary: #F59E0B;
-      --gold-glow: rgba(245, 158, 11, 0.25);
+      --gold-primary: #D97706;
+      --gold-bright: #F59E0B;
       --alert-crimson: #DC2626;
       --blue-royal: #2563EB;
       --hairline: rgba(226, 232, 240, 0.85);
       --hairline-dark: rgba(30, 41, 59, 0.85);
 
-      --font-serif: 'Playfair Display', Georgia, 'Times New Roman', serif;
-      --font-sans: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
-      --font-display: 'Cinzel', serif;
+      --font-serif: 'Playfair Display', Cambria, Georgia, serif;
+      --font-sans: 'Plus Jakarta Sans', Calibri, system-ui, sans-serif;
     }
 
     * {
@@ -56,7 +49,6 @@
       user-select: none;
     }
 
-    /* Screen Container (Fixed 16:9 Aspect Ratio) */
     #viewport {
       position: relative;
       width: 100vw;
@@ -64,12 +56,11 @@
       max-height: 100vh;
       max-width: 177.78vh; /* 16:9 */
       background: var(--bg-light);
-      box-shadow: 0 25px 70px rgba(0, 0, 0, 0.6);
+      box-shadow: 0 25px 70px rgba(0, 0, 0, 0.7);
       overflow: hidden;
       border-radius: 4px;
     }
 
-    /* Background Ambient Canvas Glow */
     .ambient-glow {
       position: absolute;
       top: -20%;
@@ -81,7 +72,6 @@
       z-index: 1;
     }
 
-    /* Slides Container */
     .deck-container {
       position: relative;
       width: 100%;
@@ -109,35 +99,30 @@
       transform: scale(1) translateY(0);
     }
 
-    /* Dark Mode Slides (Slides 1 & 16) */
     .slide.theme-dark {
       background: var(--bg-dark);
       color: var(--text-light);
     }
 
-    /* Editorial Header */
     .slide-header {
       position: relative;
-      margin-bottom: 2.2vw;
+      margin-bottom: 2.0vw;
       display: flex;
       justify-content: space-between;
       align-items: flex-start;
     }
 
     .header-text {
-      max-width: 82%;
+      max-width: 84%;
     }
 
     .eyebrow {
-      font-size: 0.82vw;
+      font-size: 0.8vw;
       font-weight: 700;
       letter-spacing: 0.12em;
       text-transform: uppercase;
       color: var(--teal-primary);
-      margin-bottom: 0.4vw;
-      display: flex;
-      align-items: center;
-      gap: 0.5vw;
+      margin-bottom: 0.3vw;
     }
 
     .slide.theme-dark .eyebrow {
@@ -146,7 +131,7 @@
 
     .slide-title {
       font-family: var(--font-serif);
-      font-size: 2.1vw;
+      font-size: 1.95vw;
       font-weight: 700;
       line-height: 1.22;
       color: var(--text-main);
@@ -157,84 +142,63 @@
     }
 
     .shield-badge img {
-      height: 4.0vw;
+      height: 3.8vw;
       object-fit: contain;
       filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.1));
     }
 
-    /* Slide Content Canvas (Minimalist, No Cards) */
     .slide-content {
       flex: 1;
       display: flex;
       position: relative;
     }
 
-    /* Column Layouts */
     .col-split {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 4.0vw;
+      gap: 3.8vw;
       width: 100%;
     }
 
     .col-split-asym {
       display: grid;
       grid-template-columns: 1.15fr 0.85fr;
-      gap: 4.0vw;
+      gap: 3.8vw;
       width: 100%;
     }
 
     .col-three {
       display: grid;
       grid-template-columns: 1fr 1fr 1fr;
-      gap: 3.2vw;
+      gap: 3.0vw;
       width: 100%;
     }
 
-    .col-four {
-      display: grid;
-      grid-template-columns: 1fr 1fr 1fr 1fr;
-      gap: 2.2vw;
-      width: 100%;
-    }
-
-    /* Editorial Hairlines */
-    .v-divider {
-      position: absolute;
-      top: 0;
-      bottom: 0;
-      left: 50%;
-      width: 1px;
-      background: var(--hairline);
-    }
-
-    /* Kinetic Stagger Animations */
     .reveal-item {
       opacity: 0;
-      transform: translateY(18px);
+      transform: translateY(16px);
       transition: opacity 0.55s cubic-bezier(0.16, 1, 0.3, 1), transform 0.55s cubic-bezier(0.16, 1, 0.3, 1);
     }
 
-    .slide.active .reveal-item:nth-child(1) { transition-delay: 0.12s; opacity: 1; transform: translateY(0); }
-    .slide.active .reveal-item:nth-child(2) { transition-delay: 0.22s; opacity: 1; transform: translateY(0); }
-    .slide.active .reveal-item:nth-child(3) { transition-delay: 0.32s; opacity: 1; transform: translateY(0); }
-    .slide.active .reveal-item:nth-child(4) { transition-delay: 0.42s; opacity: 1; transform: translateY(0); }
-    .slide.active .reveal-item:nth-child(5) { transition-delay: 0.52s; opacity: 1; transform: translateY(0); }
+    .slide.active .reveal-item:nth-child(1) { transition-delay: 0.10s; opacity: 1; transform: translateY(0); }
+    .slide.active .reveal-item:nth-child(2) { transition-delay: 0.20s; opacity: 1; transform: translateY(0); }
+    .slide.active .reveal-item:nth-child(3) { transition-delay: 0.30s; opacity: 1; transform: translateY(0); }
+    .slide.active .reveal-item:nth-child(4) { transition-delay: 0.40s; opacity: 1; transform: translateY(0); }
+    .slide.active .reveal-item:nth-child(5) { transition-delay: 0.50s; opacity: 1; transform: translateY(0); }
 
-    /* Number Callouts (Sculptural Stats) */
     .stat-hero {
       display: flex;
       flex-direction: column;
-      margin-bottom: 1.6vw;
+      margin-bottom: 1.4vw;
     }
 
     .stat-hero .number {
       font-family: var(--font-serif);
-      font-size: 3.6vw;
+      font-size: 3.4vw;
       font-weight: 700;
       line-height: 1;
       color: var(--teal-primary);
-      margin-bottom: 0.3vw;
+      margin-bottom: 0.2vw;
     }
 
     .stat-hero .number.crimson { color: var(--alert-crimson); }
@@ -242,44 +206,57 @@
     .stat-hero .number.royal { color: var(--blue-royal); }
 
     .stat-hero .label {
-      font-size: 0.95vw;
+      font-size: 0.9vw;
       font-weight: 700;
       color: var(--text-main);
       margin-bottom: 0.2vw;
     }
 
     .stat-hero .desc {
-      font-size: 0.85vw;
+      font-size: 0.82vw;
       color: var(--text-muted);
       line-height: 1.4;
     }
 
-    /* Typography Details */
     .point-item {
-      margin-bottom: 1.2vw;
-      line-height: 1.48;
+      margin-bottom: 1.1vw;
+      line-height: 1.46;
     }
 
     .point-num {
       font-family: var(--font-serif);
-      font-size: 1.1vw;
+      font-size: 1.05vw;
       font-weight: 700;
       color: var(--teal-primary);
       margin-right: 0.4vw;
     }
 
     .point-head {
-      font-size: 0.95vw;
+      font-size: 0.92vw;
       font-weight: 700;
       color: var(--text-main);
     }
 
     .point-body {
-      font-size: 0.88vw;
+      font-size: 0.85vw;
       color: var(--text-muted);
     }
 
-    /* Minimalist HUD / Footer Navigation */
+    .fig-frame {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .fig-frame img {
+      max-width: 100%;
+      max-height: 23.5vw;
+      object-fit: contain;
+      filter: drop-shadow(0 4px 10px rgba(0, 0, 0, 0.08));
+    }
+
     .deck-hud {
       position: absolute;
       bottom: 0;
@@ -292,13 +269,13 @@
       align-items: center;
       z-index: 100;
       border-top: 1px solid rgba(226, 232, 240, 0.6);
-      background: rgba(255, 255, 255, 0.85);
+      background: rgba(255, 255, 255, 0.88);
       backdrop-filter: blur(8px);
     }
 
     .slide.theme-dark ~ .deck-hud,
     #viewport.hud-dark .deck-hud {
-      background: rgba(7, 11, 20, 0.9);
+      background: rgba(7, 11, 20, 0.92);
       border-top: 1px solid rgba(30, 41, 59, 0.8);
       color: var(--text-light-muted);
     }
@@ -317,7 +294,7 @@
     .hud-controls {
       display: flex;
       align-items: center;
-      gap: 1.2vw;
+      gap: 1.1vw;
     }
 
     .btn-hud {
@@ -325,7 +302,7 @@
       border: none;
       color: inherit;
       cursor: pointer;
-      font-size: 0.85vw;
+      font-size: 0.82vw;
       font-weight: 600;
       display: flex;
       align-items: center;
@@ -341,14 +318,13 @@
     }
 
     .slide-counter {
-      font-size: 0.82vw;
+      font-size: 0.8vw;
       font-weight: 700;
       letter-spacing: 0.05em;
       min-width: 4.5vw;
       text-align: center;
     }
 
-    /* Minimal Progress Line */
     .progress-bar-wrap {
       position: absolute;
       top: 0;
@@ -360,21 +336,20 @@
 
     .progress-bar {
       height: 100%;
-      width: 6.25%;
+      width: 5.88%;
       background: linear-gradient(90deg, var(--teal-primary), var(--gold-primary));
       transition: width 0.35s ease;
     }
 
-    /* Speaker Notes Drawer */
     #notes-drawer {
       position: absolute;
       bottom: 3.2vw;
       left: 5.2vw;
       right: 5.2vw;
-      background: rgba(15, 23, 42, 0.96);
+      background: rgba(15, 23, 42, 0.97);
       color: #F8FAFC;
       border-radius: 8px 8px 0 0;
-      padding: 1.5vw 2.0vw;
+      padding: 1.4vw 2.0vw;
       z-index: 150;
       box-shadow: 0 -10px 40px rgba(0, 0, 0, 0.5);
       border: 1px solid rgba(51, 65, 85, 0.8);
@@ -390,25 +365,24 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      margin-bottom: 0.8vw;
-      font-size: 0.8vw;
+      margin-bottom: 0.6vw;
+      font-size: 0.78vw;
       text-transform: uppercase;
       letter-spacing: 0.1em;
-      color: var(--gold-primary);
+      color: var(--gold-bright);
       font-weight: 700;
     }
 
     .notes-content {
-      font-size: 0.95vw;
-      line-height: 1.6;
+      font-size: 0.92vw;
+      line-height: 1.55;
       color: #E2E8F0;
     }
 
-    /* Thumbnail Overview Modal */
     #thumb-modal {
       position: absolute;
       inset: 0;
-      background: rgba(7, 11, 20, 0.95);
+      background: rgba(7, 11, 20, 0.96);
       backdrop-filter: blur(12px);
       z-index: 200;
       padding: 3vw 5vw;
@@ -424,55 +398,39 @@
     .thumb-grid {
       display: grid;
       grid-template-columns: repeat(4, 1fr);
-      gap: 1.5vw;
-      margin-top: 1.5vw;
+      gap: 1.2vw;
+      margin-top: 1.2vw;
     }
 
     .thumb-card {
       background: #0F172A;
       border: 1px solid #1E293B;
       border-radius: 6px;
-      padding: 1.0vw;
+      padding: 0.9vw;
       cursor: pointer;
       transition: all 0.2s ease;
       display: flex;
       flex-direction: column;
-      gap: 0.4vw;
+      gap: 0.3vw;
     }
 
     .thumb-card:hover, .thumb-card.active {
       border-color: var(--teal-primary);
-      transform: translateY(-3px);
-      box-shadow: 0 8px 20px rgba(13, 148, 136, 0.3);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 18px rgba(13, 148, 136, 0.25);
     }
 
     .thumb-num {
-      font-size: 0.75vw;
+      font-size: 0.72vw;
       font-weight: 700;
       color: var(--teal-primary);
     }
 
     .thumb-title {
-      font-size: 0.85vw;
+      font-size: 0.8vw;
       font-weight: 600;
       color: #FFFFFF;
-      line-height: 1.3;
-    }
-
-    /* Embedded Figure and Cover Images */
-    .fig-frame {
-      width: 100%;
-      height: 100%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .fig-frame img {
-      max-width: 100%;
-      max-height: 25vw;
-      object-fit: contain;
-      filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.08));
+      line-height: 1.25;
     }
   </style>
 </head>
@@ -483,37 +441,37 @@
 
     <div class="deck-container" id="deck">
 
-      <!-- SLIDE 1: PORTADA INSTITUCIONAL (DARK MINIMALIST) -->
+      <!-- SLIDE 1: PORTADA INSTITUCIONAL -->
       <section class="slide theme-dark active" id="slide-01">
-        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2.5vw; border-bottom: 1px solid var(--hairline-dark); padding-bottom: 1.2vw;">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2.2vw; border-bottom: 1px solid var(--hairline-dark); padding-bottom: 1.2vw;">
           <div style="display: flex; align-items: center; gap: 1.5vw;">
-            <img src="assets/extracted/unan_logo_clean.png" alt="UNAN Managua" style="height: 4.8vw; filter: drop-shadow(0 4px 10px rgba(0,0,0,0.5));">
+            <img src="assets/extracted/unan_logo_clean.png" alt="UNAN Managua" style="height: 4.6vw; filter: drop-shadow(0 4px 10px rgba(0,0,0,0.5));">
             <div>
               <div style="font-size: 1.05vw; font-weight: 700; letter-spacing: 0.04em; color: #FFFFFF;">UNIVERSIDAD NACIONAL AUTÓNOMA DE NICARAGUA, MANAGUA</div>
-              <div style="font-size: 0.82vw; font-weight: 700; color: var(--gold-primary); margin-top: 0.2vw;">CENTRO UNIVERSITARIO REGIONAL DE ESTELÍ • RECINTO LEONEL RUGAMA RUGAMA</div>
-              <div style="font-size: 0.75vw; color: var(--text-light-muted); margin-top: 0.1vw;">Departamento de Educación y Humanidades | Carrera de Psicología</div>
+              <div style="font-size: 0.8vw; font-weight: 700; color: var(--gold-bright); margin-top: 0.2vw;">CENTRO UNIVERSITARIO REGIONAL DE ESTELÍ • RECINTO LEONEL RUGAMA RUGAMA</div>
+              <div style="font-size: 0.75vw; color: var(--text-light-muted); margin-top: 0.1vw;">Departamento de Educación y Humanidades | Carrera de Licenciatura en Psicología</div>
             </div>
           </div>
           <div style="text-align: right;">
-            <span style="font-size: 0.75vw; font-weight: 700; letter-spacing: 0.1em; color: var(--teal-primary); text-transform: uppercase;">Defensa Oral de Grado</span>
-            <div style="font-size: 0.85vw; color: #FFFFFF; font-weight: 600;">Octubre, 2026</div>
+            <span style="font-size: 0.72vw; font-weight: 700; letter-spacing: 0.1em; color: var(--teal-primary); text-transform: uppercase;">Defensa Oral de Grado</span>
+            <div style="font-size: 0.82vw; color: #FFFFFF; font-weight: 600;">Octubre, 2026</div>
           </div>
         </div>
 
-        <div style="margin-top: 1.0vw; margin-bottom: 3.0vw;">
-          <div class="eyebrow" style="color: #2DD4BF; margin-bottom: 0.8vw;">TRABAJO DE INVESTIGACIÓN PARA OPTAR AL GRADO DE LICENCIADOS EN PSICOLOGÍA</div>
-          <h1 style="font-family: var(--font-serif); font-size: 2.7vw; line-height: 1.18; color: #FFFFFF; max-width: 95%; margin-bottom: 1.0vw;">
+        <div style="margin-top: 0.8vw; margin-bottom: 2.8vw;">
+          <div class="eyebrow" style="color: #2DD4BF; margin-bottom: 0.6vw;">TRABAJO DE INVESTIGACIÓN PARA OPTAR AL GRADO DE LICENCIADOS EN PSICOLOGÍA</div>
+          <h1 style="font-family: var(--font-serif); font-size: 2.5vw; line-height: 1.18; color: #FFFFFF; max-width: 95%; margin-bottom: 0.9vw;">
             La Medicina Tradicional, Complementaria e Integrativa (MTCI) como Complemento en la Atención Psicológica
           </h1>
-          <p style="font-size: 1.15vw; color: #E2E8F0; font-weight: 400; max-width: 90%;">
-            Estudio Mixto con Estudiantes y Docentes del CUR-Estelí y Facilitadores Locales del Municipio de Estelí
+          <p style="font-size: 1.1vw; color: #E2E8F0; font-weight: 400; max-width: 90%;">
+            Estudio Mixto con Estudiantes y Docentes del CUR-Estelí y Facilitadores Locales del Municipio de Estelí (Segundo Semestre, 2026)
           </p>
         </div>
 
-        <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 3.0vw; border-top: 1px solid var(--hairline-dark); padding-top: 1.8vw;">
+        <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 3.0vw; border-top: 1px solid var(--hairline-dark); padding-top: 1.6vw;">
           <div>
-            <div style="font-size: 0.78vw; font-weight: 700; letter-spacing: 0.1em; color: var(--gold-primary); text-transform: uppercase; margin-bottom: 0.5vw;">Autores / Sustentantes</div>
-            <div style="font-size: 0.9vw; line-height: 1.6; color: #FFFFFF;">
+            <div style="font-size: 0.75vw; font-weight: 700; letter-spacing: 0.1em; color: var(--gold-bright); text-transform: uppercase; margin-bottom: 0.4vw;">Autores / Sustentantes</div>
+            <div style="font-size: 0.88vw; line-height: 1.55; color: #FFFFFF;">
               <div>• Dina Fabiola García Torres</div>
               <div>• Tatiana Paola López Ramos</div>
               <div>• Engel Enoc Zamora Velásquez</div>
@@ -521,15 +479,15 @@
           </div>
 
           <div>
-            <div style="font-size: 0.78vw; font-weight: 700; letter-spacing: 0.1em; color: #2DD4BF; text-transform: uppercase; margin-bottom: 0.5vw;">Tutoría Académica</div>
-            <div style="font-size: 0.9vw; font-weight: 600; color: #FFFFFF;">Dra. Tania Libertad Pérez Guevara</div>
-            <div style="font-size: 0.78vw; color: var(--text-light-muted); margin-top: 0.2vw;">Docente Investigadora • CUR-Estelí<br>Asesoría Temática y Metodológica</div>
+            <div style="font-size: 0.75vw; font-weight: 700; letter-spacing: 0.1em; color: #2DD4BF; text-transform: uppercase; margin-bottom: 0.4vw;">Tutoría Académica</div>
+            <div style="font-size: 0.88vw; font-weight: 600; color: #FFFFFF;">Dra. Tania Libertad Pérez Guevara</div>
+            <div style="font-size: 0.75vw; color: var(--text-light-muted); margin-top: 0.2vw;">Docente Investigadora • CUR-Estelí<br>Asesoría Temática y Metodológica</div>
           </div>
 
           <div>
-            <div style="font-size: 0.78vw; font-weight: 700; letter-spacing: 0.1em; color: #E2E8F0; text-transform: uppercase; margin-bottom: 0.5vw;">Coordenadas Institucionales</div>
-            <div style="font-size: 0.9vw; color: #FFFFFF;">Licenciatura en Psicología</div>
-            <div style="font-size: 0.78vw; color: var(--text-light-muted); margin-top: 0.2vw;">Línea de Investigación SAL-3 (Salud e Interculturalidad)<br>Estelí, Nicaragua</div>
+            <div style="font-size: 0.75vw; font-weight: 700; letter-spacing: 0.1em; color: #E2E8F0; text-transform: uppercase; margin-bottom: 0.4vw;">Coordenadas Institucionales</div>
+            <div style="font-size: 0.88vw; color: #FFFFFF;">Licenciatura en Psicología</div>
+            <div style="font-size: 0.75vw; color: var(--text-light-muted); margin-top: 0.2vw;">Línea de Investigación SAL-3 (Salud e Interculturalidad)<br>Estelí, Nicaragua</div>
           </div>
         </div>
       </section>
@@ -538,121 +496,166 @@
       <section class="slide" id="slide-02">
         <div class="slide-header">
           <div class="header-text">
-            <div class="eyebrow">Capítulo I • Planteamiento del Problema</div>
-            <h2 class="slide-title">Encrucijada Asistencial, Vacío Formativo y Pertinencia Social</h2>
+            <div class="eyebrow">Capítulo I • Introducción</div>
+            <h2 class="slide-title">Planteamiento del Problema y Justificación de la Investigación</h2>
           </div>
           <div class="shield-badge"><img src="assets/extracted/unan_shield_only.png" alt="UNAN"></div>
         </div>
 
         <div class="slide-content">
           <div class="col-split">
-            <!-- Columna 1: Problema -->
             <div class="reveal-item">
-              <h3 style="font-family: var(--font-serif); font-size: 1.25vw; color: var(--text-main); margin-bottom: 1.2vw;">El Conflicto Estructural en Salud Mental</h3>
+              <h3 style="font-family: var(--font-serif); font-size: 1.2vw; color: var(--text-main); margin-bottom: 1.0vw;">Problema de Investigación: Tensión Normativa y Formativa</h3>
               <div class="point-item">
                 <span class="point-num">01</span>
                 <span class="point-head">Asimetría Normativa:</span>
-                <span class="point-body">La Ley 774 garantiza el acceso ciudadano a las MTCI, mientras la Ley 292 prohíbe tajantemente a psicólogos prescribir fármacos.</span>
+                <span class="point-body">La Ley 774 garantiza el derecho ciudadano a la MTCI, pero la Ley 292 prohíbe tajantemente a psicólogos prescribir fármacos. Los planes curriculares no brindan pautas deontológicas para dialogar o derivar.</span>
               </div>
               <div class="point-item">
                 <span class="point-num">02</span>
-                <span class="point-head">El Ocultamiento Terapéutico:</span>
-                <span class="point-body">Los consultantes recurren a la medicina natural pero la silencian en sesión clínica por temor al reproche o escepticismo del terapeuta.</span>
+                <span class="point-head">Ocultamiento Terapéutico en Consulta:</span>
+                <span class="point-body">Los consultantes recurren activamente a terapias tradicionales pero las silencian en sesión clínica por temor al escepticismo o censura del profesional.</span>
               </div>
               <div class="point-item">
                 <span class="point-num">03</span>
-                <span class="point-head">Vacío Curricular Crítico:</span>
-                <span class="point-body">Los futuros graduados egresan sin pautas bioéticas para dialogar, psicoeducar o realizar derivaciones oportunas.</span>
+                <span class="point-head">Riesgos Clínicos e Interacciones:</span>
+                <span class="point-body">El desconocimiento de fitoterapia impide detectar interacciones con psicofármacos o prácticas que puedan retrasar la atención especializada.</span>
               </div>
-              <div style="margin-top: 1.8vw; padding-left: 1.0vw; border-left: 2px solid var(--gold-primary);">
-                <div style="font-size: 0.8vw; font-weight: 700; color: var(--gold-primary); text-transform: uppercase;">Pregunta de Investigación</div>
-                <div style="font-size: 0.95vw; font-style: italic; color: var(--text-main); margin-top: 0.2vw;">
+              <div style="margin-top: 1.4vw; padding-left: 1.0vw; border-left: 2px solid var(--gold-bright);">
+                <div style="font-size: 0.78vw; font-weight: 700; color: var(--gold-primary); text-transform: uppercase;">Pregunta Central de Investigación</div>
+                <div style="font-size: 0.9vw; font-style: italic; color: var(--text-main); margin-top: 0.2vw;">
                   ¿Cómo fundamenta el diagnóstico de MTCI en Estelí el diseño de un manual ético y pedagógico para Psicología?
                 </div>
               </div>
             </div>
 
-            <!-- Columna 2: Justificación -->
             <div class="reveal-item">
-              <h3 style="font-family: var(--font-serif); font-size: 1.25vw; color: var(--text-main); margin-bottom: 1.2vw;">Justificación y Relevancia Social</h3>
+              <h3 style="font-family: var(--font-serif); font-size: 1.2vw; color: var(--text-main); margin-bottom: 1.0vw;">Justificación y Relevancia Social</h3>
               <div class="point-item">
-                <span class="point-num" style="color: var(--teal-primary);">✦</span>
+                <span class="point-num">✦</span>
                 <span class="point-head">Ética y No Maleficencia:</span>
-                <span class="point-body">Conocer qué hierbas o remedios usa el consultante previene interacciones fitofarmacológicas y protege la seguridad clínica.</span>
+                <span class="point-body">Explorar el uso de hierbas y remedios previene interacciones fitofarmacológicas y protege la seguridad clínica del usuario.</span>
               </div>
               <div class="point-item">
-                <span class="point-num" style="color: var(--teal-primary);">✦</span>
+                <span class="point-num">✦</span>
                 <span class="point-head">Salud Mental Comunitaria:</span>
-                <span class="point-body">Reconoce y articula la memoria etnobotánica viva y dignifica el rol histórico de los facilitadores locales de Estelí.</span>
+                <span class="point-body">Reconoce la memoria etnobotánica viva y dignifica el rol histórico de los facilitadores tradicionales en Estelí.</span>
               </div>
               <div class="point-item">
-                <span class="point-num" style="color: var(--teal-primary);">✦</span>
-                <span class="point-head">Impacto Formativo Directo:</span>
-                <span class="point-body">Dota a los estudiantes de 4.º y 5.º año de criterios de discernimiento para sus prácticas en la Clínica Psicosocial del CUR-Estelí.</span>
+                <span class="point-num">✦</span>
+                <span class="point-head">Pertinencia Formativa en CUR-Estelí:</span>
+                <span class="point-body">Dota a estudiantes de 4.º y 5.º año de criterios de discernimiento para sus prácticas en la Clínica Psicosocial.</span>
               </div>
               <div class="point-item">
-                <span class="point-num" style="color: var(--teal-primary);">✦</span>
+                <span class="point-num">✦</span>
                 <span class="point-head">Aporte Propositivo Concreto:</span>
-                <span class="point-body">Formaliza el primer Manual de Estrategias MTCI (18 págs., Anexo 16.2) como guía pedagógica y bioética institucional.</span>
+                <span class="point-body">Formaliza el Manual de Estrategias MTCI (18 págs., Anexo 16.2), articulando algoritmos clínicos y el inventario I-CAM-Q.</span>
               </div>
             </div>
           </div>
         </div>
       </section>
 
-      <!-- SLIDE 3: ANTECEDENTES (TIMELINE HORIZONTAL) -->
+      <!-- SLIDE 3: ANTECEDENTES -->
       <section class="slide" id="slide-03">
         <div class="slide-header">
           <div class="header-text">
-            <div class="eyebrow">Capítulo I • Estado del Arte</div>
-            <h2 class="slide-title">Trayectoria de la Evidencia Internacional, Regional y Local</h2>
+            <div class="eyebrow">Capítulo I • Introducción</div>
+            <h2 class="slide-title">Antecedentes de la Investigación: Ámbitos Internacional, Regional y Local</h2>
           </div>
           <div class="shield-badge"><img src="assets/extracted/unan_shield_only.png" alt="UNAN"></div>
         </div>
 
         <div class="slide-content">
-          <div class="col-three" style="position: relative;">
+          <div class="col-three">
             <div class="reveal-item">
-              <div style="font-size: 1.4vw; font-family: var(--font-serif); font-weight: 700; color: var(--teal-primary); margin-bottom: 0.3vw;">2014 – 2019</div>
-              <div style="font-size: 0.8vw; font-weight: 700; color: var(--text-main); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 1.0vw;">Ámbito Global • Directrices OMS</div>
-              <p class="point-body" style="margin-bottom: 0.8vw;">• <b>Estrategia OMS MTCI:</b> Marco global que insta a los sistemas de salud a integrar medicinas tradicionales con base en evidencia.</p>
-              <p class="point-body" style="margin-bottom: 0.8vw;">• <b>Metanálisis Clínicos:</b> Furlan et al. (2012) y Guo et al. (2024) comprueban eficacia en dolor crónico, fibromialgia y estrés somático.</p>
-              <p class="point-body">• <b>Salud Mental Global:</b> Sotiropoulos et al. (2025) validan técnicas mente-cuerpo en comorbilidades afectivas.</p>
+              <div style="font-size: 1.35vw; font-family: var(--font-serif); font-weight: 700; color: var(--teal-primary); margin-bottom: 0.3vw;">2014 – 2019</div>
+              <div style="font-size: 0.78vw; font-weight: 700; color: var(--text-main); text-transform: uppercase; margin-bottom: 0.9vw;">Ámbito Global • Directrices OMS</div>
+              <p class="point-body" style="margin-bottom: 0.7vw;">• <b>Estrategia OMS MTCI:</b> Marco que insta a incorporar medicinas tradicionales sobre bases de seguridad y evidencia.</p>
+              <p class="point-body" style="margin-bottom: 0.7vw;">• <b>Metanálisis Clínicos:</b> Furlan (2012) y Guo (2024) comprueban eficacia en dolor crónico, fibromialgia y estrés somático.</p>
+              <p class="point-body">• <b>Salud Mental:</b> Sotiropoulos et al. (2025) validan técnicas de autorregulación somática en cuadros ansioso-depresivos.</p>
             </div>
 
             <div class="reveal-item">
-              <div style="font-size: 1.4vw; font-family: var(--font-serif); font-weight: 700; color: var(--gold-primary); margin-bottom: 0.3vw;">2020 – 2023</div>
-              <div style="font-size: 0.8vw; font-weight: 700; color: var(--text-main); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 1.0vw;">Ámbito Regional • Paradoja Universitaria</div>
-              <p class="point-body" style="margin-bottom: 0.8vw;">• <b>Estudios Universitarios:</b> En Argentina (Papalini, 2022) y Chile se evidencia uso masivo de MTCI en estudiantes de salud.</p>
-              <p class="point-body" style="margin-bottom: 0.8vw;">• <b>Paradoja Formativa:</b> Más del 80% recurre a MTCI en autocuidado pero reporta cero instrucción en sus facultades.</p>
-              <p class="point-body">• <b>Falta de Protocolos:</b> Inexistencia de algoritmos para derivar entre psicólogos y terapeutas tradicionales.</p>
+              <div style="font-size: 1.35vw; font-family: var(--font-serif); font-weight: 700; color: var(--gold-primary); margin-bottom: 0.3vw;">2020 – 2023</div>
+              <div style="font-size: 0.78vw; font-weight: 700; color: var(--text-main); text-transform: uppercase; margin-bottom: 0.9vw;">Ámbito Regional • Estudios Universitarios</div>
+              <p class="point-body" style="margin-bottom: 0.7vw;">• <b>Educación Superior:</b> Estudios en Argentina (Papalini, 2022) y Chile evidencian uso masivo de MTCI en estudiantes de salud.</p>
+              <p class="point-body" style="margin-bottom: 0.7vw;">• <b>Brecha Formativa:</b> Más del 80% recurre a MTCI en autocuidado pero reporta nula instrucción en sus facultades.</p>
+              <p class="point-body">• <b>Falta de Protocolos:</b> Inexistencia de algoritmos para derivación clínica entre psicólogos y terapeutas tradicionales.</p>
             </div>
 
             <div class="reveal-item">
-              <div style="font-size: 1.4vw; font-family: var(--font-serif); font-weight: 700; color: var(--blue-royal); margin-bottom: 0.3vw;">2024 – 2026</div>
-              <div style="font-size: 0.8vw; font-weight: 700; color: var(--text-main); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 1.0vw;">Ámbito Local • Nicaragua y CUR-Estelí</div>
-              <p class="point-body" style="margin-bottom: 0.8vw;">• <b>Marco Jurídico de Vanguardia:</b> Leyes 774 y 759 establecen el Instituto de Medicina Natural pionero en Centroamérica.</p>
-              <p class="point-body" style="margin-bottom: 0.8vw;">• <b>Vacío en Psicología:</b> Cero asignaturas electivas sobre interculturalidad y diálogo médico en las universidades.</p>
+              <div style="font-size: 1.35vw; font-family: var(--font-serif); font-weight: 700; color: var(--blue-royal); margin-bottom: 0.3vw;">2024 – 2026</div>
+              <div style="font-size: 0.78vw; font-weight: 700; color: var(--text-main); text-transform: uppercase; margin-bottom: 0.9vw;">Ámbito Local • Nicaragua y CUR-Estelí</div>
+              <p class="point-body" style="margin-bottom: 0.7vw;">• <b>Vanguardia Jurídica:</b> Leyes 774 y 759 establecen el Instituto de Medicina Natural, pionero en Centroamérica.</p>
+              <p class="point-body" style="margin-bottom: 0.7vw;">• <b>Vacío en Psicología:</b> Ausencia de asignaturas o contenidos sobre interculturalidad en salud mental en los planes de estudio.</p>
               <p class="point-body">• <b>Estudio CUR-Estelí (2026):</b> Primera investigación empírica mixta que articula estudiantes, docentes y facilitadores.</p>
             </div>
           </div>
         </div>
       </section>
 
-      <!-- SLIDE 5: OBJETIVOS (JERARQUÍA ESCULTÓRICA) -->
+      <!-- SLIDE 4: CONTEXTO DEL ESTUDIO -->
+      <section class="slide" id="slide-04">
+        <div class="slide-header">
+          <div class="header-text">
+            <div class="eyebrow">Capítulo I • Introducción</div>
+            <h2 class="slide-title">Contexto del Estudio: Territorio de Estelí y UNAN-Managua CUR-Estelí</h2>
+          </div>
+          <div class="shield-badge"><img src="assets/extracted/unan_shield_only.png" alt="UNAN"></div>
+        </div>
+
+        <div class="slide-content">
+          <div class="col-split">
+            <div class="reveal-item">
+              <h3 style="font-family: var(--font-serif); font-size: 1.2vw; color: var(--text-main); margin-bottom: 1.0vw;">Municipio de Estelí: Realidad Sociocultural y Prácticas</h3>
+              <div class="point-item">
+                <span class="point-head" style="color: var(--teal-primary);">✦ Tradición Etnobotánica de Las Segovias:</span><br>
+                <span class="point-body">Estelí conserva un acervo histórico de uso de plantas medicinales, sobandería y remedios caseros transmitidos de generación en generación.</span>
+              </div>
+              <div class="point-item">
+                <span class="point-head" style="color: var(--teal-primary);">✦ Presencia de Terapeutas Comunitarios:</span><br>
+                <span class="point-body">Facilitadores de medicina natural, masajistas y sobadores atienden de forma cotidiana a personas con dolencias osteomusculares y estrés adaptativo.</span>
+              </div>
+              <div class="point-item">
+                <span class="point-head" style="color: var(--teal-primary);">✦ Desarticulación Asistencial:</span><br>
+                <span class="point-body">Persiste una brecha de comunicación formal entre terapeutas comunitarios y servicios de salud institucionales, mediada por recelos y falta de protocolos.</span>
+              </div>
+            </div>
+
+            <div class="reveal-item">
+              <h3 style="font-family: var(--font-serif); font-size: 1.2vw; color: var(--text-main); margin-bottom: 1.0vw;">UNAN-Managua CUR-Estelí: Clínica y Formación</h3>
+              <div class="point-item">
+                <span class="point-head" style="color: var(--gold-primary);">✦ Recinto Universitario Leonel Rugama:</span><br>
+                <span class="point-body">Sede regional que forma profesionales de la psicología comprometidos con las demandas psicosociales del norte de Nicaragua.</span>
+              </div>
+              <div class="point-item">
+                <span class="point-head" style="color: var(--gold-primary);">✦ Clínica Psicosocial del CUR-Estelí:</span><br>
+                <span class="point-body">Espacio asistencial y formativo donde estudiantes de 4.º y 5.º año atienden casos clínicos reales bajo estricta supervisión docente.</span>
+              </div>
+              <div class="point-item">
+                <span class="point-head" style="color: var(--gold-primary);">✦ Demanda de Herramientas Bioéticas:</span><br>
+                <span class="point-body">La investigación responde a la necesidad docente de dotar al estudiantado de pautas estructuradas para explorar el uso de MTCI y fijar límites éticos.</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- SLIDE 5: OBJETIVOS -->
       <section class="slide" id="slide-05">
         <div class="slide-header">
           <div class="header-text">
-            <div class="eyebrow">Capítulo I • Propósito Investigativo</div>
-            <h2 class="slide-title">Objetivos de la Investigación: Del Diagnóstico a la Propuesta</h2>
+            <div class="eyebrow">Capítulo I • Introducción</div>
+            <h2 class="slide-title">Objetivos de la Investigación: General y Específicos</h2>
           </div>
           <div class="shield-badge"><img src="assets/extracted/unan_shield_only.png" alt="UNAN"></div>
         </div>
 
         <div class="slide-content" style="flex-direction: column;">
-          <div class="reveal-item" style="border-bottom: 1px solid var(--hairline); padding-bottom: 1.5vw; margin-bottom: 2.0vw;">
-            <div style="font-size: 0.8vw; font-weight: 700; color: var(--gold-primary); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 0.4vw;">Objetivo General</div>
-            <p style="font-family: var(--font-serif); font-size: 1.35vw; font-weight: 600; line-height: 1.35; color: var(--text-main);">
+          <div class="reveal-item" style="border-bottom: 1px solid var(--hairline); padding-bottom: 1.4vw; margin-bottom: 1.8vw;">
+            <div style="font-size: 0.78vw; font-weight: 700; color: var(--gold-primary); text-transform: uppercase; margin-bottom: 0.3vw;">Objetivo General</div>
+            <p style="font-family: var(--font-serif); font-size: 1.3vw; font-weight: 600; line-height: 1.35; color: var(--text-main);">
               Analizar la integración de la Medicina Tradicional, Complementaria e Integrativa (MTCI) como recurso complementario en la atención psicológica, a partir de las percepciones, conocimientos y prácticas de estudiantes, docentes y facilitadores locales, formulando un manual de estrategias bioéticas y formativas en el CUR-Estelí.
             </p>
           </div>
@@ -660,149 +663,358 @@
           <div class="col-three">
             <div class="reveal-item">
               <div style="font-family: var(--font-serif); font-size: 2.8vw; font-weight: 700; color: var(--teal-primary); line-height: 1;">01</div>
-              <div style="font-size: 0.85vw; font-weight: 700; color: var(--text-main); margin-top: 0.4vw; margin-bottom: 0.6vw;">OE1 • Diagnóstico Estudiantil</div>
+              <div style="font-size: 0.85vw; font-weight: 700; color: var(--text-main); margin-top: 0.3vw; margin-bottom: 0.5vw;">OE1 • Muestra Estudiantil</div>
               <p class="point-body">Caracterizar la percepción, nivel de conocimiento, frecuencia de uso y barreras autopercibidas en los estudiantes de 4.º y 5.º año de Psicología respecto a las MTCI.</p>
             </div>
 
             <div class="reveal-item">
               <div style="font-family: var(--font-serif); font-size: 2.8vw; font-weight: 700; color: var(--blue-royal); line-height: 1;">02</div>
-              <div style="font-size: 0.85vw; font-weight: 700; color: var(--text-main); margin-top: 0.4vw; margin-bottom: 0.6vw;">OE2 • Saberes de Facilitadores</div>
+              <div style="font-size: 0.85vw; font-weight: 700; color: var(--text-main); margin-top: 0.3vw; margin-bottom: 0.5vw;">OE2 • Facilitadores Locales</div>
               <p class="point-body">Explorar las experiencias terapéuticas, prácticas tradicionales y barreras socioculturales que enfrentan los facilitadores locales de medicina tradicional en Estelí.</p>
             </div>
 
             <div class="reveal-item">
               <div style="font-family: var(--font-serif); font-size: 2.8vw; font-weight: 700; color: var(--gold-primary); line-height: 1;">03</div>
-              <div style="font-size: 0.85vw; font-weight: 700; color: var(--text-main); margin-top: 0.4vw; margin-bottom: 0.6vw;">OE3 • Propuesta del Manual</div>
-              <p class="point-body">Diseñar un Manual de Estrategias de MTCI para la formación y práctica psicológica, articulando pautas bioéticas, algoritmos de derivación y contenidos curriculares en el CUR-Estelí.</p>
+              <div style="font-size: 0.85vw; font-weight: 700; color: var(--text-main); margin-top: 0.3vw; margin-bottom: 0.5vw;">OE3 • Claustro y Propuesta</div>
+              <p class="point-body">Diseñar un Manual de Estrategias de MTCI para la formación y práctica psicológica, fundamentado en los criterios del claustro docente y los hallazgos empíricos.</p>
             </div>
           </div>
         </div>
       </section>
 
-      <!-- SLIDE 11: LA PARADOJA FORMATIVA (ANIMATED STATS & VIZ) -->
-      <section class="slide" id="slide-11">
+      <!-- SLIDE 6: MARCO TEÓRICO 1 -->
+      <section class="slide" id="slide-06">
         <div class="slide-header">
           <div class="header-text">
-            <div class="eyebrow">Capítulo IV • Resultados Empíricos (2/4)</div>
-            <h2 class="slide-title">La Paradoja Formativa: Alta Pertinencia frente al Desamparo Curricular (OE1)</h2>
+            <div class="eyebrow">Capítulo II • Marco Teórico (1/2)</div>
+            <h2 class="slide-title">Fundamentos Epistemológicos y Principios Bioéticos en Salud Mental</h2>
           </div>
           <div class="shield-badge"><img src="assets/extracted/unan_shield_only.png" alt="UNAN"></div>
         </div>
 
         <div class="slide-content">
-          <div class="col-split-asym">
-            <!-- Big Stats (Flotantes, Sin Cajas) -->
+          <div class="col-three">
             <div class="reveal-item">
-              <div class="stat-hero">
-                <div class="number" data-target="89.7">0.0%</div>
-                <div class="label">Pertinencia y Relevancia Clínica Asistencial</div>
-                <div class="desc">Considera necesario y urgente articular contenidos de MTCI en la formación y ejercicio de la psicología.</div>
-              </div>
-
-              <div class="stat-hero">
-                <div class="number crimson" data-target="88.2">0.0%</div>
-                <div class="label">Desamparo y Vacío Curricular Absoluto</div>
-                <div class="desc">Reconoce no haber recibido preparación formal alguna para orientar, psicoeducar o derivar hacia MTCI.</div>
-              </div>
-
-              <div class="stat-hero">
-                <div class="number gold" data-target="86.8">0.0%</div>
-                <div class="label">Inseguridad Procedimental Autopercibida</div>
-                <div class="desc">Autopercibe competencias nulas o insuficientes para dialogar éticamente sobre remedios naturales.</div>
-              </div>
+              <h3 style="font-family: var(--font-serif); font-size: 1.2vw; color: var(--text-main); margin-bottom: 0.2vw;">01 • Modelo Biopsicosocial Ampliado</h3>
+              <div style="font-size: 0.78vw; font-weight: 700; color: var(--teal-primary); margin-bottom: 0.8vw;">Engel (1977); Babic et al. (2024)</div>
+              <p class="point-body" style="margin-bottom: 0.6vw;">• Superación del reduccionismo mecanicista y biomédico en la comprensión del padecimiento humano.</p>
+              <p class="point-body" style="margin-bottom: 0.6vw;">• Integración indisoluble de dimensiones somáticas, afectivas y culturales en salud mental.</p>
+              <p class="point-body">• Regulación neurovegetativa y vías somáticas Bottom-Up como base del autocuidado y la estabilidad afectiva.</p>
             </div>
 
-            <!-- Gráfico y Narrativa de Eficacia -->
-            <div class="reveal-item" style="display: flex; flex-direction: column; justify-content: space-between;">
-              <div class="fig-frame">
-                <img src="assets/figuras_apa7/figura_07_frecuencia_uso_estudiantes.png" alt="Frecuencia de Uso y Efectos">
-              </div>
-              <div style="border-top: 1px solid var(--hairline); padding-top: 1.0vw;">
-                <div style="font-size: 0.85vw; font-weight: 700; color: var(--text-main); margin-bottom: 0.3vw;">Uso Personal y Eficacia Somática Percibida:</div>
-                <p class="point-body">• <b>Carácter Reactivo:</b> 52.9% no usa MTCI preventivamente; acuden únicamente ante sobrecarga académica.</p>
-                <p class="point-body">• <b>Eficacia Plena:</b> 86.7% reporta alivio muscular y bienestar; 0.0% complicaciones o efectos adversos.</p>
-              </div>
+            <div class="reveal-item">
+              <h3 style="font-family: var(--font-serif); font-size: 1.2vw; color: var(--text-main); margin-bottom: 0.2vw;">02 • Pluralismo Médico y Coexistencia</h3>
+              <div style="font-size: 0.78vw; font-weight: 700; color: var(--gold-primary); margin-bottom: 0.8vw;">Menéndez (2020); OMS (2025)</div>
+              <p class="point-body" style="margin-bottom: 0.6vw;">• Coexistencia real del Modelo Médico Hegemónico con sistemas tradicionales y de autoatención comunitaria.</p>
+              <p class="point-body" style="margin-bottom: 0.6vw;">• Reconocimiento de saberes locales sin desatender el rigor metodológico y científico.</p>
+              <p class="point-body">• Superación del ocultamiento terapéutico mediante una entrevista clínica empática y libre de prejuicios.</p>
+            </div>
+
+            <div class="reveal-item">
+              <h3 style="font-family: var(--font-serif); font-size: 1.2vw; color: var(--text-main); margin-bottom: 0.2vw;">03 • Bioética y Límites de la Práctica</h3>
+              <div style="font-size: 0.78vw; font-weight: 700; color: var(--blue-royal); margin-bottom: 0.8vw;">Beauchamp & Childress (2019); Ley 292</div>
+              <p class="point-body" style="margin-bottom: 0.6vw;">• Principio de No Maleficencia: prevención de interacciones fitofarmacológicas y riesgos toxicológicos.</p>
+              <p class="point-body" style="margin-bottom: 0.6vw;">• Principio de Autonomía: respeto informado a los valores, creencias y decisiones culturales del consultante.</p>
+              <p class="point-body">• Delimitación Profesional: el psicólogo orienta, psicoeduca y deriva; no prescribe ni formula sustancias.</p>
             </div>
           </div>
         </div>
       </section>
 
-      <!-- SLIDE 12: FACILITADORES Y DOCENTES (TWO CLEAN COLUMNS) -->
-      <section class="slide" id="slide-12">
+      <!-- SLIDE 7: MARCO TEÓRICO 2 -->
+      <section class="slide" id="slide-07">
         <div class="slide-header">
           <div class="header-text">
-            <div class="eyebrow">Capítulo IV • Resultados Empíricos (3/4)</div>
-            <h2 class="slide-title">Perspectiva de Facilitadores Locales de Estelí y Claustro Docente</h2>
+            <div class="eyebrow">Capítulo II • Marco Teórico (2/2)</div>
+            <h2 class="slide-title">Marco Normativo Nicaragüense y Evidencia de Eficacia Clínica</h2>
           </div>
           <div class="shield-badge"><img src="assets/extracted/unan_shield_only.png" alt="UNAN"></div>
         </div>
 
         <div class="slide-content">
           <div class="col-split">
-            <!-- Facilitadores -->
             <div class="reveal-item">
-              <div class="stat-hero">
-                <div class="number" data-target="100">0%</div>
-                <div class="label">FACILITADORES LOCALES DE ESTELÍ (n = 9)</div>
+              <h3 style="font-family: var(--font-serif); font-size: 1.2vw; color: var(--text-main); margin-bottom: 1.0vw;">Ordenamiento Jurídico Sanitario Nacional</h3>
+              <div class="point-item">
+                <span class="point-head" style="color: var(--teal-primary);">⚖ Ley No. 774 (2012) — Medicina Natural y Terapias Complementarias:</span><br>
+                <span class="point-body">Institucionaliza la MTCI en el sistema de salud bajo principios de complementariedad, equidad e interculturalidad asistencial.</span>
               </div>
               <div class="point-item">
-                <span class="point-num">✦</span>
-                <span class="point-head">Alivio Somático Inmediato:</span>
-                <span class="point-body">Constatan descompresión muscular y facilitación de la apertura afectiva para el diálogo terapéutico posterior.</span>
+                <span class="point-head" style="color: var(--alert-crimson);">⚖ Ley No. 292 (1998) — Ley de Medicamentos y Farmacias:</span><br>
+                <span class="point-body">Límite profesional taxativo: inhabilitación expresa para prescribir fármacos o despachar sustancias a quienes no posean título de médico.</span>
               </div>
               <div class="point-item">
-                <span class="point-num">✦</span>
-                <span class="point-head">Memoria Etnobotánica Viva:</span>
-                <span class="point-body">77.8% mujeres; 44.4% acumula entre 20 y 30 años de experiencia comunitaria continuada en Estelí.</span>
-              </div>
-              <div class="point-item">
-                <span class="point-num">✦</span>
-                <span class="point-head">Estigma Sociocultural:</span>
-                <span class="point-body">El 100% identifica mitos, tabúes y prejuicios religiosos respecto a la medicina natural en la población.</span>
-              </div>
-              <div class="point-item">
-                <span class="point-num">✦</span>
-                <span class="point-head">Desafío Económico:</span>
-                <span class="point-body">77.8% reporta que la falta de recursos económicos de los consultantes interrumpe la continuidad del cuidado.</span>
+                <span class="point-head" style="color: var(--teal-primary);">⚖ Ley No. 759 (2011) — Medicina Tradicional Ancestral:</span><br>
+                <span class="point-body">Protege el patrimonio inmaterial y saberes curativos tradicionales de pueblos originarios y comunidades afrodescendientes.</span>
               </div>
             </div>
 
-            <!-- Docentes -->
             <div class="reveal-item">
-              <div class="stat-hero">
-                <div class="number royal" data-target="100">0%</div>
-                <div class="label">CLAUSTRO DOCENTE-PSICÓLOGOS (n = 9)</div>
+              <h3 style="font-family: var(--font-serif); font-size: 1.2vw; color: var(--text-main); margin-bottom: 1.0vw;">Evidencia Clínica y Eficacia Empírica en MTCI</h3>
+              <div class="point-item">
+                <span class="point-head" style="color: var(--blue-royal);">✦ Fitoterapia y Modulación Neuroquímica:</span><br>
+                <span class="point-body">Ensayos clínicos confirman efectos sedantes y ansiolíticos en fitofármacos como manzanilla y pasiflora, mediados por modulación gabaérgica.</span>
               </div>
               <div class="point-item">
-                <span class="point-num" style="color: var(--blue-royal);">✦</span>
-                <span class="point-head">Respaldo Curricular Unánime:</span>
-                <span class="point-body">Apoyo total a transversalizar contenidos de MTCI bajo un enfoque científico, bioético y no prescriptivo.</span>
+                <span class="point-head" style="color: var(--blue-royal);">✦ Técnicas Mente-Cuerpo y Tono Vagal:</span><br>
+                <span class="point-body">Respiración diafragmática, relajación progresiva y yoga estimulan la activación parasimpática y reducen los niveles de cortisol sérico.</span>
               </div>
               <div class="point-item">
-                <span class="point-num" style="color: var(--blue-royal);">✦</span>
-                <span class="point-head">Metodologías Vivenciales (88.9%):</span>
-                <span class="point-body">Rechazan la enseñanza memorística; priorizan análisis de casos clínicos y talleres de autorregulación somática.</span>
-              </div>
-              <div class="point-item">
-                <span class="point-num" style="color: var(--blue-royal);">✦</span>
-                <span class="point-head">Competencias Bioéticas a Formar:</span>
-                <span class="point-body">Demandan juicio clínico, consentimiento informado intercultural y respeto estricto de los límites legales.</span>
-              </div>
-              <div class="point-item">
-                <span class="point-num" style="color: var(--blue-royal);">✦</span>
-                <span class="point-head">Capacitación Propia Urgente:</span>
-                <span class="point-body">El profesorado solicita actualización institucional en neurobiología somática y regulación Bottom-Up.</span>
+                <span class="point-head" style="color: var(--blue-royal);">✦ Masoterapia y Liberación Miofascial:</span><br>
+                <span class="point-body">La descompresión de contracturas musculares crónicas alivia el dolor somatomorfo y facilita el procesamiento y elaboración afectiva.</span>
               </div>
             </div>
           </div>
         </div>
       </section>
 
-      <!-- SLIDE 13: PROPUESTA OPERATIVA (MANUAL DE ESTRATEGIAS) -->
+      <!-- SLIDE 8: DISEÑO METODOLÓGICO 1 -->
+      <section class="slide" id="slide-08">
+        <div class="slide-header">
+          <div class="header-text">
+            <div class="eyebrow">Capítulo III • Marco Metodológico (1/2)</div>
+            <h2 class="slide-title">Paradigma Pragmático, Enfoque Mixto Secuencial y Fases del Estudio</h2>
+          </div>
+          <div class="shield-badge"><img src="assets/extracted/unan_shield_only.png" alt="UNAN"></div>
+        </div>
+
+        <div class="slide-content" style="flex-direction: column;">
+          <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 2.2vw; border-bottom: 1px solid var(--hairline); padding-bottom: 1.4vw; margin-bottom: 1.6vw;">
+            <div class="reveal-item">
+              <div style="font-size: 0.75vw; font-weight: 700; color: var(--teal-primary); text-transform: uppercase;">Paradigma</div>
+              <div style="font-family: var(--font-serif); font-size: 1.25vw; font-weight: 700; color: var(--text-main); margin-top: 0.2vw;">Pragmático</div>
+              <p class="point-body" style="margin-top: 0.3vw;">Articula métodos cuantitativos y cualitativos según su utilidad empírica para fundamentar la propuesta.</p>
+            </div>
+            <div class="reveal-item">
+              <div style="font-size: 0.75vw; font-weight: 700; color: var(--teal-primary); text-transform: uppercase;">Enfoque</div>
+              <div style="font-family: var(--font-serif); font-size: 1.25vw; font-weight: 700; color: var(--text-main); margin-top: 0.2vw;">Mixto Secuencial</div>
+              <p class="point-body" style="margin-top: 0.3vw;">Diseño DEXPLIS (Derivativo): diagnóstico cuantitativo inicial articulado con profundización cualitativa.</p>
+            </div>
+            <div class="reveal-item">
+              <div style="font-size: 0.75vw; font-weight: 700; color: var(--teal-primary); text-transform: uppercase;">Alcance</div>
+              <div style="font-family: var(--font-serif); font-size: 1.25vw; font-weight: 700; color: var(--text-main); margin-top: 0.2vw;">Descriptivo-Transversal</div>
+              <p class="point-body" style="margin-top: 0.3vw;">Caracteriza conocimientos, actitudes y prácticas en un marco temporal definido (segundo semestre 2026).</p>
+            </div>
+            <div class="reveal-item">
+              <div style="font-size: 0.75vw; font-weight: 700; color: var(--teal-primary); text-transform: uppercase;">Técnicas</div>
+              <div style="font-family: var(--font-serif); font-size: 1.25vw; font-weight: 700; color: var(--text-main); margin-top: 0.2vw;">Multi-Instrumento</div>
+              <p class="point-body" style="margin-top: 0.3vw;">Cuestionarios con escala Likert (I1, I2, I3), preguntas abiertas y análisis temático hermenéutico.</p>
+            </div>
+          </div>
+
+          <div class="reveal-item">
+            <h3 style="font-family: var(--font-serif); font-size: 1.2vw; color: var(--text-main); margin-bottom: 0.8vw;">Fases Metodológicas de la Investigación</h3>
+            <div class="point-item">
+              <span class="point-head" style="color: var(--gold-primary);">▶ Fase 1 (Cuantitativa) — Diagnóstico Estudiantil:</span>
+              <span class="point-body">Censo estructurado (I1) a n = 68 estudiantes de 4.º y 5.º año de Psicología en el CUR-Estelí.</span>
+            </div>
+            <div class="point-item">
+              <span class="point-head" style="color: var(--gold-primary);">▶ Fase 2 (Cualitativa) — Inmersión en Actores Clave:</span>
+              <span class="point-body">Recolección de experiencias en n = 9 facilitadores locales de Estelí (I2) y n = 9 docentes-psicólogos del claustro (I3).</span>
+            </div>
+            <div class="point-item">
+              <span class="point-head" style="color: var(--gold-primary);">▶ Fase 3 (Propositiva) — Construcción del Manual:</span>
+              <span class="point-body">Triangulación metodológica de hallazgos para el diseño modular del Manual de Estrategias MTCI (Anexo 16.2).</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- SLIDE 9: DISEÑO METODOLÓGICO 2 -->
+      <section class="slide" id="slide-09">
+        <div class="slide-header">
+          <div class="header-text">
+            <div class="eyebrow">Capítulo III • Marco Metodológico (2/2)</div>
+            <h2 class="slide-title">Delimitación Muestral Consolidada (N = 86) y Criterios de Selección</h2>
+          </div>
+          <div class="shield-badge"><img src="assets/extracted/unan_shield_only.png" alt="UNAN"></div>
+        </div>
+
+        <div class="slide-content">
+          <div class="col-three">
+            <div class="reveal-item">
+              <div style="font-family: var(--font-serif); font-size: 2.8vw; font-weight: 700; color: var(--teal-primary); line-height: 1;">n = 68</div>
+              <div style="font-size: 0.95vw; font-weight: 700; color: var(--text-main); margin-top: 0.2vw; margin-bottom: 0.8vw;">ESTUDIANTES DE PSICOLOGÍA</div>
+              <p class="point-body" style="margin-bottom: 0.6vw;">• <b>Muestra Censal:</b> 4.º año (n = 53, 77.9%) y 5.º año (n = 15, 22.1%).</p>
+              <p class="point-body" style="margin-bottom: 0.6vw;">• <b>Inclusión:</b> Matrícula activa en II Semestre 2026; cursando o habiendo cursado prácticas clínicas.</p>
+              <p class="point-body">• <b>Exclusión:</b> Alumnado de 1.º a 3.er año o con baja académica temporal.</p>
+            </div>
+
+            <div class="reveal-item">
+              <div style="font-family: var(--font-serif); font-size: 2.8vw; font-weight: 700; color: var(--gold-primary); line-height: 1;">n = 9</div>
+              <div style="font-size: 0.95vw; font-weight: 700; color: var(--text-main); margin-top: 0.2vw; margin-bottom: 0.8vw;">FACILITADORES LOCALES</div>
+              <p class="point-body" style="margin-bottom: 0.6vw;">• <b>Muestreo Intencional:</b> Masoterapeutas, fitoterapeutas, sobadores y terapeutas holísticos de Estelí.</p>
+              <p class="point-body" style="margin-bottom: 0.6vw;">• <b>Inclusión:</b> Práctica activa continua mayor a 5 años en el municipio de Estelí con clientela establecida.</p>
+              <p class="point-body">• <b>Exclusión:</b> Vendedores ambulantes sin arraigo comunitario reconocido.</p>
+            </div>
+
+            <div class="reveal-item">
+              <div style="font-family: var(--font-serif); font-size: 2.8vw; font-weight: 700; color: var(--blue-royal); line-height: 1;">n = 9</div>
+              <div style="font-size: 0.95vw; font-weight: 700; color: var(--text-main); margin-top: 0.2vw; margin-bottom: 0.8vw;">CLAUSTRO DOCENTE-PSICÓLOGOS</div>
+              <p class="point-body" style="margin-bottom: 0.6vw;">• <b>Perfil:</b> Docentes universitarios con Licenciatura y Maestría en áreas clínicas y metodológicas.</p>
+              <p class="point-body" style="margin-bottom: 0.6vw;">• <b>Inclusión:</b> Docencia activa en UNAN-Managua CUR-Estelí y experiencia en supervisión de prácticas.</p>
+              <p class="point-body">• <b>Exclusión:</b> Docentes de carreras no vinculadas a la Psicología.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- SLIDE 10: RESULTADOS ESTUDIANTES 1 -->
+      <section class="slide" id="slide-10">
+        <div class="slide-header">
+          <div class="header-text">
+            <div class="eyebrow">Capítulo IV • Resultados en Estudiantes (1/2)</div>
+            <h2 class="slide-title">Perfil Sociodemográfico y Grado de Dominio Conceptual y Normativo</h2>
+          </div>
+          <div class="shield-badge"><img src="assets/extracted/unan_shield_only.png" alt="UNAN"></div>
+        </div>
+
+        <div class="slide-content">
+          <div class="col-split">
+            <div class="reveal-item fig-frame">
+              <img src="assets/figuras_apa7/figura_04_dominio_conceptual_normativo_estudiantes.png" alt="Dominio Conceptual y Normativo">
+            </div>
+
+            <div class="reveal-item">
+              <h3 style="font-family: var(--font-serif); font-size: 1.2vw; color: var(--text-main); margin-bottom: 0.8vw;">Hallazgos en la Muestra Estudiantil (n = 68)</h3>
+              <div class="point-item">
+                <span class="point-head" style="color: var(--teal-primary);">✦ Perfil Demográfico Consolidado:</span><br>
+                <span class="point-body">Predominio femenino (82.4%, n = 56) y concentración en adultos jóvenes de 20 a 22 años (61.8%). El 77.9% cursa 4.º año enfrentando el inicio de la práctica clínica supervisada.</span>
+              </div>
+              <div class="point-item">
+                <span class="point-head" style="color: var(--teal-primary);">✦ Acierto Conceptual Técnico (67.6%):</span><br>
+                <span class="point-body">La mayoría identifica correctamente la definición de MTCI de la OMS; no obstante, el 75.0% declara familiaridad práctica baja o nula con sus protocolos reales.</span>
+              </div>
+              <div class="point-item">
+                <span class="point-head" style="color: var(--gold-primary);">✦ Brecha Normativa Ley No. 774 (58.8%):</span><br>
+                <span class="point-body">El 58.8% desconoce el propósito integrador de la ley de medicina natural o sostiene ideas distorsionadas sobre su alcance institucional.</span>
+              </div>
+              <div class="point-item">
+                <span class="point-head" style="color: var(--alert-crimson);">✦ Vacío Legal Crítico Ley No. 292 (64.7%):</span><br>
+                <span class="point-body">Apenas el 35.3% reconoce con precisión la inhabilitación del psicólogo para prescribir psicofármacos, evidenciando una urgente necesidad de formación deontológica.</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- SLIDE 11: RESULTADOS ESTUDIANTES 2 -->
+      <section class="slide" id="slide-11">
+        <div class="slide-header">
+          <div class="header-text">
+            <div class="eyebrow">Capítulo IV • Resultados en Estudiantes (2/2)</div>
+            <h2 class="slide-title">Frecuencia de Uso, Bienestar Percibido y Brecha Formativa (OE1)</h2>
+          </div>
+          <div class="shield-badge"><img src="assets/extracted/unan_shield_only.png" alt="UNAN"></div>
+        </div>
+
+        <div class="slide-content">
+          <div class="col-split-asym">
+            <div class="reveal-item">
+              <div class="stat-hero">
+                <div class="number" data-target="89.7">0.0%</div>
+                <div class="label">Pertinencia Clínica Asistencial</div>
+                <div class="desc">Considera necesario y conveniente incorporar la MTCI como complemento en el ejercicio de la psicología.</div>
+              </div>
+
+              <div class="stat-hero">
+                <div class="number crimson" data-target="88.2">0.0%</div>
+                <div class="label">Preparación Insuficiente para Derivación</div>
+                <div class="desc">Reconoce poseer preparación nula o insuficiente para derivar pacientes hacia facilitadores autorizados.</div>
+              </div>
+
+              <div class="stat-hero">
+                <div class="number gold" data-target="86.8">0.0%</div>
+                <div class="label">Preparación Insuficiente para Psicoeducación</div>
+                <div class="desc">Autopercibe competencias nulas o insuficientes para orientar sobre el uso de terapias tradicionales.</div>
+              </div>
+            </div>
+
+            <div class="reveal-item" style="display: flex; flex-direction: column; justify-content: space-between;">
+              <div class="fig-frame">
+                <img src="assets/figuras_apa7/figura_07_frecuencia_uso_estudiantes.png" alt="Frecuencia de Uso y Efectos">
+              </div>
+              <div style="border-top: 1px solid var(--hairline); padding-top: 0.8vw;">
+                <div style="font-size: 0.82vw; font-weight: 700; color: var(--text-main); margin-bottom: 0.2vw;">Uso Personal Reactivo y Efectos en el Bienestar:</div>
+                <p class="point-body">• <b>Carácter Reactivo:</b> 52.9% no utiliza MTCI de forma preventiva regular; acuden solo ante sobrecarga académica.</p>
+                <p class="point-body">• <b>Eficacia en Usuarios (n = 30):</b> 86.7% reporta alivio muscular y serenidad; 0.0% reporta efectos adversos.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- SLIDE 12: RESULTADOS FACILITADORES LOCALES (CON FIGURAS 12 Y 14) -->
+      <section class="slide" id="slide-12">
+        <div class="slide-header">
+          <div class="header-text">
+            <div class="eyebrow">Capítulo IV • Resultados en Facilitadores Locales</div>
+            <h2 class="slide-title">Modalidades Terapéuticas, Eficacia Somática y Barreras en Estelí (OE2)</h2>
+          </div>
+          <div class="shield-badge"><img src="assets/extracted/unan_shield_only.png" alt="UNAN"></div>
+        </div>
+
+        <div class="slide-content">
+          <div class="col-split">
+            <!-- Figura 12: Modalidades -->
+            <div class="reveal-item fig-frame">
+              <img src="assets/figuras_apa7/figura_12_practicas_actores_locales.png" alt="Modalidades Terapéuticas">
+            </div>
+
+            <!-- Figura 14 y Síntesis Empírica -->
+            <div class="reveal-item" style="display: flex; flex-direction: column; justify-content: space-between;">
+              <div class="fig-frame" style="max-height: 12vw;">
+                <img src="assets/figuras_apa7/figura_14_apertura_emocional_usuarios_actores.png" alt="Apertura Emocional" style="max-height: 11vw;">
+              </div>
+              <div style="border-top: 1px solid var(--hairline); padding-top: 0.8vw;">
+                <div style="font-size: 0.82vw; font-weight: 700; color: var(--text-main); margin-bottom: 0.3vw;">Hallazgos Empíricos en Facilitadores de Estelí (n = 9):</div>
+                <p class="point-body">• <b>100% Alivio Somático:</b> Disminución de sobrecarga miofascial y recuperación de la calma.</p>
+                <p class="point-body">• <b>88.9% Apertura Afectiva:</b> El desbloqueo corporal incrementa la disposición al diálogo terapéutico.</p>
+                <p class="point-body">• <b>Inocuidad Percibida (100%):</b> Cero reporte de reacciones adversas o crisis iatrogénicas en consulta.</p>
+                <p class="point-body">• <b>Barreras Socioculturales y Económicas:</b> 77.8% enfrenta reservas religiosas y el 77.8% reporta interrupción por falta de recursos.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- SLIDE 13: RESULTADOS CLAUSTRO DOCENTE (CON FIGURAS 24 Y 25) -->
       <section class="slide" id="slide-13">
         <div class="slide-header">
           <div class="header-text">
-            <div class="eyebrow">Capítulo V • Propuesta Operativa (OE3)</div>
+            <div class="eyebrow">Capítulo IV • Resultados en el Claustro Docente</div>
+            <h2 class="slide-title">Estrategias Pedagógicas, Didáctica Vivencial y Consenso Ético (OE3)</h2>
+          </div>
+          <div class="shield-badge"><img src="assets/extracted/unan_shield_only.png" alt="UNAN"></div>
+        </div>
+
+        <div class="slide-content" style="flex-direction: column;">
+          <div class="col-split" style="margin-bottom: 1.0vw;">
+            <div class="reveal-item fig-frame">
+              <img src="assets/figuras_apa7/figura_24_estrategias_academicas_docentes.png" alt="Estrategias Pedagógicas Priorizadas" style="max-height: 15vw;">
+            </div>
+            <div class="reveal-item fig-frame">
+              <img src="assets/figuras_apa7/figura_25_experiencias_favorables_docentes.png" alt="Experiencias Formativas Favorables" style="max-height: 15vw;">
+            </div>
+          </div>
+
+          <div class="reveal-item" style="border-top: 1px solid var(--hairline); padding-top: 0.8vw;">
+            <div style="font-size: 0.82vw; font-weight: 700; color: var(--blue-royal); margin-bottom: 0.2vw;">Criterios Rectores del Claustro Docente de Psicología (n = 9):</div>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2.0vw;">
+              <p class="point-body">• <b>100.0% Respaldo Curricular:</b> Apoyo unánime a transversalizar la MTCI bajo rigor científico y no prescriptivo.</p>
+              <p class="point-body">• <b>Pedagogía Vivencial (88.9%):</b> Priorizan talleres de autorregulación somática sobre la enseñanza abstracta.</p>
+              <p class="point-body">• <b>Vinculación Comunitaria (77.8%):</b> Respaldan intercambios con facilitadores tradicionales y visitas a centros MINSA (66.7%).</p>
+              <p class="point-body">• <b>Demanda de Capacitación:</b> 77.8% solicita formación docente en neurobiología somática y comités de bioética.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- SLIDE 14: PROPUESTA MANUAL MTCI -->
+      <section class="slide" id="slide-14">
+        <div class="slide-header">
+          <div class="header-text">
+            <div class="eyebrow">Capítulo V • Propuesta de Intervención (OE3)</div>
             <h2 class="slide-title">Manual de Estrategias de MTCI para la Formación y Práctica Psicológica</h2>
           </div>
           <div class="shield-badge"><img src="assets/extracted/unan_shield_only.png" alt="UNAN"></div>
@@ -810,45 +1022,43 @@
 
         <div class="slide-content">
           <div class="col-split-asym">
-            <!-- Portada y Ficha Técnica -->
             <div class="reveal-item">
-              <div style="display: flex; gap: 1.5vw; align-items: flex-start;">
-                <img src="assets/extracted/portada_manual.jpg" alt="Portada del Manual" style="width: 14vw; border-radius: 4px; box-shadow: 0 10px 25px rgba(0,0,0,0.15);">
+              <div style="display: flex; gap: 1.4vw; align-items: flex-start;">
+                <img src="assets/extracted/portada_manual.jpg" alt="Portada del Manual" style="width: 13.5vw; border-radius: 4px; box-shadow: 0 10px 25px rgba(0,0,0,0.15);">
                 <div>
-                  <div style="font-size: 0.8vw; font-weight: 700; color: var(--teal-primary); text-transform: uppercase; margin-bottom: 0.4vw;">Ficha Técnica</div>
-                  <div style="font-size: 0.85vw; line-height: 1.5; color: var(--text-muted);">
-                    <div>• <b>Extensión:</b> 18 páginas in extenso (Anexo 16.2).</div>
-                    <div>• <b>Destinatarios:</b> Estudiantes y docentes de la Clínica Psicosocial.</div>
-                    <div>• <b>Propósito:</b> Dotar de discernimiento ético sin habilitar como terapeutas alternativos.</div>
-                    <div>• <b>Herramienta Anexa:</b> Inventario I-CAM-Q adaptado transculturalmente a Nicaragua.</div>
+                  <div style="font-size: 0.78vw; font-weight: 700; color: var(--teal-primary); text-transform: uppercase; margin-bottom: 0.3vw;">Ficha Técnica (Anexo 16.2)</div>
+                  <div style="font-size: 0.82vw; line-height: 1.5; color: var(--text-muted);">
+                    <div>• <b>Extensión:</b> 18 páginas in extenso (Capítulo 16).</div>
+                    <div>• <b>Destinatarios:</b> Estudiantes y docentes de Clínica Psicosocial.</div>
+                    <div>• <b>Propósito:</b> Discernimiento bioético sin habilitar como terapeutas alternativos.</div>
+                    <div>• <b>Herramienta Anexa:</b> Cuestionario I-CAM-Q adaptado transculturalmente a Nicaragua.</div>
                   </div>
                 </div>
               </div>
             </div>
 
-            <!-- Estructura de los 8 Módulos -->
             <div class="reveal-item">
-              <h3 style="font-family: var(--font-serif); font-size: 1.15vw; color: var(--text-main); margin-bottom: 0.8vw;">Estructura Modular (8 Módulos Temáticos)</h3>
-              <div style="font-size: 0.82vw; line-height: 1.5; color: var(--text-main);">
-                <div style="margin-bottom: 0.4vw;"><b>M1. Fundamentos y Marco Legal:</b> Definición OMS (2025) y Leyes 774, 759 y 292.</div>
-                <div style="margin-bottom: 0.4vw;"><b>M2. Principios Deontológicos:</b> Consentimiento informado y no sustitución médica.</div>
-                <div style="margin-bottom: 0.4vw;"><b>M3. Mapa Clínico de Prácticas:</b> Clasificación en 4 niveles de seguridad asistencial.</div>
-                <div style="margin-bottom: 0.4vw;"><b>M4. Algoritmo de Derivación:</b> Protocolo secuencial de 4 pasos para interconsulta.</div>
-                <div style="margin-bottom: 0.4vw;"><b>M5. Habilidades de Diálogo:</b> Entrevista abierta para erradicar el ocultamiento.</div>
-                <div style="margin-bottom: 0.4vw;"><b>M6. Red Intersectorial:</b> Criterios de referencia con facilitadores territoriales.</div>
-                <div style="margin-bottom: 0.4vw;"><b>M7. Ruta Pedagógica:</b> Secuencia de 3 etapas y propuesta de curso electivo.</div>
-                <div style="margin-bottom: 0.4vw;"><b>M8. Soporte CUR-Estelí:</b> Creación del Comité de Bioética y capacitación docente.</div>
+              <h3 style="font-family: var(--font-serif); font-size: 1.1vw; color: var(--text-main); margin-bottom: 0.6vw;">Estructura Modular (8 Módulos Temáticos)</h3>
+              <div style="font-size: 0.8vw; line-height: 1.45; color: var(--text-main);">
+                <div style="margin-bottom: 0.3vw;"><b>M1. Fundamentos y Marco Legal:</b> Definición OMS (2025) y Leyes 774, 759 y 292.</div>
+                <div style="margin-bottom: 0.3vw;"><b>M2. Principios Deontológicos:</b> Consentimiento informado y no sustitución médica.</div>
+                <div style="margin-bottom: 0.3vw;"><b>M3. Mapa Clínico de Prácticas:</b> Clasificación en 4 niveles de seguridad asistencial.</div>
+                <div style="margin-bottom: 0.3vw;"><b>M4. Algoritmo de Derivación:</b> Protocolo secuencial de 4 pasos para interconsulta.</div>
+                <div style="margin-bottom: 0.3vw;"><b>M5. Habilidades de Diálogo:</b> Entrevista abierta para erradicar el ocultamiento.</div>
+                <div style="margin-bottom: 0.3vw;"><b>M6. Red Intersectorial:</b> Criterios de referencia con facilitadores territoriales.</div>
+                <div style="margin-bottom: 0.3vw;"><b>M7. Ruta Pedagógica:</b> Secuencia de 3 etapas y propuesta de curso electivo.</div>
+                <div style="margin-bottom: 0.3vw;"><b>M8. Soporte Institucional:</b> Creación del Comité de Bioética y capacitación docente.</div>
               </div>
             </div>
           </div>
         </div>
       </section>
 
-      <!-- SLIDE 14: CONCLUSIONES CENTRALES -->
-      <section class="slide" id="slide-14">
+      <!-- SLIDE 15: CONCLUSIONES CENTRALES -->
+      <section class="slide" id="slide-15">
         <div class="slide-header">
           <div class="header-text">
-            <div class="eyebrow">Capítulo VI • Síntesis Conclusiva</div>
+            <div class="eyebrow">Capítulo VI • Conclusiones y Recomendaciones</div>
             <h2 class="slide-title">Conclusiones Centrales de la Investigación (Triangulación de Objetivos)</h2>
           </div>
           <div class="shield-badge"><img src="assets/extracted/unan_shield_only.png" alt="UNAN"></div>
@@ -863,65 +1073,65 @@
 
           <div class="reveal-item point-item">
             <span class="point-num">02</span>
-            <span class="point-head">Perfil y Paradoja Estudiantil (OE1):</span>
-            <span class="point-body">El estudiantado posee buen dominio conceptual (67.6%) y alta satisfacción somática (86.7%), pero padece desinformación legal (58.8% desconoce Ley 774; 64.7% desconoce Ley 292) e inseguridad para derivar (88.2%).</span>
+            <span class="point-head">Brecha Formativa en Estudiantes (OE1):</span>
+            <span class="point-body">El estudiantado posee buen dominio conceptual (67.6%) y alta satisfacción somática personal (86.7%), pero padece desinformación legal (58.8% desconoce Ley 774; 64.7% desconoce Ley 292) e inseguridad para derivar (88.2%).</span>
           </div>
 
           <div class="reveal-item point-item">
             <span class="point-num">03</span>
-            <span class="point-head">Oferta y Resiliencia Territorial (OE2):</span>
-            <span class="point-body">Los facilitadores de Estelí constatan 100% de alivio de sobrecarga muscular y mayor receptividad reflexiva (88.9%), enfrentando estigma sociocultural (100%) y limitaciones económicas de los usuarios (77.8%).</span>
+            <span class="point-head">Aporte Somático de Facilitadores (OE2):</span>
+            <span class="point-body">Los terapeutas locales de Estelí constatan 100% de alivio de sobrecarga muscular y mayor apertura reflexiva (88.9%), enfrentando barreras de estigma sociocultural (77.8%) y limitaciones económicas de los usuarios (77.8%).</span>
           </div>
 
           <div class="reveal-item point-item">
             <span class="point-num">04</span>
             <span class="point-head">Consenso Curricular Docente (OE3):</span>
-            <span class="point-body">El 100% del claustro apoya transversalizar la MTCI bajo metodologías activas y vivenciales (88.9%), demandando formación en regulación neurovegetativa y comités de bioética institucional.</span>
+            <span class="point-body">El 100% del claustro apoya transversalizar la MTCI mediante talleres vivenciales (88.9%) e intercambio comunitario, demandando actualización en neurobiología somática y comités de bioética.</span>
           </div>
 
           <div class="reveal-item point-item">
             <span class="point-num">05</span>
             <span class="point-head">Logro Propositivo del Manual de Estrategias:</span>
-            <span class="point-body">Se construyó exitosamente el Manual de Estrategias MTCI de 18 páginas (Anexo 16.2), dotando al CUR-Estelí de algoritmos de decisión clínica, pautas contra el ocultamiento y el inventario I-CAM-Q.</span>
+            <span class="point-body">Se formuló con éxito el Manual de Estrategias MTCI de 18 páginas (Anexo 16.2), dotando al CUR-Estelí de algoritmos de decisión clínica, pautas contra el ocultamiento y el inventario I-CAM-Q.</span>
           </div>
         </div>
       </section>
 
-      <!-- SLIDE 15: RECOMENDACIONES (4 CUADRANTES SIN CAJAS) -->
-      <section class="slide" id="slide-15">
+      <!-- SLIDE 16: RECOMENDACIONES ESTRATÉGICAS -->
+      <section class="slide" id="slide-16">
         <div class="slide-header">
           <div class="header-text">
-            <div class="eyebrow">Capítulo VI • Directrices Prospectivas</div>
-            <h2 class="slide-title">Recomendaciones Estratégicas para Estudiantes, Docentes, Universidad y MINSA</h2>
+            <div class="eyebrow">Capítulo VI • Conclusiones y Recomendaciones</div>
+            <h2 class="slide-title">Recomendaciones Estratégicas para la Formación, Práctica e Intersectorialidad</h2>
           </div>
           <div class="shield-badge"><img src="assets/extracted/unan_shield_only.png" alt="UNAN"></div>
         </div>
 
         <div class="slide-content">
-          <div style="display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: 1fr 1fr; gap: 2.5vw; width: 100%;">
+          <div style="display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: 1fr 1fr; gap: 2.2vw; width: 100%;">
             <div class="reveal-item">
-              <div style="font-size: 0.8vw; font-weight: 700; color: var(--teal-primary); text-transform: uppercase; margin-bottom: 0.4vw;">Para el Estamento Estudiantil</div>
+              <div style="font-size: 0.78vw; font-weight: 700; color: var(--teal-primary); text-transform: uppercase; margin-bottom: 0.3vw;">Para el Estamento Estudiantil</div>
               <p class="point-body">✓ <b>Límites Legales:</b> Respetar estrictamente Leyes 774 y 292 (cero prescripción farmacológica).</p>
-              <p class="point-body">✓ <b>Algoritmo Clínico:</b> Aplicar el árbol de decisión del manual en la Clínica Psicosocial.</p>
+              <p class="point-body">✓ <b>Algoritmo Clínico:</b> Aplicar el árbol de decisión del manual en las prácticas de la Clínica Psicosocial.</p>
               <p class="point-body">✓ <b>Diálogo Abierto:</b> Explorar empáticamente el uso de MTCI para erradicar el ocultamiento.</p>
             </div>
 
             <div class="reveal-item">
-              <div style="font-size: 0.8vw; font-weight: 700; color: var(--blue-royal); text-transform: uppercase; margin-bottom: 0.4vw;">Para el Claustro Docente</div>
+              <div style="font-size: 0.78vw; font-weight: 700; color: var(--blue-royal); text-transform: uppercase; margin-bottom: 0.3vw;">Para el Claustro Docente</div>
               <p class="point-body">✓ <b>Transversalidad:</b> Integrar contenidos en Psicología Clínica, Comunitaria y Ética.</p>
-              <p class="point-body">✓ <b>Pedagogía Vivencial:</b> Priorizar análisis de casos reales y talleres de autorregulación.</p>
-              <p class="point-body">✓ <b>Capacitación:</b> Formarse en neurobiología somática y regulación Bottom-Up.</p>
+              <p class="point-body">✓ <b>Pedagogía Vivencial:</b> Priorizar análisis de casos reales y talleres de autorregulación somática.</p>
+              <p class="point-body">✓ <b>Capacitación Continua:</b> Formarse en neurobiología somática y regulación Bottom-Up.</p>
             </div>
 
             <div class="reveal-item">
-              <div style="font-size: 0.8vw; font-weight: 700; color: var(--gold-primary); text-transform: uppercase; margin-bottom: 0.4vw;">Para la Gestión del CUR-Estelí</div>
+              <div style="font-size: 0.78vw; font-weight: 700; color: var(--gold-primary); text-transform: uppercase; margin-bottom: 0.3vw;">Para la Gestión del CUR-Estelí</div>
               <p class="point-body">✓ <b>Adopción Oficial:</b> Formalizar la aprobación del Manual de Estrategias MTCI (Anexo 16.2).</p>
               <p class="point-body">✓ <b>Comité de Bioética:</b> Constituir el Comité de Ética y Delimitación Profesional.</p>
               <p class="point-body">✓ <b>Alianza con MINSA:</b> Consolidar convenios para pasantías y ferias de salud comunitaria.</p>
             </div>
 
             <div class="reveal-item">
-              <div style="font-size: 0.8vw; font-weight: 700; color: var(--text-main); text-transform: uppercase; margin-bottom: 0.4vw;">Para el Sistema de Salud y Facilitadores</div>
+              <div style="font-size: 0.78vw; font-weight: 700; color: var(--text-main); text-transform: uppercase; margin-bottom: 0.3vw;">Para el Sistema de Salud y Facilitadores</div>
               <p class="point-body">✓ <b>Registro Oficial:</b> Difundir mecanismos de acreditación según Ley No. 774.</p>
               <p class="point-body">✓ <b>Red de Interconsulta:</b> Habilitar canales de referencia bidireccional formal.</p>
               <p class="point-body">✓ <b>Principio Bioético:</b> Mantener el compromiso de complementariedad sin sustitución médica.</p>
@@ -930,28 +1140,28 @@
         </div>
       </section>
 
-      <!-- SLIDE 16: CIERRE INSTITUCIONAL (DARK MINIMALIST) -->
-      <section class="slide theme-dark" id="slide-16">
+      <!-- SLIDE 17: CIERRE INSTITUCIONAL -->
+      <section class="slide theme-dark" id="slide-17">
         <div style="flex: 1; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center;">
-          <img src="assets/extracted/unan_shield_only.png" alt="UNAN" style="height: 6.5vw; margin-bottom: 1.5vw; filter: drop-shadow(0 6px 16px rgba(0,0,0,0.6));">
-          <div style="font-family: var(--font-serif); font-size: 1.5vw; font-style: italic; color: var(--gold-primary); margin-bottom: 0.8vw;">
+          <img src="assets/extracted/unan_shield_only.png" alt="UNAN" style="height: 6.2vw; margin-bottom: 1.4vw; filter: drop-shadow(0 6px 16px rgba(0,0,0,0.6));">
+          <div style="font-family: var(--font-serif); font-size: 1.45vw; font-style: italic; color: var(--gold-bright); margin-bottom: 0.7vw;">
             «¡A la libertad por la Universidad!»
           </div>
-          <h1 style="font-family: var(--font-serif); font-size: 3.2vw; font-weight: 700; color: #FFFFFF; margin-bottom: 1.0vw;">
+          <h1 style="font-family: var(--font-serif); font-size: 3.0vw; font-weight: 700; color: #FFFFFF; margin-bottom: 0.9vw;">
             Muchas Gracias por su Atención
           </h1>
-          <p style="font-size: 1.15vw; color: var(--text-light-muted); max-width: 65%; margin-bottom: 2.5vw;">
+          <p style="font-size: 1.1vw; color: var(--text-light-muted); max-width: 65%; margin-bottom: 2.2vw;">
             Espacio Abierto para Preguntas, Comentarios y Defensa Oral ante el Honorable Tribunal Examinador
           </p>
 
-          <div style="border-top: 1px solid var(--hairline-dark); padding-top: 1.5vw; width: 60%; display: flex; justify-content: space-around;">
+          <div style="border-top: 1px solid var(--hairline-dark); padding-top: 1.4vw; width: 60%; display: flex; justify-content: space-around;">
             <div>
-              <span style="font-size: 0.75vw; color: var(--teal-primary); font-weight: 700; text-transform: uppercase;">Sustentantes</span>
-              <div style="font-size: 0.85vw; color: #FFFFFF; margin-top: 0.2vw;">Dina García • Tatiana López • Engel Zamora</div>
+              <span style="font-size: 0.72vw; color: var(--teal-primary); font-weight: 700; text-transform: uppercase;">Sustentantes</span>
+              <div style="font-size: 0.82vw; color: #FFFFFF; margin-top: 0.2vw;">Dina García • Tatiana López • Engel Zamora</div>
             </div>
             <div>
-              <span style="font-size: 0.75vw; color: var(--gold-primary); font-weight: 700; text-transform: uppercase;">Tutoría</span>
-              <div style="font-size: 0.85vw; color: #FFFFFF; margin-top: 0.2vw;">Dra. Tania Libertad Pérez Guevara</div>
+              <span style="font-size: 0.72vw; color: var(--gold-bright); font-weight: 700; text-transform: uppercase;">Tutoría</span>
+              <div style="font-size: 0.82vw; color: #FFFFFF; margin-top: 0.2vw;">Dra. Tania Libertad Pérez Guevara</div>
             </div>
           </div>
         </div>
@@ -959,19 +1169,19 @@
 
     </div>
 
-    <!-- Minimalist HUD Controls -->
+    <!-- HUD Controls -->
     <footer class="deck-hud">
       <div class="progress-bar-wrap">
         <div class="progress-bar" id="progress"></div>
       </div>
 
       <div class="hud-left">
-        UNAN-Managua • CUR-Estelí | Carrera de Psicología
+        UNAN-Managua • CUR-Estelí | Carrera de Licenciatura en Psicología
       </div>
 
       <div class="hud-controls">
         <button class="btn-hud" id="btn-prev" title="Anterior (Flecha Izq)">‹ Anterior</button>
-        <span class="slide-counter" id="counter">01 / 16</span>
+        <span class="slide-counter" id="counter">01 / 17</span>
         <button class="btn-hud" id="btn-next" title="Siguiente (Flecha Der)">Siguiente ›</button>
         <span style="color: var(--text-muted); opacity: 0.4;">|</span>
         <button class="btn-hud" id="btn-notes" title="Notas del Presentador (N)">Notas [N]</button>
@@ -993,9 +1203,9 @@
 
     <!-- Thumbnail Modal -->
     <div id="thumb-modal">
-      <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #1E293B; padding-bottom: 1.0vw;">
-        <h2 style="font-family: var(--font-serif); font-size: 1.4vw; color: #FFFFFF;">Índice General de Diapositivas (16 Láminas)</h2>
-        <button class="btn-hud" id="btn-close-modal" style="color: #FFFFFF; font-size: 1.1vw;">✕ Cerrar</button>
+      <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #1E293B; padding-bottom: 0.9vw;">
+        <h2 style="font-family: var(--font-serif); font-size: 1.35vw; color: #FFFFFF;">Índice General de Diapositivas (17 Láminas)</h2>
+        <button class="btn-hud" id="btn-close-modal" style="color: #FFFFFF; font-size: 1.05vw;">✕ Cerrar</button>
       </div>
       <div class="thumb-grid" id="thumb-container"></div>
     </div>
@@ -1003,9 +1213,6 @@
   </div>
 
   <script>
-    // =========================================================================
-    // SLIDES ENGINE & KINETIC ANIMATIONS
-    // =========================================================================
     const slides = Array.from(document.querySelectorAll('.slide'));
     const totalSlides = slides.length;
     let currentIndex = 0;
@@ -1018,11 +1225,9 @@
     const thumbContainer = document.getElementById('thumb-container');
     const viewport = document.getElementById('viewport');
 
-    // Slide Notes Array
-    const slideNotes = ['Pausa inicial. Saludar con solemnidad al Honorable Tribunal Examinador. Enfatizar la relevancia histórica de este estudio como el primero en articular a la academia con los saberes territoriales de Estelí.', 'Destacar la tensión jurídica fundamental: la Ley 774 otorga el derecho a la MTCI pero la Ley 292 restringe tajantemente al psicólogo prescribir. Explicar el fenómeno del ocultamiento terapéutico.', 'Mostrar la línea de tiempo. Citar los metanálisis de la OMS (2025), Furlan (2012) y Guo (2024), enlazando con la paradoja detectada en Iberoamérica y el vacío investigativo en Nicaragua.', 'Contextualizar a Estelí como territorio de sabiduría etnobotánica viva, y al CUR-Estelí y su Clínica Psicosocial como el espacio idóneo para implementar pautas formativas de diálogo intercultural.', 'Leer con precisión el Objetivo General y articular cómo cada uno de los 3 Objetivos Específicos responde secuencialmente: OE1 a estudiantes, OE2 a facilitadores y OE3 a la propuesta del manual.', 'Fundamentar en el Modelo Biopsicosocial de Engel (1977), el Pluralismo Médico de Eduardo Menéndez y la Bioética Principialista de Beauchamp y Childress (No Maleficencia y Autonomía).', 'Profundizar en la Ley 774, Ley 292 y Ley 759. Presentar la evidencia neurobiológica de la fitoterapia gabaérgica y la regulación autonómica vagal mediante técnicas mente-cuerpo.', 'Definir el diseño DEXPLIS (Derivativo Secuencial): Fase cuantitativa censal -> Fase cualitativa en profundidad -> Fase propositiva de formulación del manual.', 'Explicar con exactitud la muestra consolidada de N=86: 68 estudiantes censados (4.° y 5.° año), 9 facilitadores locales de Estelí y 9 docentes de psicología. Resaltar la rigurosidad de inclusión.', 'Analizar la marcada feminización de la carrera (82.4%), la concentración de jóvenes adultos (21-25 años) y el momento crítico del 4.° año enfrentando la Clínica Psicosocial.', 'Momento culminante de la defensa: 89.7% considera urgente integrar MTCI, pero 88.2% no recibió preparación alguna. 86.7% reporta alivio somático directo y 0.0% efectos adversos.', 'Contrastar el 100% de eficacia somática percibida por facilitadores con el 100% de respaldo curricular del claustro docente bajo pedagogía activa y comités de bioética.', 'Presentar formalmente el Manual de 18 páginas (Anexo 16.2), sus 8 módulos formativos, el algoritmo de derivación clínica de 4 pasos y la adaptación del cuestionario I-CAM-Q para Nicaragua.', 'Sintetizar las 5 conclusiones centrales: cumplimiento del Objetivo General, caracterización de la paradoja, resiliencia territorial, consenso docente y entrega del manual propositivo.', 'Detallar las pautas operativas para cada uno de los 4 sectores. Enfatizar la adopción oficial del manual por el CUR-Estelí y los convenios interinstitucionales con el MINSA.', 'Agradecer al tribunal evaluador, a los facilitadores de Estelí y a la UNAN-Managua. Abrir formalmente el espacio para preguntas y réplica académica.'];
-    const slideTitles = ['La Medicina Tradicional, Complementaria e Integrativa (MTCI) como Complemento en la Atención Psicológica', 'Encrucijada Asistencial, Vacío Formativo y Pertinencia Social', 'Trayectoria de la Evidencia Internacional, Regional y Local', 'El Escenario de Investigación: CUR-Estelí y el Territorio Segoviano', 'Objetivos de la Investigación: Del Diagnóstico a la Propuesta', 'Epistemología Médica, Pluralismo Asistencial y Principios Bioéticos', 'Marco Jurídico Nicaragüense y Evidencia de Eficacia Clínica', 'Paradigma Pragmático, Enfoque Mixto Secuencial y Fases del Estudio', 'Delimitación Muestral Consolidada (N = 86) y Criterios de Selección', 'Perfil Sociodemográfico y Formativo del Estudiantado (n = 68)', 'La Paradoja Formativa: Alta Pertinencia frente al Desamparo Curricular (OE1)', 'Perspectiva de Facilitadores Locales de Estelí y Claustro Docente', 'Manual de Estrategias de MTCI para la Formación y Práctica Psicológica', 'Conclusiones Centrales de la Investigación (Triangulación de Objetivos)', 'Recomendaciones Estratégicas para Estudiantes, Docentes, Universidad y MINSA', '«¡A la libertad por la Universidad!» — Muchas Gracias por su Atención'];
+    const slideNotes = ['Pausa inicial. Saludar con solemnidad al Honorable Tribunal Examinador. Enfatizar que este estudio mixto aborda por primera vez en la UNAN-Managua CUR-Estelí la articulación entre formación académica y saberes territoriales en salud mental.', 'Fundamentar la tensión jurídica central: la Ley 774 garantiza el derecho ciudadano a la MTCI, pero la Ley 292 inscribe el límite legal de no prescripción para psicólogos. Explicar el fenómeno clínico del ocultamiento terapéutico y la pregunta de investigación.', 'Detallar los tres hitos temporales: las directrices de la OMS (2014-2019) y metanálisis clínicos; los hallazgos en universidades de Iberoamérica (2020-2023) sobre la brecha formativa; y el marco legal nicaragüense frente al vacío curricular existente.', 'Contextualizar la confluencia entre la tradición etnobotánica viva del norte segoviano y el papel formador del CUR-Estelí y su Clínica Psicosocial, destacando las barreras de articulación institucional.', 'Exponer el Objetivo General y los tres Específicos: diagnóstico en estudiantes (OE1), experiencias de facilitadores locales (OE2) y criterios docentes con diseño del manual (OE3).', 'Explicar los tres pilares conceptuales: el Modelo Biopsicosocial de Engel (1977) y neurobiología somática; el Pluralismo Médico de Menéndez (2020); y la Bioética de Beauchamp y Childress (No Maleficencia y Autonomía).', 'Analizar la articulación de las Leyes 774, 292 y 759 de Nicaragua, complementándola con la evidencia neuroquímica gabaérgica de la fitoterapia y la regulación vagal de las técnicas mente-cuerpo.', 'Describir el paradigma pragmático y el diseño DEXPLIS (Derivativo Secuencial): Fase cuantitativa censal -> Fase cualitativa de profundización -> Fase propositiva del manual.', 'Presentar con exactitud los 3 grupos muestrales que suman N=86: 68 estudiantes censados (77.9% 4.° año, 22.1% 5.° año), 9 facilitadores locales de Estelí y 9 docentes-psicólogos del claustro universitario.', 'Mostrar la Figura 4. Contrastar el 67.6% de acierto en el concepto de la OMS frente al 58.8% de desconocimiento de la Ley 774 y el 64.7% de desconocimiento de la inhabilitación para prescribir fármacos (Ley 292).', 'Mostrar la Figura 7 y las métricas clave: 89.7% considera pertinente integrar la MTCI, pero 88.2% reporta preparación insuficiente para derivar y 86.8% para psicoeducar. El 86.7% de usuarios reporta alivio muscular y 0.0% efectos adversos.', 'Mostrar la Figura 12 y la Figura 14. Destacar que el 100% de facilitadores constata alivio de sobrecarga somática y el 88.9% apertura emocional. Explicar las barreras socioculturales (77.8%) y económicas (77.8%).', 'Mostrar la Figura 24 y la Figura 25. Enfatizar el 100% de respaldo curricular unánime bajo no prescripción, la demanda de talleres vivenciales (88.9%) y la solicitud de capacitación docente institucional en neurobiología somática (77.8%).', 'Presentar formalmente el Manual de 18 páginas (Anexo 16.2), sus 8 módulos temáticos, el algoritmo clínico de derivación y la adaptación transcultural del inventario I-CAM-Q para tamizaje en Nicaragua.', 'Sintetizar las 5 conclusiones centrales: cumplimiento del Objetivo General, caracterización de la brecha estudiantil, resiliencia y alivio somático en facilitadores, consenso curricular docente y materialización del manual.', 'Detallar las directrices operativas para estudiantes, claustro docente, gestión del CUR-Estelí (adopción formal y comité de bioética) y el sistema de salud / MINSA.', 'Agradecer al tribunal examinador, a los participantes y a la comunidad universitaria. Declarar formalmente abierto el espacio para preguntas y defensa oral.'];
+    const slideTitles = ['La Medicina Tradicional, Complementaria e Integrativa (MTCI) como Complemento en la Atención Psicológica', 'Planteamiento del Problema y Justificación de la Investigación', 'Antecedentes de la Investigación: Ámbitos Internacional, Regional y Local', 'Contexto del Estudio: Territorio de Estelí y UNAN-Managua CUR-Estelí', 'Objetivos de la Investigación: General y Específicos', 'Fundamentos Epistemológicos y Principios Bioéticos en Salud Mental', 'Marco Normativo Nicaragüense y Evidencia de Eficacia Clínica', 'Paradigma Pragmático, Enfoque Mixto Secuencial y Fases del Estudio', 'Delimitación Muestral Consolidada (N = 86) y Criterios de Selección', 'Perfil Sociodemográfico y Grado de Dominio Conceptual y Normativo', 'Frecuencia de Uso, Bienestar Percibido y Brecha Formativa (OE1)', 'Modalidades Terapéuticas, Eficacia Somática y Barreras en Estelí (OE2)', 'Estrategias Pedagógicas, Didáctica Vivencial y Consenso Ético (OE3)', 'Manual de Estrategias de MTCI para la Formación y Práctica Psicológica', 'Conclusiones Centrales de la Investigación (Triangulación de Objetivos)', 'Recomendaciones Estratégicas para la Formación, Práctica e Intersectorialidad', '«¡A la libertad por la Universidad!» — Muchas Gracias por su Atención'];
 
-    // Build Thumbnail Grid
     slideTitles.forEach((title, idx) => {
       const card = document.createElement('div');
       card.className = `thumb-card ${idx === 0 ? 'active' : ''}`;
@@ -1037,7 +1242,6 @@
       thumbContainer.appendChild(card);
     });
 
-    // Web Audio Subtle Click Synthesizer (Zero External Audio Files)
     const audioCtx = (typeof AudioContext !== 'undefined') ? new AudioContext() : null;
     function playTick(freq = 440) {
       if (!audioCtx) return;
@@ -1047,7 +1251,7 @@
         const gain = audioCtx.createGain();
         osc.type = 'sine';
         osc.frequency.setValueAtTime(freq, audioCtx.currentTime);
-        gain.gain.setValueAtTime(0.04, audioCtx.currentTime);
+        gain.gain.setValueAtTime(0.035, audioCtx.currentTime);
         gain.gain.exponentialRampToValueAtTime(0.0001, audioCtx.currentTime + 0.08);
         osc.connect(gain);
         gain.connect(audioCtx.destination);
@@ -1056,19 +1260,17 @@
       } catch (e) {}
     }
 
-    // Number Counter Animation
     function animateCounters(slideEl) {
       const counters = slideEl.querySelectorAll('[data-target]');
       counters.forEach(el => {
         const target = parseFloat(el.getAttribute('data-target'));
         const isDecimal = target % 1 !== 0;
-        const duration = 1200; // ms
+        const duration = 1100;
         const startTime = performance.now();
 
         function update(currentTime) {
           const elapsed = currentTime - startTime;
           const progress = Math.min(elapsed / duration, 1);
-          // Ease-Out Cubic
           const easeOut = 1 - Math.pow(1 - progress, 3);
           const currentVal = target * easeOut;
 
@@ -1095,25 +1297,20 @@
       const targetSlide = slides[currentIndex];
       targetSlide.classList.add('active');
 
-      // Update HUD & Counter
       counterEl.textContent = `${String(currentIndex + 1).padStart(2, '0')} / ${String(totalSlides).padStart(2, '0')}`;
       progressEl.style.width = `${((currentIndex + 1) / totalSlides) * 100}%`;
 
-      // Theme sync for HUD
       if (targetSlide.classList.contains('theme-dark')) {
         viewport.classList.add('hud-dark');
       } else {
         viewport.classList.remove('hud-dark');
       }
 
-      // Update Notes
       notesBody.textContent = slideNotes[currentIndex] || "Sin notas adicionales.";
 
-      // Update Thumbnails Active State
       const thumbCards = thumbContainer.querySelectorAll('.thumb-card');
       thumbCards.forEach((c, i) => c.classList.toggle('active', i === currentIndex));
 
-      // Trigger metric animations
       animateCounters(targetSlide);
     }
 
@@ -1144,7 +1341,6 @@
       }
     }
 
-    // Keyboard Navigation
     window.addEventListener('keydown', (e) => {
       if (e.key === 'ArrowRight' || e.key === ' ' || e.key === 'PageDown') {
         e.preventDefault();
@@ -1168,7 +1364,6 @@
       }
     });
 
-    // Button Bindings
     document.getElementById('btn-next').addEventListener('click', nextSlide);
     document.getElementById('btn-prev').addEventListener('click', prevSlide);
     document.getElementById('btn-notes').addEventListener('click', toggleNotes);
@@ -1176,7 +1371,6 @@
     document.getElementById('btn-close-modal').addEventListener('click', () => toggleThumbnails(false));
     document.getElementById('btn-fs').addEventListener('click', toggleFullscreen);
 
-    // Initial Trigger for First Slide Counters
     animateCounters(slides[0]);
   </script>
 </body>
