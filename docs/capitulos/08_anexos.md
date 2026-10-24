@@ -466,3 +466,302 @@ Firma: ________________________________________________
 Dr. Cliffor Jerry Herrera Castrillo
 
 Cédula: 241-031094-0005H | ORCID: 0000-0002-7663-2499
+
+---
+
+# Anexo 16.2. Manual de Estrategias para el Abordaje de la Medicina Tradicional, Complementaria e Integrativa (MTCI) en la Formación y Práctica Psicológica
+
+### Guía práctica para la toma de decisiones y la delimitación del rol profesional
+
+*Producto derivado del tercer objetivo específico de investigación: Proponer estrategias complementarias para abordar la MTCI en la formación de estudiantes de Psicología*
+
+**UNAN-Managua — CUR-Estelí**
+
+**Carrera de Psicología**
+
+**Manual de Estrategias para el Abordaje de la Medicina Tradicional, Complementaria e Integrativa (MTCI) en la Formación de Estudiantes de Psicología**
+
+**Guía práctica para la toma de decisiones y la delimitación del rol profesional**
+
+**Dirigido a docentes y a estudiantes de 4º y 5º año de Psicología**
+
+**Producto de la investigación “La medicina tradicional, complementaria e integrativa como complemento en la atención psicológica”**
+
+**CUR- Estelí, 2026**
+
+## Introducción
+
+La Medicina Tradicional, Complementaria e Integrativa (MTCI) forma parte de la vida cotidiana de amplios sectores de la población nicaragüense, incluidas las personas que llegan a los servicios de atención psicológica. La Organización Mundial de la Salud  reconoce su uso extendido en la mayoría de los países, por lo que los profesionales de la salud mental necesitan criterios claros para comprenderla, orientarla y, cuando corresponda, integrarla de forma responsable.
+
+Este manual es un producto de la investigación “La medicina tradicional, complementaria e integrativa como complemento en la atención psicológica”, en la que participaron 68 estudiantes de 4.º y 5.º año, nueve facilitadores de MTCI del municipio de Estelí y nueve docentes del CUR-Estelí. Los tres grupos valoran la MTCI como un recurso útil, pero coinciden en que su abordaje requiere formación práctica, límites profesionales claros y mayor diálogo entre la universidad, los servicios de salud y quienes ejercen estas prácticas. Este manual responde a esas necesidades con herramientas sencillas de aplicar.
+
+El manual no pretende que el psicólogo aplique técnicas de medicina tradicional o natural, ni sustituir la formación clínica basada en evidencia. Su propósito es que el futuro profesional sepa reconocer, dialogar y, cuando corresponda, derivar de forma ética, segura y culturalmente respetuosa, con la persona usuaria y su bienestar en el centro de la decisión.
+
+## Objetivos del manual
+
+### Objetivo general
+
+Brindar a docentes y estudiantes de 4.º y 5.º año de la carrera de Psicología del CUR-Estelí una guía práctica que oriente el abordaje crítico, ético y culturalmente pertinente de la MTCI en la formación académica y en la práctica profesional supervisada.
+
+### Objetivos específicos
+
+- Establecer los principios éticos y los límites del rol profesional que orientan cualquier contacto del psicólogo con la MTCI.
+- Proporcionar una guía de apoyo para la toma de decisiones clínicas frente a personas consultantes que usan o solicitan MTCI.
+- Fortalecer el conocimiento conceptual, normativo y práctico del estudiantado sobre la MTCI.
+- Orientar la articulación respetuosa y segura con los actores locales de MTCI y los servicios de salud de Estelí.
+## Justificación
+
+El marco legal nicaragüense respalda el abordaje de la MTCI, pero no lo traduce en una guía para el ejercicio psicológico. La Ley N.º 774  , reconoce el derecho de la población a elegir su método terapéutico y encarga al Ministerio de Salud su promoción; la Ley N.º 759  reconoce y promueve la medicina tradicional ancestral; y la Ley N.º 292 Nicaragua ,  reserva la prescripción de medicamentos a los profesionales habilitados, por lo que el psicólogo no prescribe psicofármacos ni productos medicinales, sea cual sea su origen.
+
+A ello se suma una brecha de formación: existe interés por abordar la MTCI en la atención psicológica, pero faltan herramientas prácticas para explorar su uso, psicoeducar y derivar con criterio. Un manual breve, aplicable en el aula y en la práctica supervisada, permite cerrar esa brecha sin sobrecargar el plan de estudios.
+
+Finalmente, es posible distinguir entre prácticas con respaldo suficiente para integrarse al quehacer psicológico, como el mindfulness y aquellas que exceden las competencias del psicólogo y requieren derivación. Este manual ofrece esa distinción de forma clara.
+
+## Cómo usar este manual
+
+
+| Quién lo usa | Para qué |
+| --- | --- |
+| Estudiantes de 4.º y 5.º año | Saber qué hacer cuando una persona consultante usa MTCI; psicoeducar y derivar; explorar su uso de MTCI. |
+| Docentes | Enseñar el tema con rigor y prepararse para ello. |
+| Coordinación de carrera | Impulsar alianzas y capacitación. |
+
+## Principios éticos rectores
+
+Cuatro principios orientan cualquier interacción del psicólogo con la MTCI, incluida la conducta del estudiante durante sus prácticas profesionales.
+
+
+| Principio | Qué implica en la práctica |
+| --- | --- |
+| Consentimiento informado | Explicar con claridad los alcances, beneficios y límites de cualquier práctica complementaria que se mencione o considere, sin imponerla ni desestimarla de entrada. |
+| Respeto a la autonomía y la cultura | Reconocer las creencias y la cosmovisión de la persona como parte legítima de su proceso de salud, sin emitir juicios sobre sus prácticas culturales o espirituales. |
+| Responsabilidad y competencia profesional | Actuar solo dentro de las competencias propias: no recetar, no diagnosticar ni aplicar técnicas de MTCI sin formación y acreditación. |
+| Confidencialidad y no maleficencia | Proteger a la persona de daños por uso no supervisado de prácticas y resguardar la información que comparte sobre ellas. |
+
+
+> [!IMPORTANT]
+> Regla transversal La MTCI nunca se presenta como sustituto de un tratamiento psicológico o médico basado en evidencia; en todo caso, es un recurso complementario sujeto a evaluación crítica.
+
+## Mapa de prácticas de MTCI según el rol del psicólogo
+
+Frente a la variedad de prácticas presentes en Estelí, este mapa las agrupa en cuatro categorías según lo que corresponde hacer al psicólogo. Es una propuesta de trabajo que la coordinación de la carrera puede revisar y actualizar junto con el MINSA.
+
+
+| Categoría | Ejemplos | Postura del psicólogo |
+| --- | --- | --- |
+| 1. Dentro del rol: puede integrarse con formación | Mindfulness, relajación progresiva, ejercicios de respiración, imaginería guiada. | Puede incorporarlas como recurso complementario si cuenta con formación, con consentimiento informado y evaluación psicopatológica previa. Vigilar reacciones adversas, por ejemplo, en personas con antecedentes de trauma. |
+| 2. Reconocer, psicoeducar y acompañar | Masajes terapéuticos, yoga y meditación guiados por instructores, aromaterapia, terapia floral, arteterapia. | No las aplica. Las reconoce con respeto, explica en qué consisten, orienta a buscar facilitadores con experiencia verificable y mantiene el acompañamiento psicológico. |
+| 3. Precaución: requiere valoración médica | Fitoterapia y herbolaria, acupuntura y reflexología, quiropraxia. | No las recomienda ni aplica. Pregunta qué usa la persona, advierte el riesgo de interacción con medicación o de retraso de atención médica, y deriva a Medicina o Psiquiatría cuando corresponda. |
+| 4. Alerta: evidencia limitada o riesgo de sustituir tratamiento | Propuestas con respaldo científico no establecido (por ejemplo, Nueva Medicina Germánica, reiki o sanación pránica) o cualquier práctica que sugiera abandonar un tratamiento indicado. | Dialoga sin descalificar la creencia, no las recomienda y vigila de forma explícita que no sustituyan un tratamiento necesario. Ante la duda, consulta al supervisor. |
+
+## Guía para la toma de decisiones clínicas
+
+Cuatro pasos que el estudiante y su supervisor pueden aplicar cuando una persona usa o solicita MTCI.
+
+
+| Paso | Pregunta orientadora | Acción recomendada |
+| --- | --- | --- |
+| 1. Explorar | ¿La persona menciona o pregunta por alguna práctica de MTCI? | Indagar con apertura y sin prejuicio: qué usa, desde cuándo, con qué frecuencia y qué espera de ella (puede apoyarse en el instrumento del apartado IX). Registrarlo en la bitácora de prácticas. |
+| 2. Evaluar riesgo | ¿Implica riesgo físico, interacción con medicación o sustitución de un tratamiento necesario? | Si hay riesgo, señalarlo con claridad y referir a Medicina o Psiquiatría, conforme a la Ley N.º 292. Informar al supervisor. |
+| 3. Ubicar dentro o fuera del rol | ¿La práctica requiere una técnica que el psicólogo no está formado ni acreditado para aplicar? | Si excede su competencia, no aplicarla ni recomendarla; derivar a un especialista o terapeuta reconocido y mantener el acompañamiento psicológico. |
+| 4. Decidir integración o derivación | ¿La práctica tiene respaldo razonable y está dentro de las competencias del psicólogo? | Si es así, integrarla como recurso complementario con consentimiento informado y evaluación previa. Si no, acompañar y derivar. Registrar la decisión. |
+
+
+> [!IMPORTANT]
+> Regla de cierre Ante cualquier duda sobre si una práctica es segura o pertinente para una persona concreta, consultar al supervisor o derivar a un profesional competente. Nunca improvisar.
+
+## 8. Comunicación con la persona consultante: psicoeducación y derivación
+
+### 8.1. Preguntas para explorar
+
+- “Además de la consulta, muchas personas usan plantas, masajes u otras prácticas para sentirse mejor. ¿Usted utiliza alguna?”
+- “¿Qué le ha ayudado y qué le preocupa de ella?”
+- “¿Toma algún medicamento o producto natural al mismo tiempo?”
+- “¿Su médico u otro profesional sabe que la usa?”
+### 8.2. Elementos de una buena psicoeducación
+
+- Claridad: explicar en lenguaje sencillo qué es la práctica, qué se sabe de ella y qué no.
+- Honestidad sobre los límites: reconocer lo que el psicólogo puede y no puede opinar, sin descalificar ni validar en exceso.
+- Complementariedad: dejar claro que no sustituye el tratamiento psicológico ni el médico.
+- Seguridad: señalar signos de alarma (empeoramiento, interacción con medicamentos, abandono de tratamiento) y qué hacer ante ellos.
+- Autonomía: la decisión es de la persona; el psicólogo informa y acompaña.
+### 8.3. Derivación informada
+
+Toda derivación debe incluir:
+
+- El motivo, explicado con palabras sencillas.
+- A quién se deriva (Medicina, Psiquiatría, servicio del MINSA o facilitador reconocido) y por qué.
+- El consentimiento de la persona para derivar y compartir información relevante.
+- El registro de la derivación y su seguimiento en la siguiente sesión.
+- La continuidad del acompañamiento psicológico.
+### 8.4. Obstáculos frecuentes
+
+
+| Obstáculo | Cómo abordarlo en consulta |
+| --- | --- |
+| Ocultamiento: la persona no cuenta que usa MTCI por temor a ser juzgada | Normalizar la pregunta, usar un tono abierto y asegurar la confidencialidad desde el inicio. |
+| Creencias y reservas socioculturales o religiosas | Explicar con calma, sin imponer ni ridiculizar; respetar la creencia y explorar alternativas compatibles con los valores de la persona. |
+| Costo y acceso | Preguntar por la realidad económica, priorizar opciones de bajo costo o gratuitas del sistema público y evitar recomendar lo que la persona no podrá sostener. |
+
+## 9. Articulación con actores locales y servicios de salud
+
+### 9.1. Criterios para elegir con quién colaborar
+
+- Trayectoria verificable y reconocimiento comunitario o institucional.
+- Disposición a dialogar con la atención psicológica y a respetar los límites de ambos roles.
+- Claridad sobre los alcances de su práctica: no ofrecer curas ni pedir abandonar tratamientos.
+- Aceptación de los principios éticos de este manual.
+Como no existe un registro formal de facilitadores en el municipio, se recomienda que la coordinación de la carrera mantenga un directorio de colaboradores que cumplan estos criterios.
+
+### 9.2. Formas de colaboración
+
+- Visitas y conversatorios con facilitadores y servicios de medicina natural.
+- Talleres vivenciales conducidos por facilitadores, con acompañamiento docente.
+- Cartas de entendimiento con el MINSA y con centros que tengan modelos de atención integrativa o intercultural.
+- Proyectos de investigación estudiantil con facilitadores locales, devolviendo los resultados a la comunidad.
+## 10. Ruta formativa para estudiantes de 4.º y 5.º año
+
+La ruta se integra a asignaturas existentes, como práctica profesional y seguimiento de prácticas, sin añadir carga curricular.
+
+
+| Etapa | Qué se trabaja | Actividades sugeridas |
+| --- | --- | --- |
+| 1. Comprender | Concepto de MTCI, prácticas presentes en Estelí, leyes 774, 759 y 292 y principios éticos. | Lectura guiada de las tres leyes; ejercicio de clasificar prácticas. |
+| 2. Experimentar | Contacto directo con la MTCI con criterios de seguridad. | Talleres vivenciales (mindfulness, relajación progresiva, imaginería guiada); intercambio con terapeutas tradicionales; visitas a instituciones. |
+| 3. Aplicar con supervisión | Exploración, psicoeducación y derivación en la práctica. | Aplicación de la guía del apartado 7 y del instrumento del apartado 13; discusión de casos en el seguimiento de prácticas; proyecto de investigación. |
+
+### Competencias esperadas al finalizar
+
+- Definir la MTCI y reconocer las prácticas presentes en el municipio.
+- Explicar el propósito de las leyes 774, 759 y 292 y el límite de prescripción del psicólogo.
+- Explorar el uso de MTCI en consulta sin prejuicio y registrarlo.
+- Clasificar una práctica con el mapa y decidir entre integrar o derivar.
+- Realizar una psicoeducación clara y una derivación informada.
+- Dialogar con respeto ante creencias y reservas socioculturales.
+- Reconocer sus límites y consultar al supervisor ante la duda.
+Como meta de mediano plazo, la carrera puede evaluar una asignatura electiva de Psicología Integrativa y Salud Intercultural, de la mano de la asignatura optativa ya existente sobre Terapias Alternativas. La formación en estas prácticas tiende a ser dispersa cuando no cuenta con respaldo institucional, de ahí la utilidad de ofrecerla de forma ordenada.
+
+## 11. Estrategias para la docencia
+
+- Talleres vivenciales sobre criterios de seguridad, contraindicaciones y técnicas de bajo riesgo.
+- Integración de contenidos en asignaturas ya existentes.
+- Investigación estudiantil sobre el uso y la percepción de la MTCI en el contexto local.
+- Análisis de casos para decidir cuándo una práctica es complementaria, cuándo requiere derivación y cuándo es un riesgo.
+- Intercambio con terapeutas tradicionales y visitas a instituciones que aplican MTCI, siempre coordinadas por un docente responsable.
+- Debates y conferencias como apoyo al pensamiento crítico.
+Se recomienda mantener un enfoque científico, vinculando las prácticas con bases biológicas y psicológicas y reconociendo siempre los alcances y límites de la intervención psicológica.
+
+## 12. Capacitación docente: cuatro acciones institucionales
+
+Para enseñar el tema con seguridad, el profesorado necesita conocer los criterios de aplicación, los riesgos y la normativa. Estas acciones son viables con los recursos que el CUR-Estelí ya tiene.
+
+**1. Incluir la MTCI en el plan anual de capacitación docente**
+
+Agregar al plan que la universidad ya organiza cada año una jornada o módulo sobre fundamentos de la MTCI, normativa nacional y criterios de aplicación en salud mental.
+
+**2. Gestionar una alianza con el MINSA-Estelí**
+
+El Reglamento de la Ley 774 encarga al MINSA promover la divulgación de la medicina natural. Una carta de entendimiento permite que su personal técnico ofrezca charlas breves y sin costo al profesorado.
+
+**3. Crear círculos de intercambio entre docentes**
+
+Dos o tres sesiones por semestre donde los docentes con más cercanía al tema, especialmente del área clínica, compartan casos y buenas prácticas con el resto.
+
+**4. Reservar tiempo institucional para la actualización**
+
+Reconocer en la planificación semestral un espacio de horas (por ejemplo, de trabajo metodológico o claustro) para esta actualización, de modo que no dependa del tiempo libre de cada docente.
+
+## 13. Instrumento para explorar el uso de MTCI: I-CAM-Q adaptado a Nicaragua
+
+- Conocer qué prácticas usa una persona, con qué frecuencia, por qué y qué beneficio percibe permite conversar con ella sin prejuicios y detectar riesgos a tiempo. Para ello se propone una adaptación del Cuestionario Internacional sobre Medicinas Alternativas y Complementarias (International Questionnaire to Measure Use of Complementary and Alternative Medicine, I-CAM-Q), desarrollado por Quandt y otros  y traducido al español para Argentina por Esteban y otros  . Esta versión toma como base la argentina y la ajusta al lenguaje y a las prácticas presentes en Nicaragua. Es tomado en cuenta pues ha sido adaptado a distintos contextos .
+- ¿Qué mide?
+- El cuestionario tiene cuatro secciones: (A) consultas a profesionales o expertos, (B) tratamientos recibidos de un médico, (C) uso de hierbas, vitaminas y remedios homeopáticos, y (D) prácticas personales que promueven el bienestar. Para cada ítem se pregunta si lo usó en los últimos 12 meses, cuántas veces en los últimos 3 meses, el motivo principal de la última vez y cuán beneficioso le resultó.
+- ¿Para qué sirve?
+- En la práctica supervisada: explora el uso de MTCI (paso 1 de la guía), ayuda a ubicar cada práctica en el mapa del apartado II y a detectar riesgos, sobre todo en hierbas y productos que pueden interactuar con medicamentos (paso 2).
+- En investigaciones futuras: ofrece una medida de la frecuencia de uso y del beneficio percibido que permite comparar resultados entre estudios y grupos, como estudiantes, consultantes u otros.
+- ¿Cómo aplicarlo?
+- Explicar el propósito, pedir consentimiento y asegurar la confidencialidad.
+- Aplicarlo en forma de entrevista guiada, leyendo cada ítem en voz alta. Toma entre 10 y 15 minutos.
+- Si la persona no reconoce una práctica, se anota “no”; si lo desea, el entrevistador la describe en una frase.
+- Ante una respuesta afirmativa, completar las columnas b, c y d. Con “No sabe” o “No contesta”, anotar 8 o 9 y continuar.
+- No usarlo para juzgar ni diagnosticar. Sus respuestas son un recurso para dialogar.
+- ¿Cómo interpretarlo?
+- Las secciones A y D muestran qué prácticas usa la persona y si ya las considera parte de su cuidado.
+- La sección C es la más importante para la seguridad: toda hierba o producto que use actualmente debe revisarse con el supervisor (categoría 3 del mapa).
+- El motivo (agudo, crónico o bienestar) indica si la práctica podría estar sustituyendo un tratamiento necesario.
+- El beneficio es una percepción de la persona, no una medición clínica; debe leerse con esa cautela.
+
+> [!IMPORTANT]
+> Antes de usarlo en una investigación La versión argentina no cuenta con estudios de validez ni de fiabilidad, y esta adaptación tampoco. Se recomienda revisarla con juicio de expertos (por ejemplo, personal del MINSA y facilitadores de MTCI), probarla con entrevistas cognitivas en una muestra pequeña y verificar los términos con las personas de la zona antes de aplicarla de forma amplia. Se recomienda, además, informar a los desarrolladores del I-CAM-Q sobre esta adaptación.
+
+- Instrumento
+- Clave para las columnas. a: 1 = Sí, 2 = No. b: número de veces (00 = ninguna). c (motivo principal de la última vez): 1 = problema de salud agudo (menos de un mes); 2 = problema de salud crónico (más de un mes); 3 = mejorar su bienestar; 4 = otro (especifique). d (beneficio): 1 = muy beneficioso; 2 = algo beneficioso; 3 = para nada beneficioso. 8 = no sabe; 9 = no contesta.
+- Sección A. Consultas a profesionales o expertos
+- Los problemas de salud pueden ser atendidos por diferentes personas. Quisiera hacerle algunas preguntas sobre esto.
+
+| Profesional o experto | a. En los últimos 12 meses, ¿lo consultó? | b. Veces en los últimos 3 meses | c. Motivo principal de la última vez | d. Beneficio |
+| --- | --- | --- | --- | --- |
+| 1. Médico |  |  |  |  |
+| 2. Quiropráctico |  |  |  |  |
+| 3. Homeópata |  |  |  |  |
+| 4. Acupunturista |  |  |  |  |
+| 5. Fitoterapeuta o herbolario/a (recomienda plantas medicinales, infusiones, tinturas o terapia floral) |  |  |  |  |
+| 6. Curandero/a o sanador/a tradicional o espiritual † |  |  |  |  |
+| 7. Sobador/a o partera tradicional |  |  |  |  |
+| 8. Terapeuta de masajes, reflexología, aromaterapia o ayurveda |  |  |  |  |
+| 9. Instructor/a de yoga o meditación |  |  |  |  |
+| 10. Otro profesional o experto (especifique): ______ |  |  |  |  |
+
+- Sección B. Tratamientos recibidos de parte de un médico
+- Quisiera preguntarle sobre tratamientos que haya recibido de un médico en los últimos 12 meses. Si no consultó a un médico en ese período, pase a la sección C.
+
+| Tratamiento | a. En los últimos 12 meses, ¿lo recibió de un médico? | b. Veces en los últimos 3 meses | c. Motivo principal de la última vez | d. Beneficio |
+| --- | --- | --- | --- | --- |
+| 1. Manipulación articular o masajes |  |  |  |  |
+| 2. Homeopatía |  |  |  |  |
+| 3. Acupuntura |  |  |  |  |
+| 4. Plantas medicinales, infusiones o tinturas |  |  |  |  |
+| 5. Sanación espiritual |  |  |  |  |
+| 6. Otro tratamiento (especifique): ______ |  |  |  |  |
+
+- Sección C. Uso de plantas medicinales, suplementos y remedios homeopáticos
+- Además de los medicamentos que receta el médico, algunas personas usan otros productos para su salud, como plantas medicinales y suplementos, en forma de pastillas, cápsulas, polvos o líquidos (tés, infusiones, tinturas, jarabes).
+
+| Producto | a. En los últimos 12 meses, ¿lo usó? ¿Cuál? | b. ¿Lo usa actualmente? | c. Motivo principal de la última vez | d. Beneficio |
+| --- | --- | --- | --- | --- |
+| C1. Plantas medicinales o hierbas (té, infusión, tintura, jarabe, cataplasma): |  |  |  |  |
+| 1. ______ |  |  |  |  |
+| 2. ______ |  |  |  |  |
+| 3. ______ |  |  |  |  |
+| C2. Vitaminas, minerales o suplementos: |  |  |  |  |
+| 1. ______ |  |  |  |  |
+| 2. ______ |  |  |  |  |
+| C3. Productos naturales comerciales (cápsulas, polvos, tónicos): |  |  |  |  |
+| 1. ______ |  |  |  |  |
+| 2. ______ |  |  |  |  |
+| C4. Remedios homeopáticos: |  |  |  |  |
+| 1. ______ |  |  |  |  |
+| 2. ______ |  |  |  |  |
+
+- En la columna b de esta sección: 1 = Sí, 2 = No.
+- Sección D. Prácticas personales que promueven el bienestar
+- Además de los medicamentos que receta el médico, algunas personas realizan distintas prácticas personales para mejorar su salud.
+
+| Práctica personal | a. En los últimos 12 meses, ¿la realizó? | b. Veces en los últimos 3 meses | c. Motivo principal | d. Beneficio |
+| --- | --- | --- | --- | --- |
+| 1. Meditación |  |  |  |  |
+| 2. Yoga |  |  |  |  |
+| 3. Qi Gong |  |  |  |  |
+| 4. Tai Chi |  |  |  |  |
+| 5. Técnicas de relajación |  |  |  |  |
+| 6. Visualización |  |  |  |  |
+| 7. Ejercicios de respiración |  |  |  |  |
+| 8. Aromaterapia o terapia floral |  |  |  |  |
+| 9. Participar en un rito, oración o ceremonia de sanación tradicional o religiosa |  |  |  |  |
+| 10. Rezar u orar por su salud |  |  |  |  |
+| 11. Otra práctica personal, sin contar plantas ni suplementos (especifique): ______ |  |  |  |  |
+
+## 14. Consideraciones finales
+
+Este manual es un documento vivo, se recomienda que la coordinación de la carrera lo revise cada dos años, o antes si cambian el marco legal o los lineamientos del MINSA. Su valor está en ofrecer herramientas claras que combinen apertura cultural, rigor científico y responsabilidad ética. Nace de un estudio descriptivo con muestras pequeñas de facilitadores y docentes, por lo que sus propuestas deben ajustarse con la experiencia de su aplicación.
+
