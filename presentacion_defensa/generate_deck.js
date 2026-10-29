@@ -203,3 +203,4 @@ buildDeck().catch(err => {
   console.error('❌ Error construyendo la presentación:', err);
   process.exit(1);
 });
+

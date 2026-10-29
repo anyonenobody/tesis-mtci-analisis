@@ -118,3 +118,4 @@ Sigue rigurosamente las lecciones de `.agents/skills/pptx/SKILL.md`:
 - **Skill de Presentaciones Anthropic:** `.agents/skills/pptx/SKILL.md`.
 - **Ayudante de Iconos:** `presentacion_defensa/icon_helper.js`.
 - **Tokens y Tema:** `presentacion_defensa/theme.js`.
+

@@ -46,3 +46,4 @@ async function renderIconBase64(IconComponent, colorHex = '#1B365D', size = 256)
 module.exports = {
   renderIconBase64,
 };
+
