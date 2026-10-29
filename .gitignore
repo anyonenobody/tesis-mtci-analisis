@@ -21,6 +21,10 @@ build/
 *.swp
 *.swo
 
+# Node & Web
+node_modules/
+.npm/
+
 # OS
 .DS_Store
 Thumbs.db
